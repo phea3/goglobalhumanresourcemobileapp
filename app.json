@@ -2,24 +2,22 @@
   "expo": {
     "name": "Go Global HR",
     "slug": "Mobile-App-HR-V2",
-    "version": "1.0.13",
+    "version": "1.0.14",
     "orientation": "portrait",
     "icon": "./assets/playstore.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/Images/Splash-Screen1.png",
+      "image": "./assets/Splash-Screen1.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "13",
+      "buildNumber": "14",
       "infoPlist": {
         "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access the camera to scan the QR code at check-in and check-out.",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "Access your location to ensure you are close to the company for scanning.",
@@ -32,7 +30,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/playstore.png",
         "backgroundColor": "#ffffff"
       },
       "permissions": [
@@ -45,7 +43,6 @@
       ],
       "package": "com.goglobalschool.humanresource",
       "versionCode": 14
-
     },
     "plugins": [
       [

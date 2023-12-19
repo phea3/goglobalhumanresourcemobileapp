@@ -27,7 +27,7 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
   const [isChecked, setChecked] = useState(true);
   const { dispatch, REDUCER_ACTIONS } = useUser();
-  const [eye, setEye] = useState(false);
+  const [eye, setEye] = useState(true);
 
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
