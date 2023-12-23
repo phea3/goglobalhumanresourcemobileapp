@@ -97,11 +97,20 @@
 
 .LeaveBodyTextSM {
   font-family: $kantumruy-regular;
-  color: $color-dark-blue;
   font-size: 9px;
 }
+
 .LeaveBodyText {
   font-family: $kantumruy-regular;
-  color: $color-dark-blue;
+  font-size: 14px;
+}
+
+.LeaveApproveTextSM {
+  font-family: $kantumruy-bold;
+  font-size: 9px;
+}
+
+.LeaveApproveText {
+  font-family: $kantumruy-bold;
   font-size: 14px;
 }

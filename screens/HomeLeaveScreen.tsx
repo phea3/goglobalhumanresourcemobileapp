@@ -354,7 +354,7 @@ export default function HomeLeaveScreen() {
                 {halfDay ? (
                   <View
                     style={
-                      dimension === "sm" || Platform.OS === "android" 
+                      dimension === "sm" || Platform.OS === "android"
                         ? HomeStyle.HomeMainSelectDateSectionSM
                         : HomeStyle.HomeMainSelectDateSection
                     }
@@ -366,7 +366,10 @@ export default function HomeLeaveScreen() {
                           : HomeStyle.HomeMainSelectDateButton,
                         {
                           marginRight: 10,
-                          marginBottom: dimension === "sm" || Platform.OS === "android" ? 10 : 0,
+                          marginBottom:
+                            dimension === "sm" || Platform.OS === "android"
+                              ? 10
+                              : 0,
                         },
                       ]}
                       onPress={() => {
@@ -590,30 +593,35 @@ export default function HomeLeaveScreen() {
         >
           <Text style={HomeStyle.HomeMainSelectDateButtonLabel}> </Text>
         </View>
-        <TouchableOpacity
-          style={
-            dimension === "sm"
-              ? HomeStyle.HomeLeaveRequestButtonSM
-              : HomeStyle.HomeLeaveRequestButton
-          }
-          onPress={() => {
-            if (reason !== "" && timeId !== "") {
-              handlRequest();
-            } else {
-              Alert.alert("Oop!", "Please field the reason or choose time off");
-            }
-          }}
-        >
-          <Text
+        {!isKeyboardVisible ? (
+          <TouchableOpacity
             style={
               dimension === "sm"
-                ? HomeStyle.HomeLeaveRequestButtonTextSM
-                : HomeStyle.HomeLeaveRequestButtonText
+                ? HomeStyle.HomeLeaveRequestButtonSM
+                : HomeStyle.HomeLeaveRequestButton
             }
+            onPress={() => {
+              if (reason !== "" && timeId !== "") {
+                handlRequest();
+              } else {
+                Alert.alert(
+                  "Oop!",
+                  "Please field the reason or choose time off"
+                );
+              }
+            }}
           >
-            Request
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={
+                dimension === "sm"
+                  ? HomeStyle.HomeLeaveRequestButtonTextSM
+                  : HomeStyle.HomeLeaveRequestButtonText
+              }
+            >
+              Request
+            </Text>
+          </TouchableOpacity>
+        ) : null}
       </ScrollView>
     </View>
   );

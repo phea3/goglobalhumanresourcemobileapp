@@ -31,12 +31,11 @@ export default function LoginScreen() {
   const [eye, setEye] = useState(true);
   const [load, setLoad] = useState(true);
 
-
   useEffect(() => {
     setTimeout(() => {
-      setLoad(false)
+      setLoad(false);
     }, 500);
-  }, [])
+  }, []);
 
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
@@ -152,8 +151,8 @@ export default function LoginScreen() {
     getAccount();
   }, []);
 
-  if(load){
-    return <ActivityIndicator />
+  if (load) {
+    return <ActivityIndicator />;
   }
 
   return (
@@ -276,7 +275,7 @@ export default function LoginScreen() {
           >
             <TextInput
               value={password}
-              placeholder="ពាក្យសម្ងាត់ ៨ តួ"
+              placeholder="password"
               style={
                 dimension === "sm"
                   ? LoginStyle.LoginScreenTextInputTextSM
