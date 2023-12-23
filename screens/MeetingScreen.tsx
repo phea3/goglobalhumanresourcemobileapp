@@ -33,7 +33,7 @@ export default function MeetingScreen() {
                 : MeetingStyle.MeetingBackButtonTitle
             }
           >
-            Meeting Screen
+            Meetings
           </Text>
         </TouchableOpacity>
       </View>

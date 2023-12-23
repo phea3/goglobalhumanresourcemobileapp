@@ -96,10 +96,19 @@
 .AttendanceBodyTextSM {
   font-size: 10px;
   font-family: $kantumruy-regular;
-  color: $color-dark-blue;
 }
 
 .AttendanceBodyText {
+  font-family: $kantumruy-regular;
+}
+
+.AttendanceBodyNoFineTextSM {
+  font-size: 10px;
+  font-family: $kantumruy-regular;
+  color: $color-dark-blue;
+}
+
+.AttendanceBodyNoFineText {
   font-family: $kantumruy-regular;
   color: $color-dark-blue;
 }

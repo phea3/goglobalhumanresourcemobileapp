@@ -1,4 +1,4 @@
-import { ActivityIndicator, Keyboard, Text, View } from "react-native";
+import { ActivityIndicator, Image, Keyboard, Text, View } from "react-native";
 import HomeStyle from "../styles/HomeStyle.scss";
 import moment from "moment";
 import { Outlet } from "react-router-native";
@@ -28,13 +28,13 @@ export default function HomeScreen() {
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const { uid } = useContext(AuthContext);
   const { dimension } = useContext(AuthContext);
-  const [load, setLoad ] = useState(true)
+  const [load, setLoad] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
-      setLoad(false)
-    }, 100);
-  }, [])
+      setLoad(false);
+    }, 1000);
+  }, []);
 
   const { data: leaveData, refetch: leavRefetch } = useQuery(
     GETEMPLOYEELEAVEINFO,
@@ -51,6 +51,7 @@ export default function HomeScreen() {
       },
     }
   );
+
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardDidShow",
@@ -145,14 +146,18 @@ export default function HomeScreen() {
           </View>
         </>
       ) : null}
-      { load ? 
+      {load ? (
         <View style={HomeStyle.HomeContentContainer}>
-          <ActivityIndicator size={"small"}/>
-        </View> :  
+          <Image
+            source={require("../assets/Images/loader-1.gif")}
+            style={{ width: 100, height: 100 }}
+          />
+        </View>
+      ) : (
         <View style={HomeStyle.HomeContentContainer}>
           <Outlet />
         </View>
-      }
+      )}
     </View>
   );
 }

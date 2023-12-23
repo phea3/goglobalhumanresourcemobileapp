@@ -13,7 +13,7 @@ import LoginScreen from "./screens/LoginScreen";
 import { AuthContext } from "./Context/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useLoginUser from "./Hook/useLoginUser";
-import { Dimensions, Platform } from "react-native";
+import { AppState, Dimensions, Platform } from "react-native";
 import HomeMainScreen from "./screens/HomeMainScreen";
 import HomeLeaveScreen from "./screens/HomeLeaveScreen";
 import LeaveScreen from "./screens/LeaveScreen";
@@ -80,6 +80,10 @@ export default function Router() {
     getLocalStorage();
   }, []);
 
+  const [Datenow] = useState(new Date());
+
+  const [appState, setAppState] = useState(AppState.currentState);
+
   const [locate, setLocation] = useState<Location.LocationObject | null>(null);
 
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -100,38 +104,58 @@ export default function Router() {
     }
   }
 
-  useEffect(() => {
-    async function getIDUserLog() {
-      if (
-        notificationResponse?.notification?.request?.content?.data?.type ===
-        "leave"
-      ) {
-        setTimeout(() => {
-          navigate("/notification/action");
-        }, 500);
-      } else if (
-        notificationResponse?.notification?.request?.content?.data?.type ===
-          "leave" ||
-        notificationResponse?.notification?.request?.content?.data?.type ===
-          "Pleave"
-      ) {
-        // console.log(notificationResponse?.notification?.request?.content);
-        setTimeout(() => {
-          navigate("/notification");
-        }, 500);
-      }
+  async function getIDUserLog() {
+    if (
+      notificationResponse?.notification?.request?.content?.data?.type ===
+      "leave"
+    ) {
+      setTimeout(() => {
+        navigate("/notification/action");
+      }, 500);
+    } else if (
+      notificationResponse?.notification?.request?.content?.data?.type ===
+        "leave" ||
+      notificationResponse?.notification?.request?.content?.data?.type ===
+        "Pleave"
+    ) {
+      // console.log(notificationResponse?.notification?.request?.content);
+      setTimeout(() => {
+        navigate("/notification");
+      }, 500);
     }
-
+  }
+  useEffect(() => {
     getIDUserLog();
   }, [notificationResponse]);
 
-  useEffect(() => {
+  const handleAppStateChange = (nextAppState: any) => {
+    setAppState(nextAppState);
+    // console.log("App state changed to:", nextAppState);
     getLocation();
-    // console.log("first get location", locate);
+  };
+
+  useEffect(() => {
+    // Subscribe to app state changes
+    const subscription = AppState.addEventListener(
+      "change",
+      handleAppStateChange
+    );
+
+    // Cleanup the subscription on component unmount
+    return () => {
+      subscription.remove();
+    };
   }, []);
 
-  // console.log(local.pathname);
-  // console.log(token);
+  useEffect(() => {
+    getLocation();
+    // console.log(
+    //   "get location",
+    //   locate?.coords?.latitude,
+    //   locate?.coords?.longitude
+    // );
+  }, [locate, Datenow, local.pathname, appState]);
+
   const loadScreen = useRoutes([
     { path: "/", element: <LoadingScreen /> },
     { path: "/*", element: <NotFoundScreen /> },
@@ -202,13 +226,13 @@ export default function Router() {
     },
   ]);
 
-  // if (locate === null && !errorMsg) {
-  //   return loadScreen;
-  // } else {
-  if (token !== "" && token !== undefined) {
-    return Content;
+  if (locate === null && !errorMsg) {
+    return loadScreen;
   } else {
-    return Login;
+    if (token !== "" && token !== undefined) {
+      return Content;
+    } else {
+      return Login;
+    }
   }
-  // }
 }

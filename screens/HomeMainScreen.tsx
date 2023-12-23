@@ -5,11 +5,11 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { useQuery } from "@apollo/client";
 import { GET_EMPLOYEEONHOLIDAY } from "../graphql/GetEmployeeOnHoliday";
-import moment from "moment";
+import * as Animatable from "react-native-animatable";
 
 const Features = [
   {
-    title: "Leave Request",
+    title: "Leaves",
     icon: require("../assets/Images/blogger.png"),
   },
   {
@@ -17,11 +17,11 @@ const Features = [
     icon: require("../assets/Images/completed-task.png"),
   },
   {
-    title: "Attendance",
+    title: "Attendances",
     icon: require("../assets/Images/check-list.png"),
   },
   {
-    title: "Meeting",
+    title: "Meetings",
     icon: require("../assets/Images/conversation.png"),
   },
 ];
@@ -32,6 +32,13 @@ export default function HomeMainScreen() {
   const leaves = Array.from({ length: 20 }, (_, index) => index);
   const { dimension } = useContext(AuthContext);
   const [holiData, setHolidata] = useState([]);
+  const [load, setLoad] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoad(false);
+    }, 1000);
+  }, []);
 
   const { refetch: HoliRefetch } = useQuery(GET_EMPLOYEEONHOLIDAY, {
     pollInterval: 2000,
@@ -71,13 +78,13 @@ export default function HomeMainScreen() {
         {Features.map((feature: any, index: number) => (
           <TouchableOpacity
             onPress={() => {
-              if (feature.title === "Leave Request") {
+              if (feature.title === "Leaves") {
                 navigate("/leave");
               } else if (feature.title === "Check-In/Out") {
                 navigate("/check");
-              } else if (feature.title === "Attendance") {
+              } else if (feature.title === "Attendances") {
                 navigate("/attendance");
-              } else if (feature.title === "Meeting") {
+              } else if (feature.title === "Meetings") {
                 navigate("/meeting");
               }
             }}
@@ -95,7 +102,8 @@ export default function HomeMainScreen() {
                   : HomeStyle.HomeBoxStyle
               }
             >
-              <Image
+              <Animatable.Image
+                animation={"bounce"}
                 source={feature.icon}
                 style={
                   dimension === "sm"
@@ -131,7 +139,7 @@ export default function HomeMainScreen() {
               : HomeStyle.HomeLeaveRequestText
           }
         >
-          Leave Request
+          Request Leave
         </Text>
       </TouchableOpacity>
       <ScrollView
@@ -159,13 +167,14 @@ export default function HomeMainScreen() {
                 : HomeStyle.HomeFeaturesTitleText
             }
           >
-            Employee on holiday
+            Employees on holiday
           </Text>
         </View>
 
         {holiData
           ? holiData.map((leave: any, index: number) => (
-              <View
+              <Animatable.View
+                animation={load ? "fadeInUp" : "fadeInUp"}
                 style={
                   dimension === "sm"
                     ? HomeStyle.HomeHolidayCardContainerSM
@@ -173,7 +182,8 @@ export default function HomeMainScreen() {
                 }
                 key={index}
               >
-                <Image
+                <Animatable.Image
+                  animation={"fadeIn"}
                   source={
                     leave?.profileImage
                       ? { uri: leave?.profileImage }
@@ -215,7 +225,7 @@ export default function HomeMainScreen() {
                 >
                   {leave?.dateLeave ? leave?.dateLeave : ""}
                 </Text>
-              </View>
+              </Animatable.View>
             ))
           : null}
       </ScrollView>

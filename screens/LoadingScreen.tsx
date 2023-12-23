@@ -36,8 +36,18 @@ export default function LoadingScreen() {
         }}
         activeOpacity={1}
       >
+        <View style={LoadingStyle.LoadingImageContainer}>
+          {isConnected ? (
+            <Image
+              source={require("../assets/Images/18-location-pin-gradient.gif")}
+              style={LoadingStyle.LoadingImageStyle}
+            />
+          ) : (
+            <Text style={LoadingStyle.LoadingNointernetacess}>No internet</Text>
+          )}
+        </View>
         <View style={LoadingStyle.LogoImageContainer}>
-          <Image
+          {/* <Image
             source={
               isConnected
                 ? require("../assets/Images/Logo-1.png")
@@ -45,17 +55,7 @@ export default function LoadingScreen() {
             }
             resizeMode="contain"
             style={LoadingStyle.LogoImageStyle}
-          />
-        </View>
-        <View style={LoadingStyle.LoadingImageContainer}>
-          {isConnected ? (
-            <Image
-              source={require("../assets/Images/loader-1.gif")}
-              style={LoadingStyle.LoadingImageStyle}
-            />
-          ) : (
-            <Text style={LoadingStyle.LoadingNointernetacess}>No internet</Text>
-          )}
+          /> */}
         </View>
       </TouchableOpacity>
     </ImageBackground>

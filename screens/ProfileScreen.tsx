@@ -1,4 +1,4 @@
-import { useState, useMemo, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Text, View, Image, Modal, TouchableOpacity } from "react-native";
 import { useLocation, useNavigate } from "react-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -7,14 +7,11 @@ import { useQuery } from "@apollo/client";
 import ProfileStyle from "../styles/ProfileStyle.scss";
 import ModalStyle from "../styles/ModalStyle.scss";
 
-import {
-  fetchDataLocalStorage,
-  initMobileUserLogin,
-} from "../functions/FetchDataLocalStorage";
 import { AuthContext } from "../Context/AuthContext";
 import auth from "../Auth/auth";
 import useLoginUser from "../Hook/useLoginUser";
 import { GET_USER_INFO } from "../graphql/GetUserInfo";
+import * as Animatable from "react-native-animatable";
 
 export default function ProfileScreen() {
   const location = useLocation();
@@ -60,8 +57,21 @@ export default function ProfileScreen() {
       <View style={ProfileStyle.ProfileContainer}>
         <View style={ProfileStyle.ProfileTopContainer}>
           <View style={ProfileStyle.ProfileFirstTopContainer} />
-          <View style={ProfileStyle.ProfileSecondTopContainer} />
-          <Image
+          <View style={ProfileStyle.ProfileSecondTopContainer}>
+            <Text
+              style={
+                dimension === "sm"
+                  ? ProfileStyle.UserNameSM
+                  : ProfileStyle.UserName
+              }
+            >
+              {data?.getUserInfoMobile?.latinName
+                ? data?.getUserInfoMobile?.latinName
+                : "--:--"}
+            </Text>
+          </View>
+          <Animatable.Image
+            animation={"fadeIn"}
             source={
               data?.getUserInfoMobile?.profileImage
                 ? { uri: data?.getUserInfoMobile?.profileImage }
@@ -76,17 +86,6 @@ export default function ProfileScreen() {
         </View>
         <View style={ProfileStyle.ProfileBodyContainer}>
           <View>
-            <Text
-              style={
-                dimension === "sm"
-                  ? ProfileStyle.UserNameSM
-                  : ProfileStyle.UserName
-              }
-            >
-              {data?.getUserInfoMobile?.latinName
-                ? data?.getUserInfoMobile?.latinName
-                : "--:--"}
-            </Text>
             <Text
               style={
                 dimension === "sm"
