@@ -167,8 +167,8 @@ export default function ForgotPasswordScreen() {
             <TouchableOpacity
               style={
                 dimension === "sm"
-                  ? ForgotPasswordStyle.ForgotScreenForgotButtonSM
-                  : ForgotPasswordStyle.ForgotScreenForgotButton
+                  ? ForgotPasswordStyle.ForgotScreenForgotButtonBackSM
+                  : ForgotPasswordStyle.ForgotScreenForgotButtonBack
               }
               onPress={() => navigate("/")}
             >
