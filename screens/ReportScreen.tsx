@@ -35,7 +35,7 @@ export default function ReportScreen() {
                 : ReportStyle.ReportBackButtonTitle
             }
           >
-            Report
+            REPORTS
           </Text>
         </TouchableOpacity>
       </View>
