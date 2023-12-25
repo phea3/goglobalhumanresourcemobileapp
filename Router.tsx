@@ -124,37 +124,45 @@ export default function Router() {
       }, 500);
     }
   }
+
   useEffect(() => {
     getIDUserLog();
   }, [notificationResponse]);
 
-  const handleAppStateChange = (nextAppState: any) => {
-    setAppState(nextAppState);
-    // console.log("App state changed to:", nextAppState);
-    getLocation();
-  };
-
-  useEffect(() => {
-    // Subscribe to app state changes
-    const subscription = AppState.addEventListener(
-      "change",
-      handleAppStateChange
-    );
-
-    // Cleanup the subscription on component unmount
-    return () => {
-      subscription.remove();
+  if (Platform.OS === "ios") {
+    const handleAppStateChange = (nextAppState: any) => {
+      setAppState(nextAppState);
+      // console.log("App state changed to:", nextAppState);
+      getLocation();
     };
-  }, []);
+
+    useEffect(() => {
+      // Subscribe to app state changes
+      const subscription = AppState.addEventListener(
+        "change",
+        handleAppStateChange
+      );
+
+      // Cleanup the subscription on component unmount
+      return () => {
+        subscription.remove();
+      };
+    }, []);
+
+    useEffect(() => {
+      getLocation();
+    }, [locate, Datenow, local.pathname, appState]);
+  }
+
+  if (Platform.OS === "android") {
+    useEffect(() => {
+      getLocation();
+    }, [locate, local.pathname]);
+  }
 
   useEffect(() => {
     getLocation();
-    // console.log(
-    //   "get location",
-    //   locate?.coords?.latitude,
-    //   locate?.coords?.longitude
-    // );
-  }, [locate, Datenow, local.pathname, appState]);
+  }, []);
 
   const loadScreen = useRoutes([
     { path: "/", element: <LoadingScreen /> },
@@ -226,7 +234,7 @@ export default function Router() {
     },
   ]);
 
-  if (locate === null && !errorMsg) {
+  if (load) {
     return loadScreen;
   } else {
     if (token !== "" && token !== undefined) {
