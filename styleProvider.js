@@ -9,6 +9,10 @@ export default function StyleProvider({ children }) {
     "Kantumruy-Light": require("./assets/fonts/Kantumruy-Light.ttf"),
     "Kantumruy-Regular": require("./assets/fonts/Kantumruy-Regular.ttf"),
     "Bayon-Regular": require("./assets/fonts/Bayon-Regular.ttf"),
+    "Century-Gothic-Bold-Italic": require("./assets/fonts/Century-Gothic-Bold-Italic.otf"),
+    "Century-Gothic-Bold": require("./assets/fonts/Century-Gothic-Bold.otf"),
+    "Century-Gothic-Italic": require("./assets/fonts/Century-Gothic-Italic.otf"),
+    "Century-Gothic": require("./assets/fonts/Century-Gothic.otf"),
     KhmerOS_siemreap: require("./assets/fonts/KhmerOS_siemreap.ttf"),
   });
 
