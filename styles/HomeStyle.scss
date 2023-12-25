@@ -49,35 +49,38 @@
 .HomeSelectDateTextSM {
   font-size: 10px;
   color: $color-white;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
 }
 
 .HomeSelectDateText {
   color: $color-white;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
 }
 
 .HomeBoxInSideCircleTextSM {
   font-size: 16px;
   color: $color-white;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
 }
 
 .HomeBoxInSideCircleText {
   font-size: 20px;
   color: $color-white;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
 }
+
 .HomeBoxCircleTextSM {
+  text-transform: uppercase;
   font-size: 8px;
   color: $color-white;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
 }
 
 .HomeBoxCircleText {
-  font-size: 12px;
+  text-transform: uppercase;
+  font-size: 10px;
   color: $color-white;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
 }
 
 .HomeBoxesContainer {
@@ -101,6 +104,10 @@
   border-top-right-radius: 15px;
   border-top-left-radius: 15;
   align-items: center;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-left-width: 1px;
+  border-color: $color-medium-blue;
 }
 
 .HomeFeaturesTitleSM {
@@ -182,26 +189,28 @@
 }
 
 .HomeFeaturesBoxTitleSM {
+  text-transform: uppercase;
   font-size: 8px;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
   color: $color-dark-blue;
 }
 
 .HomeFeaturesBoxTitle {
+  text-transform: uppercase;
   font-size: 10px;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
   color: $color-dark-blue;
 }
 
 .HomeFeaturesTitleTextSM {
   font-size: 10px;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
   color: $color-dark-blue;
 }
 
 .HomeFeaturesTitleText {
   font-size: 14px;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
   color: $color-dark-blue;
 }
 
@@ -234,6 +243,8 @@
   height: 30px;
   border-radius: 100px;
   margin-right: 5px;
+  border-width: 1px;
+  border-color: $color-medium-blue;
 }
 
 .HomeHolidayProfileImage {
@@ -241,6 +252,8 @@
   height: 40px;
   border-radius: 100px;
   margin-right: 10px;
+  border-width: 1px;
+  border-color: $color-medium-blue;
 }
 
 .HomeHolidayTitleContainer {
@@ -249,36 +262,36 @@
 
 .HomeHolidayTitle1SM {
   font-size: 10px;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
   color: $color-dark-blue;
 }
 
 .HomeHolidayTitle1 {
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
   color: $color-dark-blue;
 }
 
 .HomeHolidayTitle2SM {
   font-size: 8px;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold-italic;
   color: $color-red;
 }
 
 .HomeHolidayTitle2 {
   font-size: 12px;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold-italic;
   color: $color-red;
 }
 
 .HomeHolidayTitle3SM {
   font-size: 8px;
-  font-family: $kantumruy-regular;
+  font-family: $century-regular;
   color: $color-dark-blue;
 }
 
 .HomeHolidayTitle3 {
   font-size: 12px;
-  font-family: $kantumruy-regular;
+  font-family: $century-regular;
   color: $color-dark-blue;
 }
 
@@ -305,12 +318,12 @@
 .HomeLeaveRequestTextSM {
   font-size: 10px;
   color: $color-white;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
 }
 
 .HomeLeaveRequestText {
   color: $color-white;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
 }
 
 .HomeMainBackIconSM {
@@ -394,32 +407,32 @@
 
 .HomeMainSelectDateButtonLabelSM {
   font-size: 10px;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
 }
 
 .HomeMainSelectDateButtonLabel {
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
 }
 
 .HomeMainSelectTitleSM {
   font-size: 10px;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
   color: $color-dark-blue;
 }
 
 .HomeMainSelectTitle {
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
   color: $color-dark-blue;
 }
 
 .HomeMainSelectDateButtonPlaceholderSM {
   font-size: 10px;
-  font-family: $kantumruy-regular;
+  font-family: $century-regular;
   color: $color-dark-blue;
 }
 
 .HomeMainSelectDateButtonPlaceholder {
-  font-family: $kantumruy-regular;
+  font-family: $century-regular;
   color: $color-dark-blue;
 }
 
@@ -505,12 +518,14 @@
 }
 
 .HomeLeaveRequestButtonTextSM {
+  text-transform: uppercase;
   font-size: 10px;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
   color: $color-white;
 }
 
 .HomeLeaveRequestButtonText {
-  font-family: $kantumruy-bold;
+  text-transform: uppercase;
+  font-family: $century-bold;
   color: $color-white;
 }

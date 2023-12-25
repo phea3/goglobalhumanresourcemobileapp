@@ -90,6 +90,7 @@ export default function NotificationActiveScreen() {
                 {moment(card?.date).format("DD MMM YY")} | {card?.time}
               </Text>
               <Text
+                numberOfLines={1}
                 style={
                   card?.title === "Leave Cancel" && dimension !== "sm"
                     ? NotificationActionStyle.ActionCommentRed
@@ -117,8 +118,10 @@ export default function NotificationActiveScreen() {
               height: 40,
             }}
           >
-            <Text style={{ fontFamily: "Kantumruy-Bold", color: "#3c6efb" }}>
-              {"see more"}
+            <Text
+              style={{ fontFamily: "Century-Gothic-Bold", color: "#3c6efb" }}
+            >
+              {"see more..."}
             </Text>
           </TouchableOpacity>
         ) : null}

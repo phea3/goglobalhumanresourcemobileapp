@@ -135,8 +135,8 @@ export default function LeaveScreen() {
                 <Text
                   style={
                     dimension === "sm"
-                      ? LeaveStyle.LeaveBodyTextSM
-                      : LeaveStyle.LeaveBodyText
+                      ? LeaveStyle.LeaveBodyReasonTextSM
+                      : LeaveStyle.LeaveBodyReasonText
                   }
                   numberOfLines={1}
                 >
@@ -177,6 +177,8 @@ export default function LeaveScreen() {
                           ? "red"
                           : attendance?.status === "approve"
                           ? "green"
+                          : attendance?.status === "pending"
+                          ? "orange"
                           : "black",
                     },
                   ]}
@@ -201,12 +203,13 @@ export default function LeaveScreen() {
             >
               <Text
                 style={{
-                  fontFamily: "Kantumruy-Bold",
+                  textTransform: "lowercase",
+                  fontFamily: "Century-Gothic-Bold",
                   color: "#3c6efb",
                   fontSize: dimension === "sm" ? 12 : 16,
                 }}
               >
-                {"see more"}
+                {"see more..."}
               </Text>
             </TouchableOpacity>
           ) : null}

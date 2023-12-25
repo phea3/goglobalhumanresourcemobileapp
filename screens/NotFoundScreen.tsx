@@ -11,8 +11,8 @@ export default function NotFoundScreen() {
         alignItems: "center",
       }}
     >
-      <Text style={{ fontFamily: "Kantumruy-Bold" }}>
-        Oop!, Screen not found
+      <Text style={{ fontFamily: "Century-Gothic-Bold" }}>
+        Oop, Screen not found!
       </Text>
     </View>
   );

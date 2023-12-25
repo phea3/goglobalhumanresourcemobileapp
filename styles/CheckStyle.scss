@@ -8,6 +8,10 @@
   align-items: center;
   justify-content: flex-end;
   background-color: white;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-left-width: 1px;
+  border-color: $color-medium-blue;
 }
 
 .CheckContainer2 {
@@ -75,12 +79,12 @@
 .CheckButtonTextSM {
   font-size: 12px;
   color: $color-white;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
 }
 
 .CheckButtonText {
   color: $color-white;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
 }
 
 .CheckMainSelectDateSection {
@@ -114,22 +118,22 @@
 
 .CheckOutLocationTitleSM {
   font-size: 10px;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
 }
 
 .CheckOutLocationTitle {
   font-size: 14px;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
 }
 
 .CheckOutLocationBodySM {
   font-size: 8px;
-  font-family: $kantumruy-regular;
+  font-family: $century-regular;
 }
 
 .CheckOutLocationBody {
   font-size: 12px;
-  font-family: $kantumruy-regular;
+  font-family: $century-regular;
 }
 
 .LeaveErrorConainer {
@@ -141,7 +145,7 @@
 
 .LeaveErrorTitle {
   color: $color-white;
-  font-family: $kantumruy-regular;
+  font-family: $century-regular;
 }
 
 .CheckImageLoadingContainerStyle {

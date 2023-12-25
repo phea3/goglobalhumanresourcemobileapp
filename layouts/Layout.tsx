@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Alert } from "react-native";
+import { View, Text, SafeAreaView, Alert, ImageBackground } from "react-native";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Outlet } from "react-router";
 import Header from "../includes/Header";
@@ -172,6 +172,11 @@ const Layout = ({ expoPushToken }: any) => {
         justifyContent: "flex-end",
       }}
     >
+      {/* <ImageBackground
+      source={require("../assets/Images/Artboard-3.png")}
+      resizeMode="cover"
+      style={LayoutStyle.LoginLayoutContainer}
+    ></ImageBackground> */}
       <View style={LayoutStyle.LayoutCoverFooter} />
       <View style={LayoutStyle.LayoutContainer}>
         <Header />

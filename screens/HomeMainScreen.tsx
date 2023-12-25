@@ -21,7 +21,7 @@ const Features = [
     icon: require("../assets/Images/check-list.png"),
   },
   {
-    title: "Meetings",
+    title: "Reports",
     icon: require("../assets/Images/conversation.png"),
   },
 ];
@@ -65,7 +65,7 @@ export default function HomeMainScreen() {
               : HomeStyle.HomeFeaturesTitleText
           }
         >
-          Features
+          FEATURES
         </Text>
       </View>
       <View
@@ -84,7 +84,7 @@ export default function HomeMainScreen() {
                 navigate("/check");
               } else if (feature.title === "Attendances") {
                 navigate("/attendance");
-              } else if (feature.title === "Meetings") {
+              } else if (feature.title === "Reports") {
                 navigate("/meeting");
               }
             }}
@@ -139,7 +139,7 @@ export default function HomeMainScreen() {
               : HomeStyle.HomeLeaveRequestText
           }
         >
-          Request Leave
+          REQUEST LEAVE
         </Text>
       </TouchableOpacity>
       <ScrollView
@@ -148,9 +148,11 @@ export default function HomeMainScreen() {
         }}
         showsVerticalScrollIndicator={false}
         style={{
-          width: "92%",
+          width: "95%",
           backgroundColor: "#f8f8f8",
           borderRadius: 15,
+          borderWidth: 1,
+          borderColor: "#dcdcdc",
         }}
       >
         <View

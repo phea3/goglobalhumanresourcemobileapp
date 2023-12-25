@@ -100,6 +100,27 @@ export default function ProfileScreen() {
             </Text>
           </View>
           <View style={ProfileStyle.LogoutContainer}>
+            <View
+              style={{
+                flex: 1,
+                width: "90%",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#f1f1f1",
+                borderRadius: 15,
+              }}
+            >
+              <Text
+                style={
+                  dimension === "sm"
+                    ? ProfileStyle.UserNameSM
+                    : ProfileStyle.UserName
+                }
+              >
+                Empty
+              </Text>
+            </View>
+
             <TouchableOpacity
               style={
                 dimension === "sm"

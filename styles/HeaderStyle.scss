@@ -27,14 +27,21 @@
 }
 
 .HeaderRightSideContainerSM {
-  padding: 5px;
+  padding: 2px;
   flex-direction: row;
   align-items: center;
+  margin-right: 4px;
+  border-radius: 4px;
+  background-color: $color-white;
 }
 
 .HeaderRightSideContainer {
+  padding: 4px;
   flex-direction: row;
   align-items: center;
+  margin-right: 8px;
+  border-radius: 8px;
+  background-color: $color-white;
 }
 
 .HeaderUserProfileImageSM {
@@ -43,6 +50,8 @@
   margin: 4px;
   border-radius: 100px;
   background-color: $color-white;
+  border-width: 1px;
+  border-color: $color-medium-blue;
 }
 
 .HeaderUserProfileImage {
@@ -51,73 +60,81 @@
   margin: 8px;
   border-radius: 100px;
   background-color: $color-white;
+  border-width: 1px;
+  border-color: $color-medium-blue;
 }
 
 .HeaderUserBellSM {
   width: 25px;
   height: 25px;
-  margin-right: 4px;
-  border-radius: 4px;
-  background-color: $color-white;
 }
 
 .HeaderUserBell {
   width: 35px;
   height: 35px;
-  margin-right: 8px;
-  border-radius: 8px;
-  background-color: $color-white;
 }
 
 .HeaderBlackTitle1SM {
   font-size: 12px;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
 }
 .HeaderTitle1BlueSM {
   font-size: 13px;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
   color: $color-main;
 }
 
 .HeaderTitle1SM {
   font-size: 12px;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
   color: $color-white;
 }
 .HeaderTitle1Blue {
   font-size: 16px;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
   color: $color-main;
 }
 
 .HeaderBlackTitle1 {
   font-size: 16px;
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
 }
 
 .HeaderTitle1 {
-  font-size: 16px;
-  font-family: $kantumruy-bold;
+  font-size: 20px;
+  font-family: $century-bold;
   color: $color-white;
 }
 
 .HeaderTitle2SM {
-  font-size: 10px;
-  font-family: $kantumruy-regular;
+  font-size: 14px;
+  font-family: $century-regular-italic;
   color: $color-white;
 }
 
 .HeaderTitle2 {
   font-size: 13px;
-  font-family: $kantumruy-regular;
+  font-family: $century-regular-italic;
   color: $color-white;
 }
 
+.HeaderTitleNotiContainerSM {
+  padding: 5px;
+}
+
+.HeaderTitleNotiContainer {
+  padding: 5px;
+}
+
 .HeaderTitleContainerSM {
+  height: 35px;
+  justify-content: space-between;
   padding: 5px;
 }
 
 .HeaderTitleContainer {
+  height: 50px;
+  justify-content: space-between;
   padding: 0px;
 }
 
@@ -148,7 +165,7 @@
 }
 
 .ProfileBackButtonTitle {
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
   color: $color-white;
 }
 
@@ -159,4 +176,8 @@
   background-color: #f8f8f8;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-left-width: 1px;
+  border-color: $color-gray;
 }

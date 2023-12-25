@@ -18,7 +18,9 @@
 .ProfileBodyContainer {
   width: 100%;
   height: 70%;
-  justify-content: space-between;
+  border-right-width: 1px;
+  border-left-width: 1px;
+  border-color: $color-medium-blue;
 }
 
 .ImageUser {
@@ -42,7 +44,7 @@
 }
 
 .UserName {
-  font-family: $kantumruy-bold;
+  font-family: $century-bold;
   font-size: 16px;
   font-weight: bold;
   text-align: center;
@@ -51,7 +53,7 @@
 }
 
 .UserNameSM {
-  font-family: $font-body;
+  font-family: $century-bold;
   font-size: 12px;
   font-weight: bold;
   text-align: center;
@@ -60,7 +62,7 @@
 }
 
 .UserPosition {
-  font-family: $font-body;
+  font-family: $century-regular;
   font-size: $base-font-size;
   text-align: center;
   color: $color-black;
@@ -70,7 +72,7 @@
 }
 
 .UserPositionSM {
-  font-family: $font-body;
+  font-family: $century-regular;
   font-size: $base-font-size;
   text-align: center;
   color: $color-black;
@@ -93,13 +95,19 @@
   background-color: $color-white;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-left-width: 1px;
+  border-color: $color-medium-blue;
 }
 
 .LogoutContainer {
   width: 100%;
+  height: 100%;
   justify-content: center;
   align-items: center;
 }
+
 .LogoutScreenLogoutButtonSM {
   width: 90%;
   border-radius: 8px;
@@ -108,6 +116,7 @@
   align-items: center;
   background-color: #dc0606;
   margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .LogoutScreenLogoutButton {
@@ -118,15 +127,18 @@
   align-items: center;
   background-color: #dc0606;
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .LogoutScreenLogoutButtonTextSM {
+  text-transform: uppercase;
   font-size: 12px;
-  font-family: $bayon-regular;
+  font-family: $century-bold;
   color: $color-white;
 }
 
 .LogoutScreenLogoutButtonText {
-  font-family: $bayon-regular;
+  text-transform: uppercase;
+  font-family: $century-bold;
   color: $color-white;
 }
