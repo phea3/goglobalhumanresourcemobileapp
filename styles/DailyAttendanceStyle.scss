@@ -1,0 +1,123 @@
+@import "../themes.scss";
+
+.DailyAttContainer {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  align-items: center;
+}
+
+.DailyAttBackButtonContainer {
+  width: 100%;
+}
+
+.DailyAttTitleSM {
+  font-size: 10px;
+  font-family: $kantumruy-bold;
+}
+.DailyAttTitle {
+  font-family: $kantumruy-bold;
+}
+
+.DailyAttBackButtonSM {
+  width: 40%;
+  padding: 10px;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.DailyAttBackButton {
+  width: 40%;
+  padding: 10px;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.DailyAttBackButtonIconSM {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+
+.DailyAttBackButtonIcon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.DailyAttBackButtonTitleSM {
+  font-size: 10px;
+  font-family: $kantumruy-bold;
+  color: $color-dark-blue;
+}
+
+.DailyAttBackButtonTitle {
+  font-family: $kantumruy-bold;
+  color: $color-dark-blue;
+}
+
+.DailyAttBodyContainer {
+  width: 93%;
+  height: 90%;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+}
+.DailyAttBodyContainer {
+  padding: 5px;
+}
+.CheckMainSelectDateSection {
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.CheckMainSelectDateButton {
+  height: 40px;
+  border-radius: 10px;
+  flex-direction: row;
+  align-items: center;
+}
+.DailyAttMainSelectDateButtonSM {
+  height: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+  flex-direction: row;
+  align-items: center;
+}
+
+.DailyAttMainSelectIconSM {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+
+.DailyAttMainSelectIcon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.DailyAttMainSelectDateButton {
+  height: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+  flex-direction: row;
+  align-items: center;
+  background-color: $color-light-blue;
+}
+.DailyAttMainSelectDateSectionSM {
+  flex-direction: column;
+  align-items: center;
+}
+
+.DailyAttMainSelectDateSection {
+  flex-direction: row;
+  align-items: center;
+}

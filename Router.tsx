@@ -28,6 +28,8 @@ import NotificationActiveScreen from "./screens/NotificationActiveScreen";
 import NotificationMeetingScreen from "./screens/NotificationMeetingScreen";
 import MeetingScreen from "./screens/MeetingScreen";
 import LoginLayout from "./layouts/LoginLayout";
+import ReportScreen from "./screens/ReportScreen";
+import DailyAttendance from "./screens/DailyAttendance";
 
 export default function Router() {
   const { expoPushToken, notificationResponse } = usePushNotifications();
@@ -192,7 +194,23 @@ export default function Router() {
         },
         { path: "/attendance", element: <AttendanceScreen /> },
         { path: "/profile", element: <ProfileScreen /> },
-        { path: "/meeting", element: <MeetingScreen /> },
+        {
+          path: "/meeting",
+          element: <MeetingScreen />,
+        },
+        {
+          path: "/report",
+          element: <ReportScreen />,
+          // children: [
+          //   {
+          //     path: "/report",
+          //     element: <Navigate to="/report/daily-attendace" />,
+          //   },
+          //   { path: "/report/daily-attendace", element: <DailyAttendance /> },
+          //   { path: "/report/*", element: <NotFoundScreen /> },
+          // ],
+        },
+        { path: "/report/daily-attendace", element: <DailyAttendance /> },
         {
           path: "/notification",
           element: <NotificationLayout />,
