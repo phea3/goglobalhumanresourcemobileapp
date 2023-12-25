@@ -117,8 +117,12 @@ export default function ChecKAttendance({ locate }: any) {
 
   const CheckInOut = async () => {
     let createValue = {
-      longitude: "103.84412791005992",
-      latitude: "13.34772486996158",
+      longitude: locate?.coords.longitude
+        ? locate?.coords.longitude.toString()
+        : "",
+      latitude: locate?.coords.latitude
+        ? locate?.coords.latitude.toString()
+        : "",
       shift: morning ? "morning" : afternoon ? "afternoon" : "",
       scan: scanType,
     };
@@ -309,8 +313,14 @@ export default function ChecKAttendance({ locate }: any) {
               backgroundColor: "#f8f8f8",
               padding: 10,
               borderRadius: 10,
+              borderWidth: 1,
+              borderColor: "#dcdcdc",
             }}
-            style={{ flex: 1, width: "100%", padding: 10 }}
+            style={{
+              flex: 1,
+              width: "100%",
+              padding: 10,
+            }}
           >
             <View
               style={
@@ -460,25 +470,21 @@ export default function ChecKAttendance({ locate }: any) {
                     {
                       color:
                         // location?.coords.latitude || locate?.coords.latitude
-                        // locate?.coords.latitude >= 13.34572060724703 &&
-                        // locate?.coords.latitude <= 13.349565026819539 &&
-                        // locate?.coords.longitude >= 103.84319363518682 &&
-                        // locate?.coords.longitude <= 103.84595763628897
-                        // ?
-                        "green",
-                      // : "red",
+                        locate?.coords.latitude >= 13.34572060724703 &&
+                        locate?.coords.latitude <= 13.349565026819539 &&
+                        locate?.coords.longitude >= 103.84319363518682 &&
+                        locate?.coords.longitude <= 103.84595763628897
+                          ? "green"
+                          : "red",
                     },
                   ]}
                 >
-                  {
-                    // locate?.coords.latitude >= 13.34572060724703 &&
-                    // locate?.coords.latitude <= 13.349565026819539 &&
-                    // locate?.coords.longitude >= 103.84319363518682 &&
-                    // locate?.coords.longitude <= 103.84595763628897
-                    //   ?
-                    "Coordinates are within the specified range."
-                    // : "Coordinates are outside the specified range."
-                  }
+                  {locate?.coords.latitude >= 13.34572060724703 &&
+                  locate?.coords.latitude <= 13.349565026819539 &&
+                  locate?.coords.longitude >= 103.84319363518682 &&
+                  locate?.coords.longitude <= 103.84595763628897
+                    ? "Coordinates are within the specified range."
+                    : "Coordinates are outside the specified range."}
                 </Text>
 
                 <Text
@@ -489,20 +495,20 @@ export default function ChecKAttendance({ locate }: any) {
                     {
                       color:
                         // location?.coords.latitude || locate?.coords.latitude
-                        // locate?.coords.latitude >= 13.34572060724703 &&
-                        // locate?.coords.latitude <= 13.349565026819539 &&
-                        // locate?.coords.longitude >= 103.84319363518682 &&
-                        // locate?.coords.longitude <= 103.84595763628897
-                        //   ?
-                        "green",
-                      // : "red",
+                        locate?.coords.latitude >= 13.34572060724703 &&
+                        locate?.coords.latitude <= 13.349565026819539 &&
+                        locate?.coords.longitude >= 103.84319363518682 &&
+                        locate?.coords.longitude <= 103.84595763628897
+                          ? "green"
+                          : "red",
+                      paddingTop: 10,
                     },
                   ]}
                 >
-                  Latitude: 103.84412791005992
-                  {/* {locate?.coords.latitude ? locate?.coords.latitude : ""}, */}
-                  {"\n"}Longitude: 13.34772486996158
-                  {/* {locate?.coords.longitude ? locate?.coords.longitude : ""} */}
+                  Latitude:{" "}
+                  {locate?.coords.latitude ? locate?.coords.latitude : ""},
+                  {"\n"}Longitude:{" "}
+                  {locate?.coords.longitude ? locate?.coords.longitude : ""}
                 </Text>
               </View>
               <TouchableOpacity
@@ -517,13 +523,12 @@ export default function ChecKAttendance({ locate }: any) {
               >
                 <Image
                   source={
-                    // locate?.coords.latitude >= 13.34572060724703 &&
-                    // locate?.coords.latitude <= 13.349565026819539 &&
-                    // locate?.coords.longitude >= 103.84319363518682 &&
-                    // locate?.coords.longitude <= 103.84595763628897
-                    // ?
-                    require("../assets/Images/allowlocation.gif")
-                    // : require("../assets/Images/redlocation.gif")
+                    locate?.coords.latitude >= 13.34572060724703 &&
+                    locate?.coords.latitude <= 13.349565026819539 &&
+                    locate?.coords.longitude >= 103.84319363518682 &&
+                    locate?.coords.longitude <= 103.84595763628897
+                      ? require("../assets/Images/allowlocation.gif")
+                      : require("../assets/Images/redlocation.gif")
                   }
                   style={
                     dimension === "sm"

@@ -66,8 +66,8 @@ export default function Header() {
               <View
                 style={
                   dimension === "sm"
-                    ? HeaderStyle.HeaderTitleContainerSM
-                    : HeaderStyle.HeaderTitleContainer
+                    ? HeaderStyle.HeaderTitleNotiContainerSM
+                    : HeaderStyle.HeaderTitleNotiContainer
                 }
               >
                 <Text
@@ -101,7 +101,7 @@ export default function Header() {
                     style={HeaderStyle.ProfileBackButtonIcon}
                   />
                   <Text style={HeaderStyle.ProfileBackButtonTitle}>
-                    Profile
+                    PROFILE
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -163,7 +163,8 @@ export default function Header() {
         )}
         {location.pathname === "/notification" ||
         location.pathname === "/notification/action" ||
-        location.pathname === "/notification/meeting" ? null : (
+        location.pathname === "/notification/meeting" ||
+        location.pathname === "/profile" ? null : (
           <TouchableOpacity
             style={HeaderStyle.HeaderRightSideContainer}
             onPress={() => navigate("/notification")}

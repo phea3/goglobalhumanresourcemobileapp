@@ -32,6 +32,10 @@
   background-color: #f8f8f8;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+  border-left-width: 1px;
+  border-color: $color-gray;
 }
 
 .LoginLayoutContainer {

@@ -208,12 +208,12 @@ export default function AttendanceScreen() {
             >
               <Text
                 style={{
-                  fontFamily: "Kantumruy-Bold",
+                  fontFamily: "Century-Gothic-Bold",
                   color: "#3c6efb",
                   fontSize: dimension === "sm" ? 12 : 16,
                 }}
               >
-                {"see more"}
+                {"see more..."}
               </Text>
             </TouchableOpacity>
           ) : null}

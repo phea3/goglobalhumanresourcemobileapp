@@ -6,8 +6,9 @@
 }
 
 .ActionCardContainer {
-  width: 100%;
-  padding: 10px;
+  width: 90%;
+  padding-top: 10px;
+  padding-bottom: 10px;
   flex-direction: row;
   align-items: center;
   border-bottom-width: 0.5px;
@@ -65,63 +66,69 @@
   width: 85%;
 }
 .ActionLeaveTitle {
-  font-family: $font-body;
-  font-size: 15px;
-  color: $color-background;
+  font-family: $century-bold;
+  color: $color-dark-blue;
 }
+
 .ActionLeaveTitleSM {
-  font-family: $font-body;
-  font-size: 12px;
-  color: $color-background;
+  font-family: $century-bold;
+  font-size: 10px;
+  color: $color-dark-blue;
 }
+
 .ActionLeaveTitleRed {
-  font-family: $font-body;
-  font-size: 15px;
+  font-family: $century-bold;
   color: $color-red;
 }
+
 .ActionLeaveTitleRedSM {
-  font-family: $font-body;
-  font-size: 12px;
+  font-family: $century-bold;
+  font-size: 10px;
   color: $color-red;
 }
 
 .ActionDatTime {
-  font-family: $font-body;
+  font-family: $century-bold-italic;
   font-size: 12px;
-  color: $color-background;
+  color: $color-dark-blue;
 }
+
 .ActionDatTimeSM {
-  font-family: $font-body;
+  font-family: $century-regular-italic;
   font-size: 8px;
-  color: $color-background;
+  color: $color-dark-blue;
 }
 
 .ActionDatTimeRed {
-  font-family: $font-body;
-  font-size: 11px;
+  font-family: $century-bold;
+  font-size: 12px;
   color: $color-red;
 }
+
 .ActionDatTimeRedSM {
-  font-family: $font-body;
+  font-family: $century-bold;
   font-size: 8px;
   color: $color-red;
 }
 
 .ActionComment {
-  font-family: $font-body;
-  font-size: 13px;
+  font-family: $century-regular;
+  color: $color-dark-grey;
 }
+
 .ActionCommentSM {
-  font-family: $font-body;
+  font-family: $century-regular;
   font-size: 10px;
+  color: $color-dark-grey;
 }
+
 .ActionCommentRed {
-  font-family: $font-body;
-  font-size: 13px;
+  font-family: $century-regular;
   color: $color-red;
 }
+
 .ActionCommentRedSM {
-  font-family: $font-body;
+  font-family: $century-regular;
   font-size: 10px;
   color: $color-red;
 }

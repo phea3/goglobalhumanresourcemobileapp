@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { useNavigate } from "react-router-native";
 import HomeStyle from "../styles/HomeStyle.scss";
+import LeaveStyle from "../styles/LeaveStyle.scss";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { useContext, useEffect, useState } from "react";
 import moment from "moment";
@@ -171,8 +172,8 @@ export default function HomeLeaveScreen() {
           <Text
             style={
               dimension === "sm"
-                ? HomeStyle.HomeFeaturesTitleTextSM
-                : HomeStyle.HomeFeaturesTitleText
+                ? LeaveStyle.LeaveBackButtonTitleSM
+                : LeaveStyle.LeaveBackButtonTitle
             }
           >
             Main leave
@@ -582,6 +583,7 @@ export default function HomeLeaveScreen() {
             }
             onChangeText={(e) => setReason(e)}
             maxLength={50} // Set the maximum number of characters
+            returnKeyType="done"
           />
         </View>
         <View
