@@ -2,13 +2,13 @@
   "expo": {
     "name": "Go Global HR",
     "slug": "Mobile-App-HR-V2",
-    "version": "1.0.16",
+    "version": "1.0.17",
     "orientation": "portrait",
     "icon": "./assets/playstore.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/Splash-Screen1.png",
-      "resizeMode": "stretch",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "updates": {
@@ -17,7 +17,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "16",
+      "buildNumber": "17",
       "infoPlist": {
         "NSCalendarsFullAccessUsageDescription": "Allow $(PRODUCT_NAME) to access your calendars.",
         "NSCalendarsUsageDescription": "Allow $(PRODUCT_NAME) to access your calendars.",
@@ -52,7 +52,7 @@
       ],
       "package": "com.goglobalschool.humanresource",
       "googleServicesFile": "./google-services.json",
-      "versionCode": 16
+      "versionCode": 17
     },
     "plugins": [
       [
