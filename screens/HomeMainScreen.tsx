@@ -21,7 +21,7 @@ const Features = [
     icon: require("../assets/Images/check-list.png"),
   },
   {
-    title: "Reports",
+    title: "Meetings",
     icon: require("../assets/Images/conversation.png"),
   },
 ];

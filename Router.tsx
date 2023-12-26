@@ -201,14 +201,6 @@ export default function Router() {
         {
           path: "/report",
           element: <ReportScreen />,
-          // children: [
-          //   {
-          //     path: "/report",
-          //     element: <Navigate to="/report/daily-attendace" />,
-          //   },
-          //   { path: "/report/daily-attendace", element: <DailyAttendance /> },
-          //   { path: "/report/*", element: <NotFoundScreen /> },
-          // ],
         },
         { path: "/report/daily-attendace", element: <DailyAttendance /> },
         {
