@@ -176,7 +176,10 @@ export default function DailyAttendance() {
 
               <View style={DailyAttendanceStyle.DailyAttCardContainer}>
                 <View style={DailyAttendanceStyle.DailyAttCardLeft}>
-                  <Image source={require("../assets/Images/user_phoem.jpg")} />
+                  <Image
+                    source={require("../assets/Images/user_phoem.jpg")}
+                    style={DailyAttendanceStyle.Img}
+                  />
                 </View>
                 <View style={DailyAttendanceStyle.DailyAttCardRight}></View>
               </View>
