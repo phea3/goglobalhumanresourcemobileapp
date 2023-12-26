@@ -84,8 +84,8 @@ export default function HomeMainScreen() {
                 navigate("/check");
               } else if (feature.title === "Attendances") {
                 navigate("/attendance");
-              } else if (feature.title === "Meetings") {
-                navigate("/meeting");
+              } else if (feature.title === "Reports") {
+                navigate("/report");
               }
             }}
             style={

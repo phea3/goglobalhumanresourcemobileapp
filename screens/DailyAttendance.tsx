@@ -67,71 +67,74 @@ export default function DailyAttendance() {
         >
           <View style={DailyAttendanceStyle.DailyAttBodyContainer}>
             <View style={DailyAttendanceStyle.CheckMainSelectDateSection}>
-              <TouchableOpacity
-                style={[
-                  DailyAttendanceStyle.CheckMainSelectDateButton,
-                  {
-                    marginRight: 10,
-                  },
-                ]}
-                onPress={() => {
-                  setMorning(true);
-                  setAfternoon(false);
-                }}
-              >
-                <Image
-                  source={
-                    morning
-                      ? require("../assets/Images/rec.png")
-                      : require("../assets/Images/reced.png")
-                  }
+              <View style={{ flexDirection: "row" }}>
+                <TouchableOpacity
                   style={[
-                    dimension === "sm"
-                      ? HomeStyle.HomeMainSelectIconSM
-                      : HomeStyle.HomeMainSelectIcon,
-                    { marginRight: 10 },
+                    DailyAttendanceStyle.CheckMainSelectDateButton,
+                    {
+                      marginRight: 10,
+                    },
                   ]}
-                />
-                <Text
-                  style={
-                    dimension === "sm"
-                      ? HomeStyle.HomeMainSelectDateButtonPlaceholderSM
-                      : HomeStyle.HomeMainSelectDateButtonPlaceholder
-                  }
+                  onPress={() => {
+                    setMorning(true);
+                    setAfternoon(false);
+                  }}
                 >
-                  Morning
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={DailyAttendanceStyle.CheckMainSelectDateButton}
-                onPress={() => {
-                  setMorning(false);
-                  setAfternoon(true);
-                }}
-              >
-                <Image
-                  source={
-                    afternoon
-                      ? require("../assets/Images/rec.png")
-                      : require("../assets/Images/reced.png")
-                  }
-                  style={[
-                    dimension === "sm"
-                      ? HomeStyle.HomeMainSelectIconSM
-                      : HomeStyle.HomeMainSelectIcon,
-                    { marginRight: 10 },
-                  ]}
-                />
-                <Text
-                  style={
-                    dimension === "sm"
-                      ? HomeStyle.HomeMainSelectDateButtonPlaceholderSM
-                      : HomeStyle.HomeMainSelectDateButtonPlaceholder
-                  }
+                  <Image
+                    source={
+                      morning
+                        ? require("../assets/Images/rec.png")
+                        : require("../assets/Images/reced.png")
+                    }
+                    style={[
+                      dimension === "sm"
+                        ? DailyAttendanceStyle.DailyAttMainSelectIconSM
+                        : DailyAttendanceStyle.DailyAttMainSelectIcon,
+                      { marginRight: 10 },
+                    ]}
+                  />
+                  <Text
+                    style={
+                      dimension === "sm"
+                        ? DailyAttendanceStyle.DailyAttMainSelectDateButtonPlaceholderSM
+                        : DailyAttendanceStyle.DailyAttMainSelectDateButtonPlaceholder
+                    }
+                  >
+                    Morning
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={DailyAttendanceStyle.CheckMainSelectDateButton}
+                  onPress={() => {
+                    setMorning(false);
+                    setAfternoon(true);
+                  }}
                 >
-                  Afternoon
-                </Text>
-              </TouchableOpacity>
+                  <Image
+                    source={
+                      afternoon
+                        ? require("../assets/Images/rec.png")
+                        : require("../assets/Images/reced.png")
+                    }
+                    style={[
+                      dimension === "sm"
+                        ? DailyAttendanceStyle.DailyAttMainSelectIconSM
+                        : DailyAttendanceStyle.DailyAttMainSelectIcon,
+                      { marginRight: 10 },
+                    ]}
+                  />
+                  <Text
+                    style={
+                      dimension === "sm"
+                        ? DailyAttendanceStyle.DailyAttMainSelectDateButtonPlaceholderSM
+                        : DailyAttendanceStyle.DailyAttMainSelectDateButtonPlaceholder
+                    }
+                  >
+                    Afternoon
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
               <View
                 style={
                   dimension === "sm"
@@ -148,13 +151,15 @@ export default function DailyAttendance() {
                     { marginRight: 10 },
                   ]}
                 />
-                <View style={DailyAttendanceStyle.HomeMainSelectDateSection}>
+                <View
+                  style={DailyAttendanceStyle.DailyAttMainMainSelectDateSection}
+                >
                   <TouchableOpacity onPress={showDatePicker}>
                     <Text
                       style={
                         dimension === "sm"
-                          ? DailyAttendanceStyle.HomeMainSelectDateButtonPlaceholderSM
-                          : DailyAttendanceStyle.HomeMainSelectDateButtonPlaceholder
+                          ? DailyAttendanceStyle.DailyAttMainSelectDateButtonPlaceholderSM
+                          : DailyAttendanceStyle.DailyAttMainSelectDateButtonPlaceholder
                       }
                     >
                       {moment(date).format("DD-MM-YYYY")}
@@ -167,6 +172,16 @@ export default function DailyAttendance() {
                     onCancel={hidDatePicker}
                   />
                 </View>
+              </View>
+
+              <View style={DailyAttendanceStyle.DailyAttCardContainer}>
+                <View style={DailyAttendanceStyle.DailyAttCardLeft}>
+                  <Image
+                    source={require("../assets/Images/user_phoem.jpg")}
+                    style={DailyAttendanceStyle.Img}
+                  />
+                </View>
+                <View style={DailyAttendanceStyle.DailyAttCardRight}></View>
               </View>
             </View>
           </View>
