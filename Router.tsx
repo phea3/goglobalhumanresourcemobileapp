@@ -44,7 +44,7 @@ export default function Router() {
   useEffect(() => {
     setTimeout(() => {
       setLoad(false);
-    }, 1000);
+    }, 9000);
   }, []);
 
   useEffect(() => {
@@ -114,7 +114,7 @@ export default function Router() {
         }
       };
     })();
-  }, []);
+  }, [local.pathname, load]);
 
   async function getIDUserLog() {
     if (
@@ -219,7 +219,7 @@ export default function Router() {
     },
   ]);
 
-  if (locate === null && !errorMsg) {
+  if ((locate === null && !errorMsg) || load) {
     return loadScreen;
   } else {
     if (token !== "" && token !== undefined) {

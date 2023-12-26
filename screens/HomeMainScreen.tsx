@@ -21,7 +21,7 @@ const Features = [
     icon: require("../assets/Images/check-list.png"),
   },
   {
-    title: "Meetings",
+    title: "Reports",
     icon: require("../assets/Images/conversation.png"),
   },
 ];
@@ -218,15 +218,17 @@ export default function HomeMainScreen() {
                     {leave?.reason}
                   </Text>
                 </View>
-                <Text
-                  style={
-                    dimension === "sm"
-                      ? HomeStyle.HomeHolidayTitle2SM
-                      : HomeStyle.HomeHolidayTitle2
-                  }
-                >
-                  {leave?.dateLeave ? leave?.dateLeave : ""}
-                </Text>
+                <View style={HomeStyle.HomeHolidayTitleLeftContainer}>
+                  <Text
+                    style={
+                      dimension === "sm"
+                        ? HomeStyle.HomeHolidayTitle2SM
+                        : HomeStyle.HomeHolidayTitle2
+                    }
+                  >
+                    {leave?.dateLeave ? leave?.dateLeave : ""}
+                  </Text>
+                </View>
               </Animatable.View>
             ))
           : null}

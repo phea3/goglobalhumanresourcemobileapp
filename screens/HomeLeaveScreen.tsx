@@ -114,7 +114,7 @@ export default function HomeLeaveScreen() {
         Alert.alert("Success!", requestLeave?.message, [
           {
             text: "Okay",
-            onPress: () => navigate("/home/main"),
+            onPress: () => navigate("/leave"),
             style: "cancel",
           },
         ]);

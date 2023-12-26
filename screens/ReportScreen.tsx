@@ -77,7 +77,7 @@ export default function ReportScreen() {
                   : ReportStyle.ReasonAtt
               }
             >
-              The specific day for which the attendance is being recorded
+              The specific day for which the attendance is being recorded.
             </Text>
           </View>
         </TouchableOpacity>

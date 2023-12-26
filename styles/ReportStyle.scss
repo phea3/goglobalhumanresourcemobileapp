@@ -6,7 +6,6 @@
   background-color: white;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
-  // align-items: center;
 }
 
 .ReportBackButtonContainer {
@@ -63,7 +62,6 @@
 .ReportBodyContainer {
   flex: 1;
   width: 100%;
-  // justify-content: center;
   align-items: center;
   margin-top: 10px;
 }
@@ -72,8 +70,10 @@
   width: 95%;
   border-radius: 10px;
   background-color: #f8f8f8;
-  padding: 10px;
+  padding: 15px;
   flex-direction: row;
+  border-width: 1px;
+  border-color: $color-gray;
 }
 
 .ReportIcon {
@@ -105,23 +105,29 @@
 }
 
 .TitleContainer {
+  flex: 1;
   flex-direction: column;
   padding-left: 10px;
   padding-right: 10px;
-  // background-color: red;
+  justify-content: space-evenly;
 }
+
 .TitleAtt {
   font-size: $title-font-size;
   color: $color-dark-blue;
+  font-family: $century-bold;
 }
 
 .TitleAttSM {
   font-size: 14px;
   color: $color-dark-blue;
+  font-family: $century-bold;
 }
+
 .ReasonAtt {
   font-size: 12px;
   color: $color-dark-blue;
+  font-family: $century-regular;
 }
 
 .ReasonAttSM {

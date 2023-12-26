@@ -98,7 +98,7 @@
   flex-direction: row;
   align-items: center;
   border-bottom-width: 0.5px;
-  border-bottom-color: $color-black;
+  border-bottom-color: $color-gray;
 }
 
 .LeaveBodyReasonTextSM {
@@ -113,7 +113,7 @@
 
 .LeaveBodyTextSM {
   font-family: $century-regular;
-  font-size: 9px;
+  font-size: 10px;
 }
 
 .LeaveBodyText {
@@ -124,11 +124,11 @@
 .LeaveApproveTextSM {
   text-transform: capitalize;
   font-family: $century-bold;
-  font-size: 9px;
+  font-size: 10px;
 }
 
 .LeaveApproveText {
   text-transform: capitalize;
   font-family: $century-bold;
-  font-size: 14px;
+  font-size: 12px;
 }

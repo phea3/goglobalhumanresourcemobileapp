@@ -43,6 +43,7 @@ export default function ChecKAttendance({ locate }: any) {
   };
 
   const handleClose = () => {
+    navigate("/attendance");
     setVisible(false);
   };
 
