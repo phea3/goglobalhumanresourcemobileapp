@@ -172,27 +172,28 @@ const Layout = ({ expoPushToken }: any) => {
         justifyContent: "flex-end",
       }}
     >
-      {/* <ImageBackground
-      source={require("../assets/Images/Artboard-3.png")}
-      resizeMode="cover"
-      style={LayoutStyle.LoginLayoutContainer}
-    ></ImageBackground> */}
       <View style={LayoutStyle.LayoutCoverFooter} />
-      <View style={LayoutStyle.LayoutContainer}>
-        <Header />
-        <Animated.View
-          style={[
-            {
-              width: "100%",
-              height: 0,
-            },
-            animatedStyles,
-          ]}
-        />
-        <View style={LayoutStyle.LayoutOutletContainer}>
-          <Outlet />
+      <ImageBackground
+        source={require("../assets/Images/book_cover-08.png")}
+        resizeMode="cover"
+        style={LayoutStyle.LoginLayoutContainer}
+      >
+        <View style={LayoutStyle.LayoutContainer}>
+          <Header />
+          <Animated.View
+            style={[
+              {
+                width: "100%",
+                height: 0,
+              },
+              animatedStyles,
+            ]}
+          />
+          <View style={LayoutStyle.LayoutOutletContainer}>
+            <Outlet />
+          </View>
         </View>
-      </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 };

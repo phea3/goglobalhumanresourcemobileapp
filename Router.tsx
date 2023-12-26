@@ -13,7 +13,7 @@ import LoginScreen from "./screens/LoginScreen";
 import { AuthContext } from "./Context/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useLoginUser from "./Hook/useLoginUser";
-import { AppState, Dimensions, Platform } from "react-native";
+import { Dimensions, Platform } from "react-native";
 import HomeMainScreen from "./screens/HomeMainScreen";
 import HomeLeaveScreen from "./screens/HomeLeaveScreen";
 import LeaveScreen from "./screens/LeaveScreen";
@@ -82,29 +82,39 @@ export default function Router() {
     getLocalStorage();
   }, []);
 
-  const [Datenow] = useState(new Date());
-
-  const [appState, setAppState] = useState(AppState.currentState);
-
   const [locate, setLocation] = useState<Location.LocationObject | null>(null);
 
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  async function getLocation() {
-    const { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      setErrorMsg("Permission to access location was denied");
-      return;
-    }
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
 
-    // Get the current location
-    try {
-      const location = await Location.getCurrentPositionAsync({});
+      let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
-    } catch (error) {
-      setErrorMsg("Error getting location");
-    }
-  }
+
+      const locationSubscription = await Location.watchPositionAsync(
+        {
+          accuracy: Location.Accuracy.High,
+          timeInterval: 5000, // Set the interval to 2000 milliseconds (2 seconds)
+          distanceInterval: 1,
+        },
+        (newLocation) => {
+          setLocation(newLocation);
+        }
+      );
+
+      return () => {
+        if (locationSubscription) {
+          locationSubscription.remove();
+        }
+      };
+    })();
+  }, []);
 
   async function getIDUserLog() {
     if (
@@ -130,41 +140,6 @@ export default function Router() {
   useEffect(() => {
     getIDUserLog();
   }, [notificationResponse]);
-
-  if (Platform.OS === "ios") {
-    const handleAppStateChange = (nextAppState: any) => {
-      setAppState(nextAppState);
-      // console.log("App state changed to:", nextAppState);
-      getLocation();
-    };
-
-    useEffect(() => {
-      // Subscribe to app state changes
-      const subscription = AppState.addEventListener(
-        "change",
-        handleAppStateChange
-      );
-
-      // Cleanup the subscription on component unmount
-      return () => {
-        subscription.remove();
-      };
-    }, []);
-
-    useEffect(() => {
-      getLocation();
-    }, [locate, Datenow, local.pathname, appState]);
-  }
-
-  if (Platform.OS === "android") {
-    useEffect(() => {
-      getLocation();
-    }, [locate, local.pathname]);
-  }
-
-  useEffect(() => {
-    getLocation();
-  }, []);
 
   const loadScreen = useRoutes([
     { path: "/", element: <LoadingScreen /> },
@@ -244,7 +219,7 @@ export default function Router() {
     },
   ]);
 
-  if (load) {
+  if (locate === null && !errorMsg) {
     return loadScreen;
   } else {
     if (token !== "" && token !== undefined) {
