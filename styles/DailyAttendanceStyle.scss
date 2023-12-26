@@ -65,6 +65,7 @@
   height: 90%;
   background-color: #f8f8f8;
   border-radius: 10px;
+  flex-direction: column;
 }
 .DailyAttBodyContainer {
   padding: 5px;
@@ -73,7 +74,7 @@
   width: 100%;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
 }
 
 .CheckMainSelectDateButton {
@@ -81,6 +82,27 @@
   border-radius: 10px;
   flex-direction: row;
   align-items: center;
+}
+.DailyAttMainSelectIconSM {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+
+.DailyAttMainSelectIcon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+.DailyAttMainSelectDateButtonPlaceholderSM {
+  font-size: 10px;
+  font-family: $century-regular;
+  color: $color-dark-blue;
+}
+
+.DailyAttMainSelectDateButtonPlaceholder {
+  font-family: $century-regular;
+  color: $color-dark-blue;
 }
 .DailyAttMainSelectDateButtonSM {
   height: 30px;
@@ -105,13 +127,13 @@
 
 .DailyAttMainSelectDateButton {
   height: 40px;
-  padding-left: 10px;
-  padding-right: 10px;
+  // padding-left: 10px;
   border-radius: 10px;
   flex-direction: row;
   align-items: center;
-  background-color: $color-light-blue;
+  justify-content: flex-end;
 }
+
 .DailyAttMainSelectDateSectionSM {
   flex-direction: column;
   align-items: center;
@@ -120,4 +142,25 @@
 .DailyAttMainSelectDateSection {
   flex-direction: row;
   align-items: center;
+}
+.DailyAttMainSelectDateButtonPlaceholderSM {
+  font-size: 11px;
+  font-family: $century-bold;
+  color: $color-dark-blue;
+}
+
+.DailyAttMainSelectDateButtonPlaceholder {
+  font-family: $century-bold;
+  color: $color-dark-blue;
+  font-size: 13px;
+}
+.DailyAttCardContainer {
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.DailyAttCardLeft {
+  flex-direction: row;
+}
+
+.DailyAttCardRight {
 }
