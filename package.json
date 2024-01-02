@@ -28,6 +28,7 @@
     "expo-notifications": "~0.20.1",
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
+    "geolib": "^3.3.4",
     "graphql": "^15.8.0",
     "moment": "^2.29.4",
     "node-sass": "^9.0.0",

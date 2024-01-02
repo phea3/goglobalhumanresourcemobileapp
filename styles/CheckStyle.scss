@@ -36,6 +36,46 @@
   opacity: 0.6;
 }
 
+.CheckDisableButtonContainerSM {
+  width: 100%;
+  background-color: $color-grey;
+  padding: 5px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.CheckDisableButtonContainer {
+  width: 100%;
+  background-color: $color-grey;
+  padding: 10px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.CheckOutDisableButtonContainerSM {
+  width: 100%;
+  background-color: $color-grey;
+  padding: 5px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.CheckOutDisableButtonContainer {
+  width: 100%;
+  background-color: $color-grey;
+  padding: 10px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
 .CheckInButtonContainerSM {
   width: 100%;
   background-color: $color-dark-blue;

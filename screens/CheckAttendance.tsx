@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import LeaveStyle from "../styles/LeaveStyle.scss";
 import { useLocation, useNavigate } from "react-router-native";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { EMPLOYEECHECKATTENDANCE } from "../graphql/EmployeeCheckAttendance";
 import CheckStyle from "../styles/CheckStyle.scss";
 import { useContext, useEffect, useState } from "react";
@@ -19,8 +19,11 @@ import ModalStyle from "../styles/ModalStyle.scss";
 import * as Location from "expo-location";
 import CheckModal from "../components/CheckModal";
 import { AuthContext } from "../Context/AuthContext";
+import { getDistance, getPreciseDistance, isPointWithinRadius } from "geolib";
+import { GET_EMPLOYEEBYID } from "../graphql/GetEmployeeById";
 
 export default function ChecKAttendance({ locate }: any) {
+  const { uid } = useContext(AuthContext);
   const navigate = useNavigate();
   const located = useLocation();
   const [isVisible, setVisible] = useState(false);
@@ -38,12 +41,48 @@ export default function ChecKAttendance({ locate }: any) {
   const [morning, setMorning] = useState(true);
   const [afternoon, setAfternoon] = useState(false);
 
+  // const { data: employeeData, refetch: employeeRefetch } = useQuery(
+  //   GET_EMPLOYEEBYID,
+  //   {
+  //     pollInterval: 2000,
+  //     variables: {
+  //       id: uid ? uid : "",
+  //     },
+  //     onCompleted: ({ getEmployeeById }) => {},
+  //   }
+  // );
+
+  // useEffect(() => {
+  //   employeeRefetch();
+  // }, [uid]);
+
+  // const distance = getDistance(
+  //   {
+  //     latitude: locate?.coords.latitude ? locate?.coords.latitude : 0,
+  //     longitude: locate?.coords.longitude ? locate?.coords.longitude : 0,
+  //   },
+  //   {
+  //     latitude: parseFloat(
+  //       employeeData?.getEmployeeById?.latitude
+  //         ? employeeData?.getEmployeeById?.latitude
+  //         : ""
+  //     ),
+  //     longitude: parseFloat(
+  //       employeeData?.getEmployeeById?.longitude
+  //         ? employeeData?.getEmployeeById?.longitude
+  //         : ""
+  //     ),
+  //   }
+  // );
+
   const handleCheckClose = () => {
     setCheckVisible(false);
   };
 
   const handleClose = () => {
-    navigate("/attendance");
+    if (checkData?.status === true) {
+      navigate("/attendance");
+    }
     setVisible(false);
   };
 
@@ -228,7 +267,9 @@ export default function ChecKAttendance({ locate }: any) {
                       : ModalStyle.ModalButtonTextTitleMain
                   }
                 >
-                  Do you want to check in/out?
+                  {scanType === "checkIn"
+                    ? "Do you want to check in?"
+                    : "Do you want to check out?"}
                 </Text>
               </View>
 
@@ -407,46 +448,88 @@ export default function ChecKAttendance({ locate }: any) {
                 </Text>
               </TouchableOpacity>
             </View>
-            <TouchableOpacity
-              style={
-                dimension === "sm"
-                  ? CheckStyle.CheckInButtonContainerSM
-                  : CheckStyle.CheckInButtonContainer
-              }
-              onPress={async () => {
-                HandleCheckAttendance("checkIn");
-              }}
-            >
-              <Text
-                style={
-                  dimension === "sm"
-                    ? CheckStyle.CheckButtonTextSM
-                    : CheckStyle.CheckButtonText
-                }
-              >
-                CHECK IN
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={
-                dimension === "sm"
-                  ? CheckStyle.CheckOutButtonContainerSM
-                  : CheckStyle.CheckOutButtonContainer
-              }
-              onPress={() => {
-                HandleCheckAttendance("checkOut");
-              }}
-            >
-              <Text
-                style={
-                  dimension === "sm"
-                    ? CheckStyle.CheckButtonTextSM
-                    : CheckStyle.CheckButtonText
-                }
-              >
-                CHECK OUT
-              </Text>
-            </TouchableOpacity>
+            {locate ? (
+              <>
+                <TouchableOpacity
+                  style={
+                    dimension === "sm"
+                      ? CheckStyle.CheckInButtonContainerSM
+                      : CheckStyle.CheckInButtonContainer
+                  }
+                  onPress={async () => {
+                    HandleCheckAttendance("checkIn");
+                  }}
+                >
+                  <Text
+                    style={
+                      dimension === "sm"
+                        ? CheckStyle.CheckButtonTextSM
+                        : CheckStyle.CheckButtonText
+                    }
+                  >
+                    CHECK IN
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={
+                    dimension === "sm"
+                      ? CheckStyle.CheckOutButtonContainerSM
+                      : CheckStyle.CheckOutButtonContainer
+                  }
+                  onPress={() => {
+                    HandleCheckAttendance("checkOut");
+                  }}
+                >
+                  <Text
+                    style={
+                      dimension === "sm"
+                        ? CheckStyle.CheckButtonTextSM
+                        : CheckStyle.CheckButtonText
+                    }
+                  >
+                    CHECK OUT
+                  </Text>
+                </TouchableOpacity>
+              </>
+            ) : (
+              <>
+                <View
+                  style={
+                    dimension === "sm"
+                      ? CheckStyle.CheckDisableButtonContainerSM
+                      : CheckStyle.CheckDisableButtonContainer
+                  }
+                >
+                  <Text
+                    style={
+                      dimension === "sm"
+                        ? CheckStyle.CheckButtonTextSM
+                        : CheckStyle.CheckButtonText
+                    }
+                  >
+                    CHECK IN
+                  </Text>
+                </View>
+                <View
+                  style={
+                    dimension === "sm"
+                      ? CheckStyle.CheckOutDisableButtonContainerSM
+                      : CheckStyle.CheckOutDisableButtonContainer
+                  }
+                >
+                  <Text
+                    style={
+                      dimension === "sm"
+                        ? CheckStyle.CheckButtonTextSM
+                        : CheckStyle.CheckButtonText
+                    }
+                  >
+                    CHECK OUT
+                  </Text>
+                </View>
+              </>
+            )}
+
             <View style={CheckStyle.CheckOutLocationFullContainer}>
               <View
                 style={[

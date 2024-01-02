@@ -55,6 +55,14 @@ export default function ProfileScreen() {
   return (
     <>
       <View style={ProfileStyle.ProfileContainer}>
+        <View
+          style={{
+            width: "100%",
+            height: "85%",
+            backgroundColor: "white",
+            position: "absolute",
+          }}
+        />
         <View style={ProfileStyle.ProfileTopContainer}>
           <View style={ProfileStyle.ProfileFirstTopContainer} />
           <View style={ProfileStyle.ProfileSecondTopContainer}>

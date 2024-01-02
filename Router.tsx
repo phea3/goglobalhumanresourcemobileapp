@@ -13,7 +13,7 @@ import LoginScreen from "./screens/LoginScreen";
 import { AuthContext } from "./Context/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useLoginUser from "./Hook/useLoginUser";
-import { Dimensions, Platform } from "react-native";
+import { Alert, Dimensions, Platform } from "react-native";
 import HomeMainScreen from "./screens/HomeMainScreen";
 import HomeLeaveScreen from "./screens/HomeLeaveScreen";
 import LeaveScreen from "./screens/LeaveScreen";
@@ -44,7 +44,7 @@ export default function Router() {
   useEffect(() => {
     setTimeout(() => {
       setLoad(false);
-    }, 9000);
+    }, 1000);
   }, []);
 
   useEffect(() => {
@@ -90,7 +90,8 @@ export default function Router() {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
+        setErrorMsg("Permission to access location was denied.");
+
         return;
       }
 
@@ -219,7 +220,19 @@ export default function Router() {
     },
   ]);
 
-  if ((locate === null && !errorMsg) || load) {
+  useEffect(() => {
+    if (errorMsg === "Permission to access location was denied.") {
+      Alert.alert("Oop!", "Permission to access location was denied.");
+    }
+  }, [errorMsg]);
+
+  // console.log(locate, errorMsg);
+
+  if (
+    // !locate &&
+    // errorMsg !== "Permission to access location was denied." &&
+    load === true
+  ) {
     return loadScreen;
   } else {
     if (token !== "" && token !== undefined) {
