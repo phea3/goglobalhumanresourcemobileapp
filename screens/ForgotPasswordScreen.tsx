@@ -27,7 +27,7 @@ export default function ForgotPasswordScreen() {
 
   const [getToForgotPass] = useLazyQuery(FORGOT_PASSWORD, {
     onCompleted({ forgortUserPassword }) {
-      console.log(forgortUserPassword);
+      // console.log(forgortUserPassword);
       Alert.alert(
         forgortUserPassword?.title,
         forgortUserPassword?.description,
@@ -44,19 +44,34 @@ export default function ForgotPasswordScreen() {
       setLoadingPage(false);
     },
     onError(error) {
-      console.log(error?.message);
-      setLoadingPage(false);
+      if (
+        email.includes("@gmail.com") &&
+        email !== "" &&
+        email.indexOf(" ") === -1
+      ) {
+        // console.log(error?.message);
+        Alert.alert("Message", error?.message);
+        setLoadingPage(false);
+      }
     },
   });
 
   const handleSendEmail = () => {
-    setLoadingPage(true);
-    getToForgotPass({
-      variables: {
-        email: email,
-      },
-    });
+    if (
+      email.includes("@gmail.com") &&
+      email !== "" &&
+      email.indexOf(" ") === -1
+    ) {
+      console.log("true");
+      setLoadingPage(true);
+      getToForgotPass({
+        variables: {
+          email: email,
+        },
+      });
+    }
   };
+  // console.log("email::", email);
 
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
@@ -163,7 +178,27 @@ export default function ForgotPasswordScreen() {
               secureTextEntry={false}
             />
           </View>
-          {email.includes("@gmail.com") || email.length === 0 ? null : (
+          {email === "" ? (
+            <Text
+              style={
+                dimension === "sm"
+                  ? LoginStyle.LoginRequireScreenTextInputTextSM
+                  : LoginStyle.LoginRequireScreenTextInputText
+              }
+            >
+              Required!
+            </Text>
+          ) : email.indexOf(" ") !== -1 ? (
+            <Text
+              style={
+                dimension === "sm"
+                  ? LoginStyle.LoginRequireScreenTextInputTextSM
+                  : LoginStyle.LoginRequireScreenTextInputText
+              }
+            >
+              Invalid email!, email cannot contain spaces
+            </Text>
+          ) : email.includes("@gmail.com") ? null : (
             <Text
               style={
                 dimension === "sm"

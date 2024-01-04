@@ -60,9 +60,16 @@ export default function LoginScreen() {
     };
   }, []);
 
+  let createStatus = false;
   const [mobilelogin] = useMutation(MOBILE_LOGIN, {
     onError(error) {
-      Alert.alert("Cannot login", error?.message);
+      if (
+        email.includes("@gmail.com") &&
+        email !== "" &&
+        email.indexOf(" ") === -1
+      ) {
+        Alert.alert("Cannot login", error?.message);
+      }
     },
   });
 
@@ -73,7 +80,8 @@ export default function LoginScreen() {
         password: password,
       },
       onCompleted(data) {
-        // console.log(data);
+        console.log(data);
+
         if (data?.mobileLogin?.status === true && data?.mobileLogin?.token) {
           AsyncStorage.setItem("@userToken", data?.mobileLogin?.token);
           AsyncStorage.setItem("@userUid", data?.mobileLogin?.user?._id);
@@ -94,7 +102,13 @@ export default function LoginScreen() {
             });
           }, 1000);
         } else {
-          Alert.alert("Message", data?.mobileLogin?.message);
+          if (
+            email.includes("@gmail.com") &&
+            email !== "" &&
+            email.indexOf(" ") === -1
+          ) {
+            Alert.alert("Message", data?.mobileLogin?.message);
+          }
         }
       },
     });
@@ -151,6 +165,7 @@ export default function LoginScreen() {
   if (load) {
     return <ActivityIndicator />;
   }
+  // console.log("test::", email.includes("@gmail.com"));
 
   return (
     <View style={LoginStyle.LoginScreenContainer}>
@@ -245,7 +260,27 @@ export default function LoginScreen() {
               keyboardType="default"
             />
           </View>
-          {email.includes("@gmail.com") || email.length === 0 ? null : (
+          {email === "" ? (
+            <Text
+              style={
+                dimension === "sm"
+                  ? LoginStyle.LoginRequireScreenTextInputTextSM
+                  : LoginStyle.LoginRequireScreenTextInputText
+              }
+            >
+              Required!
+            </Text>
+          ) : email.indexOf(" ") !== -1 ? (
+            <Text
+              style={
+                dimension === "sm"
+                  ? LoginStyle.LoginRequireScreenTextInputTextSM
+                  : LoginStyle.LoginRequireScreenTextInputText
+              }
+            >
+              invalid email!, email cannot contain spaces
+            </Text>
+          ) : email.includes("@gmail.com") ? null : (
             <Text
               style={
                 dimension === "sm"

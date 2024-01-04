@@ -37,6 +37,7 @@ export default function HomeLeaveScreen() {
   const [reason, setReason] = useState("");
   const [morning, setMorning] = useState(true);
   const [afternoon, setAfternoon] = useState(false);
+  const [requiredField, setRequiredField] = useState(false);
 
   // console.log(startDate);
   const hidDatePicker = () => {
@@ -89,40 +90,55 @@ export default function HomeLeaveScreen() {
   const [requestLeave] = useMutation(REQUEST_LEAVE);
 
   const handlRequest = async () => {
-    const newValues = {
-      from: startDate ? moment(startDate).format("YYYY-MM-DD") : "",
-      reason: reason ? reason : "",
-      shiftOff: allDay
-        ? "AllDay"
-        : morning
-        ? "Morning"
-        : afternoon
-        ? "Afternoon"
-        : "",
-      timeOff: timeId ? timeId : "",
-      to:
-        allDay === true && endDate
-          ? moment(endDate).format("YYYY-MM-DD")
-          : startDate
-          ? moment(startDate).format("YYYY-MM-DD")
+    let createStatus = false;
+    try {
+      if (reason !== "" && timeOff?.length !== 0) {
+        createStatus = true;
+        setRequiredField(false);
+      } else {
+        createStatus = false;
+        setRequiredField(true);
+      }
+    } catch (e) {
+      createStatus = false;
+    }
+    console.log(createStatus);
+    if (createStatus) {
+      const newValues = {
+        from: startDate ? moment(startDate).format("YYYY-MM-DD") : "",
+        reason: reason ? reason : "",
+        shiftOff: allDay
+          ? "AllDay"
+          : morning
+          ? "Morning"
+          : afternoon
+          ? "Afternoon"
           : "",
-    };
-    // console.log(newValues);
-    await requestLeave({
-      variables: { input: newValues },
-      onCompleted: ({ requestLeave }) => {
-        Alert.alert("Success!", requestLeave?.message, [
-          {
-            text: "Okay",
-            onPress: () => navigate("/leave"),
-            style: "cancel",
-          },
-        ]);
-      },
-      onError(error) {
-        Alert.alert("Success!", error?.message);
-      },
-    });
+        timeOff: timeId ? timeId : "",
+        to:
+          allDay === true && endDate
+            ? moment(endDate).format("YYYY-MM-DD")
+            : startDate
+            ? moment(startDate).format("YYYY-MM-DD")
+            : "",
+      };
+      // console.log(newValues);
+      await requestLeave({
+        variables: { input: newValues },
+        onCompleted: ({ requestLeave }) => {
+          Alert.alert("Success!", requestLeave?.message, [
+            {
+              text: "Okay",
+              onPress: () => navigate("/leave"),
+              style: "cancel",
+            },
+          ]);
+        },
+        onError(error) {
+          Alert.alert("Success!", error?.message);
+        },
+      });
+    }
   };
 
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
@@ -631,14 +647,15 @@ export default function HomeLeaveScreen() {
                 : HomeStyle.HomeLeaveRequestButton
             }
             onPress={() => {
-              if (reason !== "" && timeId !== "") {
-                handlRequest();
-              } else {
-                Alert.alert(
-                  "Oop!",
-                  "Please field the reason or choose your time off"
-                );
-              }
+              // if (reason !== "" && timeId !== "") {
+              //   handlRequest();
+              // } else {
+              //   Alert.alert(
+              //     "Oop!",
+              //     "Please field the reason or choose your time off"
+              //   );
+              // }
+              handlRequest();
             }}
           >
             <Text
