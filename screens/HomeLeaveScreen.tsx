@@ -120,31 +120,30 @@ export default function HomeLeaveScreen() {
           : startDate
           ? moment(startDate).format("YYYY-MM-DD")
           : "",
-        timeOff: timeId ? timeId : "",
-        to:
-          allDay === true && endDate
-            ? moment(endDate).format("YYYY-MM-DD")
-            : startDate
-            ? moment(startDate).format("YYYY-MM-DD")
-            : "",
-      };
-      // console.log(newValues);
-      await requestLeave({
-        variables: { input: newValues },
-        onCompleted: ({ requestLeave }) => {
-          Alert.alert("Success!", requestLeave?.message, [
-            {
-              text: "Okay",
-              onPress: () => navigate("/leave"),
-              style: "cancel",
-            },
-          ]);
-        },
-        onError(error) {
-          Alert.alert("Success!", error?.message);
-        },
-      });
-    }
+      timeOff: timeId ? timeId : "",
+      to:
+        allDay === true && endDate
+          ? moment(endDate).format("YYYY-MM-DD")
+          : startDate
+          ? moment(startDate).format("YYYY-MM-DD")
+          : "",
+    };
+    // console.log(newValues);
+    await requestLeave({
+      variables: { input: newValues },
+      onCompleted: ({ requestLeave }) => {
+        Alert.alert("Success!", requestLeave?.message, [
+          {
+            text: "Okay",
+            onPress: () => navigate("/leave"),
+            style: "cancel",
+          },
+        ]);
+      },
+      onError(error) {
+        Alert.alert("Success!", error?.message);
+      },
+    });
   };
 
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
