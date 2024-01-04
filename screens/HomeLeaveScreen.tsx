@@ -37,7 +37,8 @@ export default function HomeLeaveScreen() {
   const [reason, setReason] = useState("");
   const [morning, setMorning] = useState(true);
   const [afternoon, setAfternoon] = useState(false);
-
+  const [defaultTimeoff, setDefaultTimeoff] = useState("");
+  const [defaultTimeoffId, setDefaultTimeoffId] = useState("");
   // console.log(startDate);
   const hidDatePicker = () => {
     setDateIsvisible(false);
@@ -86,6 +87,19 @@ export default function HomeLeaveScreen() {
     TimeRefetch();
   }, []);
 
+  useEffect(() => {
+    setDefaultTimeoff(
+      TimeDate?.getTimeOffsForMobile
+        ? TimeDate?.getTimeOffsForMobile[0]?.timeOff
+        : ""
+    );
+    setDefaultTimeoffId(
+      TimeDate?.getTimeOffsForMobile
+        ? TimeDate?.getTimeOffsForMobile[0]?._id
+        : ""
+    );
+  }, [TimeDate]);
+
   const [requestLeave] = useMutation(REQUEST_LEAVE);
 
   const handlRequest = async () => {
@@ -99,7 +113,7 @@ export default function HomeLeaveScreen() {
         : afternoon
         ? "Afternoon"
         : "",
-      timeOff: timeId ? timeId : "",
+      timeOff: timeId ? timeId : defaultTimeoffId,
       to:
         allDay === true && endDate
           ? moment(endDate).format("YYYY-MM-DD")
@@ -493,7 +507,7 @@ export default function HomeLeaveScreen() {
             Type Time Off
           </Text>
         </View>
-        {timeOff.length === 0 ? (
+        {timeOff && timeOff.length === 0 ? (
           <View style={{ width: "100%" }}>
             <View
               style={{
@@ -534,6 +548,8 @@ export default function HomeLeaveScreen() {
                   >
                     {selectedItem?.timeOff
                       ? selectedItem?.timeOff
+                      : defaultTimeoff
+                      ? defaultTimeoff
                       : "Choose time off"}
                   </Text>
                 </View>
@@ -633,12 +649,13 @@ export default function HomeLeaveScreen() {
             onPress={() => {
               if (reason !== "" && timeId !== "") {
                 handlRequest();
-              } else {
-                Alert.alert(
-                  "Oop!",
-                  "Please field the reason or choose your time off"
-                );
               }
+              // else {
+              //   Alert.alert(
+              //     "Oop!",
+              //     "Please field the reason or choose your time off"
+              //   );
+              // }
             }}
           >
             <Text
