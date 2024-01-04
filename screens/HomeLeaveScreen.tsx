@@ -120,13 +120,6 @@ export default function HomeLeaveScreen() {
           : startDate
           ? moment(startDate).format("YYYY-MM-DD")
           : "",
-      timeOff: timeId ? timeId : "",
-      to:
-        allDay === true && endDate
-          ? moment(endDate).format("YYYY-MM-DD")
-          : startDate
-          ? moment(startDate).format("YYYY-MM-DD")
-          : "",
     };
     // console.log(newValues);
     await requestLeave({
