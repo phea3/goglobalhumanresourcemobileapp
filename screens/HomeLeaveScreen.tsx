@@ -107,7 +107,7 @@ export default function HomeLeaveScreen() {
           ? moment(startDate).format("YYYY-MM-DD")
           : "",
     };
-    console.log(newValues);
+    // console.log(newValues);
     await requestLeave({
       variables: { input: newValues },
       onCompleted: ({ requestLeave }) => {

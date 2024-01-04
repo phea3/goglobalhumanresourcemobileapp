@@ -535,3 +535,33 @@
   justify-content: center;
   align-items: flex-end;
 }
+
+.HomeBoxShiftSM {
+  background-color: $color-dark-blue;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  border-radius: 3px;
+}
+
+.HomeBoxShift {
+  background-color: $color-dark-blue;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  border-radius: 4px;
+}
+
+.HomeBoxTextSM {
+  font-size: 8px;
+  font-family: $century-regular;
+  color: #fff;
+}
+
+.HomeBoxText {
+  font-size: 9px;
+  font-family: $century-regular;
+  color: #fff;
+}
