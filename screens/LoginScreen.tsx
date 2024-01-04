@@ -62,7 +62,9 @@ export default function LoginScreen() {
 
   const [mobilelogin] = useMutation(MOBILE_LOGIN, {
     onError(error) {
-      Alert.alert("Cannot login", error?.message);
+      if (email.includes("@gmail.com") && email !== "") {
+        Alert.alert("Cannot login", error?.message);
+      }
     },
   });
 
@@ -94,7 +96,9 @@ export default function LoginScreen() {
             });
           }, 1000);
         } else {
-          Alert.alert("Message", data?.mobileLogin?.message);
+          if (email.includes("@gmail.com") && email !== "") {
+            Alert.alert("Message", data?.mobileLogin?.message);
+          }
         }
       },
     });
@@ -245,7 +249,17 @@ export default function LoginScreen() {
               keyboardType="default"
             />
           </View>
-          {email.includes("@gmail.com") || email.length === 0 ? null : (
+          {email.includes("@gmail.com") ? null : email === "" ? (
+            <Text
+              style={
+                dimension === "sm"
+                  ? LoginStyle.LoginRequireScreenTextInputTextSM
+                  : LoginStyle.LoginRequireScreenTextInputText
+              }
+            >
+              Require!
+            </Text>
+          ) : (
             <Text
               style={
                 dimension === "sm"
