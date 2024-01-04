@@ -95,6 +95,20 @@
   background-color: $color-light-grey;
 }
 
+.LoginRequireScreenTextInputTextSM {
+  width: 80%;
+  font-family: $century-regular;
+  font-size: 8px;
+  color: $color-red;
+}
+
+.LoginRequireScreenTextInputText {
+  width: 80%;
+  font-family: $century-regular;
+  color: $color-red;
+  font-size: 12px;
+}
+
 .LoginScreenTextInputTextSM {
   width: 80%;
   font-family: $century-regular;

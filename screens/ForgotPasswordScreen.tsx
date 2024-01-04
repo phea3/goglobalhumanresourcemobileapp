@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import { useNavigate } from "react-router";
 import { useLazyQuery } from "@apollo/client";
-
+import LoginStyle from "../styles/LoginStyle.scss";
 import ForgotPasswordStyle from "../styles/ForgotPasswordStyle.scss";
 import { AuthContext } from "../Context/AuthContext";
 import { FORGOT_PASSWORD } from "../graphql/ForgotPassword";
@@ -163,6 +163,17 @@ export default function ForgotPasswordScreen() {
               secureTextEntry={false}
             />
           </View>
+          {email.includes("@gmail.com") || email.length === 0 ? null : (
+            <Text
+              style={
+                dimension === "sm"
+                  ? LoginStyle.LoginRequireScreenTextInputTextSM
+                  : LoginStyle.LoginRequireScreenTextInputText
+              }
+            >
+              Oop!, invalid email
+            </Text>
+          )}
           <View style={ForgotPasswordStyle.ForgotScreenBtnContainer}>
             <TouchableOpacity
               style={

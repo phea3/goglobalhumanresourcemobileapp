@@ -94,10 +94,7 @@ export default function LoginScreen() {
             });
           }, 1000);
         } else {
-          Alert.alert(
-            "Message",
-            data?.mobileLogin?.message + "but session expired"
-          );
+          Alert.alert("Message", data?.mobileLogin?.message);
         }
       },
     });
@@ -248,6 +245,17 @@ export default function LoginScreen() {
               keyboardType="default"
             />
           </View>
+          {email.includes("@gmail.com") || email.length === 0 ? null : (
+            <Text
+              style={
+                dimension === "sm"
+                  ? LoginStyle.LoginRequireScreenTextInputTextSM
+                  : LoginStyle.LoginRequireScreenTextInputText
+              }
+            >
+              Oop!, invalid email
+            </Text>
+          )}
         </View>
         <View
           style={

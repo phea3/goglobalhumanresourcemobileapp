@@ -176,7 +176,7 @@ export default function HomeLeaveScreen() {
                 : LeaveStyle.LeaveBackButtonTitle
             }
           >
-            Main leave
+            Main Leave
           </Text>
         </TouchableOpacity>
       </View>
@@ -493,61 +493,83 @@ export default function HomeLeaveScreen() {
             Type Time Off
           </Text>
         </View>
-        <SelectDropdown
-          data={timeOff}
-          onSelect={(selectedItem, index) => {
-            // console.log(selectedItem, index);
-            setTimeId(selectedItem?._id);
-          }}
-          renderCustomizedButtonChild={(selectedItem, index) => {
-            // text represented after item is selected
-            // if data array is an array of objects then return selectedItem.property to render after item is selected
-            return (
-              <View>
-                <Text
-                  style={
-                    dimension === "sm"
-                      ? HomeStyle.HomeMainSelectDateButtonPlaceholderSM
-                      : HomeStyle.HomeMainSelectDateButtonPlaceholder
-                  }
-                >
-                  {selectedItem?.timeOff
-                    ? selectedItem?.timeOff
-                    : "Choose time off"}
-                </Text>
-              </View>
-            );
-          }}
-          dropdownStyle={{
-            borderRadius: 10,
-            paddingHorizontal: 10,
-          }}
-          renderCustomizedRowChild={(item, index) => {
-            // text represented for each item in dropdown
-            // if data array is an array of objects then return item.property to represent item in dropdown
-            return (
-              <View>
-                <Text
-                  style={
-                    dimension === "sm"
-                      ? HomeStyle.HomeMainSelectDateButtonPlaceholderSM
-                      : HomeStyle.HomeMainSelectDateButtonPlaceholder
-                  }
-                >
-                  {item?.timeOff}
-                </Text>
-              </View>
-            );
-          }}
-          buttonStyle={{
-            width: "100%",
-            height: dimension === "sm" ? 30 : 40,
-            backgroundColor: "#f8f8f8",
-            borderRadius: 10,
-            borderWidth: 1,
-            borderColor: "#082b9e",
-          }}
-        />
+        {timeOff.length === 0 ? (
+          <View style={{ width: "100%" }}>
+            <View
+              style={{
+                width: "100%",
+                height: dimension === "sm" ? 30 : 40,
+                backgroundColor: "#f8f8f8",
+                borderRadius: 10,
+                borderWidth: 1,
+                borderColor: "#9aa3a6",
+                justifyContent: "center",
+                padding: 5,
+              }}
+            >
+              <Text style={{ color: "#9aa3a6" }}>Choose time off</Text>
+            </View>
+            <Text style={{ color: "#ff0000", padding: 5 }}>
+              You don't have time-off, please contact HR!
+            </Text>
+          </View>
+        ) : (
+          <SelectDropdown
+            data={timeOff}
+            onSelect={(selectedItem, index) => {
+              // console.log(selectedItem, index);
+              setTimeId(selectedItem?._id);
+            }}
+            renderCustomizedButtonChild={(selectedItem, index) => {
+              // text represented after item is selected
+              // if data array is an array of objects then return selectedItem.property to render after item is selected
+              return (
+                <View>
+                  <Text
+                    style={
+                      dimension === "sm"
+                        ? HomeStyle.HomeMainSelectDateButtonPlaceholderSM
+                        : HomeStyle.HomeMainSelectDateButtonPlaceholder
+                    }
+                  >
+                    {selectedItem?.timeOff
+                      ? selectedItem?.timeOff
+                      : "Choose time off"}
+                  </Text>
+                </View>
+              );
+            }}
+            dropdownStyle={{
+              borderRadius: 10,
+              paddingHorizontal: 10,
+            }}
+            renderCustomizedRowChild={(item, index) => {
+              // text represented for each item in dropdown
+              // if data array is an array of objects then return item.property to represent item in dropdown
+              return (
+                <View>
+                  <Text
+                    style={
+                      dimension === "sm"
+                        ? HomeStyle.HomeMainSelectDateButtonPlaceholderSM
+                        : HomeStyle.HomeMainSelectDateButtonPlaceholder
+                    }
+                  >
+                    {item?.timeOff}
+                  </Text>
+                </View>
+              );
+            }}
+            buttonStyle={{
+              width: "100%",
+              height: dimension === "sm" ? 30 : 40,
+              backgroundColor: "#f8f8f8",
+              borderRadius: 10,
+              borderWidth: 1,
+              borderColor: "#082b9e",
+            }}
+          />
+        )}
 
         <View
           style={
@@ -586,6 +608,12 @@ export default function HomeLeaveScreen() {
             returnKeyType="done"
           />
         </View>
+        {reason.length === 0 && (
+          <View style={{ width: "100%" }}>
+            <Text style={{ color: "#ff0000", padding: 5 }}>Require!</Text>
+          </View>
+        )}
+
         <View
           style={
             dimension === "sm"
@@ -608,7 +636,7 @@ export default function HomeLeaveScreen() {
               } else {
                 Alert.alert(
                   "Oop!",
-                  "Please field the reason or choose time off"
+                  "Please field the reason or choose your time off"
                 );
               }
             }}

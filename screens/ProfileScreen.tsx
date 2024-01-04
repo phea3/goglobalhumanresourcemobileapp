@@ -110,7 +110,7 @@ export default function ProfileScreen() {
           <View style={ProfileStyle.LogoutContainer}>
             <View
               style={{
-                height: "80%",
+                flex: 1,
                 width: "90%",
                 justifyContent: "center",
                 alignItems: "center",
