@@ -124,7 +124,7 @@ export default function ForgotPasswordScreen() {
               : ForgotPasswordStyle.ForgotScreenTitle2
           }
         >
-          Go Global Human Resource
+          Go Global HR
         </Text>
 
         <View

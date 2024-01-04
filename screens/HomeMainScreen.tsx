@@ -219,6 +219,23 @@ export default function HomeMainScreen() {
                   </Text>
                 </View>
                 <View style={HomeStyle.HomeHolidayTitleLeftContainer}>
+                  <View
+                    style={
+                      dimension === "sm"
+                        ? HomeStyle.HomeBoxShiftSM
+                        : HomeStyle.HomeBoxShift
+                    }
+                  >
+                    <Text
+                      style={
+                        dimension === "sm"
+                          ? HomeStyle.HomeBoxTextSM
+                          : HomeStyle.HomeBoxText
+                      }
+                    >
+                      Morning
+                    </Text>
+                  </View>
                   <Text
                     style={
                       dimension === "sm"

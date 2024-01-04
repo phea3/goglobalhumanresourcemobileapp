@@ -198,7 +198,7 @@ export default function LoginScreen() {
             }
           >
             {/* ប្រព័ន្ធការគ្រប់គ្រងកម្មវិធីសាលាហ្គោឡូប៊ល់ */}
-            Go Global Human Resource
+            Go Global HR
           </Text>
         </View>
       )}
