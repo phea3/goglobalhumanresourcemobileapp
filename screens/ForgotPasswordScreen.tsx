@@ -62,7 +62,6 @@ export default function ForgotPasswordScreen() {
       email !== "" &&
       email.indexOf(" ") === -1
     ) {
-      console.log("true");
       setLoadingPage(true);
       getToForgotPass({
         variables: {
@@ -173,7 +172,10 @@ export default function ForgotPasswordScreen() {
                   ? ForgotPasswordStyle.ForgotScreenTextInputTextSM
                   : ForgotPasswordStyle.ForgotScreenTextInputText
               }
-              onChangeText={(e) => setEmail(e)}
+              onChangeText={(e) => {
+                const updatedText = e.replace(/\s/g, "");
+                setEmail(updatedText);
+              }}
               keyboardType="default"
               secureTextEntry={false}
             />

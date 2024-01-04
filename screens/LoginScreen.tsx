@@ -80,7 +80,7 @@ export default function LoginScreen() {
         password: password,
       },
       onCompleted(data) {
-        console.log(data);
+        // console.log(data);
 
         if (data?.mobileLogin?.status === true && data?.mobileLogin?.token) {
           AsyncStorage.setItem("@userToken", data?.mobileLogin?.token);
@@ -282,7 +282,7 @@ export default function LoginScreen() {
                   : LoginStyle.LoginRequireScreenTextInputText
               }
             >
-              invalid email!, email cannot contain spaces
+              Invalid email!, email cannot contain spaces
             </Text>
           ) : email.includes("@gmail.com") ? null : (
             <Text
