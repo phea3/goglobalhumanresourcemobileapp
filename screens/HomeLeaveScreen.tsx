@@ -37,8 +37,8 @@ export default function HomeLeaveScreen() {
   const [reason, setReason] = useState("");
   const [morning, setMorning] = useState(true);
   const [afternoon, setAfternoon] = useState(false);
-  const [requiredField, setRequiredField] = useState(false);
-
+  const [defaultTimeoff, setDefaultTimeoff] = useState("");
+  const [defaultTimeoffId, setDefaultTimeoffId] = useState("");
   // console.log(startDate);
   const hidDatePicker = () => {
     setDateIsvisible(false);
@@ -87,32 +87,38 @@ export default function HomeLeaveScreen() {
     TimeRefetch();
   }, []);
 
+  useEffect(() => {
+    setDefaultTimeoff(
+      TimeDate?.getTimeOffsForMobile
+        ? TimeDate?.getTimeOffsForMobile[0]?.timeOff
+        : ""
+    );
+    setDefaultTimeoffId(
+      TimeDate?.getTimeOffsForMobile
+        ? TimeDate?.getTimeOffsForMobile[0]?._id
+        : ""
+    );
+  }, [TimeDate]);
+
   const [requestLeave] = useMutation(REQUEST_LEAVE);
 
   const handlRequest = async () => {
-    let createStatus = false;
-    try {
-      if (reason !== "" && timeOff?.length !== 0) {
-        createStatus = true;
-        setRequiredField(false);
-      } else {
-        createStatus = false;
-        setRequiredField(true);
-      }
-    } catch (e) {
-      createStatus = false;
-    }
-    console.log(createStatus);
-    if (createStatus) {
-      const newValues = {
-        from: startDate ? moment(startDate).format("YYYY-MM-DD") : "",
-        reason: reason ? reason : "",
-        shiftOff: allDay
-          ? "AllDay"
-          : morning
-          ? "Morning"
-          : afternoon
-          ? "Afternoon"
+    const newValues = {
+      from: startDate ? moment(startDate).format("YYYY-MM-DD") : "",
+      reason: reason ? reason : "",
+      shiftOff: allDay
+        ? "AllDay"
+        : morning
+        ? "Morning"
+        : afternoon
+        ? "Afternoon"
+        : "",
+      timeOff: timeId ? timeId : defaultTimeoffId,
+      to:
+        allDay === true && endDate
+          ? moment(endDate).format("YYYY-MM-DD")
+          : startDate
+          ? moment(startDate).format("YYYY-MM-DD")
           : "",
         timeOff: timeId ? timeId : "",
         to:
@@ -509,7 +515,7 @@ export default function HomeLeaveScreen() {
             Type Time Off
           </Text>
         </View>
-        {timeOff.length === 0 ? (
+        {timeOff && timeOff.length === 0 ? (
           <View style={{ width: "100%" }}>
             <View
               style={{
@@ -550,6 +556,8 @@ export default function HomeLeaveScreen() {
                   >
                     {selectedItem?.timeOff
                       ? selectedItem?.timeOff
+                      : defaultTimeoff
+                      ? defaultTimeoff
                       : "Choose time off"}
                   </Text>
                 </View>
@@ -647,15 +655,15 @@ export default function HomeLeaveScreen() {
                 : HomeStyle.HomeLeaveRequestButton
             }
             onPress={() => {
-              // if (reason !== "" && timeId !== "") {
-              //   handlRequest();
-              // } else {
+              if (reason !== "" && timeId !== "") {
+                handlRequest();
+              }
+              // else {
               //   Alert.alert(
               //     "Oop!",
               //     "Please field the reason or choose your time off"
               //   );
               // }
-              handlRequest();
             }}
           >
             <Text
