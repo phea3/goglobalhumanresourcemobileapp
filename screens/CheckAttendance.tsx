@@ -554,10 +554,12 @@ export default function ChecKAttendance({ locate }: any) {
                     {
                       color:
                         // location?.coords.latitude || locate?.coords.latitude
-                        locate?.coords.latitude >= 13.34572060724703 &&
-                        locate?.coords.latitude <= 13.349565026819539 &&
-                        locate?.coords.longitude >= 103.84319363518682 &&
-                        locate?.coords.longitude <= 103.84595763628897
+                        locate === null
+                          ? "#9aa3a6"
+                          : locate?.coords.latitude >= 13.34572060724703 &&
+                            locate?.coords.latitude <= 13.349565026819539 &&
+                            locate?.coords.longitude >= 103.84319363518682 &&
+                            locate?.coords.longitude <= 103.84595763628897
                           ? "green"
                           : "red",
                     },
@@ -579,10 +581,12 @@ export default function ChecKAttendance({ locate }: any) {
                     {
                       color:
                         // location?.coords.latitude || locate?.coords.latitude
-                        locate?.coords.latitude >= 13.34572060724703 &&
-                        locate?.coords.latitude <= 13.349565026819539 &&
-                        locate?.coords.longitude >= 103.84319363518682 &&
-                        locate?.coords.longitude <= 103.84595763628897
+                        locate === null
+                          ? "#9aa3a6"
+                          : locate?.coords.latitude >= 13.34572060724703 &&
+                            locate?.coords.latitude <= 13.349565026819539 &&
+                            locate?.coords.longitude >= 103.84319363518682 &&
+                            locate?.coords.longitude <= 103.84595763628897
                           ? "green"
                           : "red",
                       paddingTop: 10,
@@ -605,22 +609,34 @@ export default function ChecKAttendance({ locate }: any) {
                   getLocation();
                 }}
               >
-                <Image
-                  source={
-                    locate?.coords.latitude >= 13.34572060724703 &&
-                    locate?.coords.latitude <= 13.349565026819539 &&
-                    locate?.coords.longitude >= 103.84319363518682 &&
-                    locate?.coords.longitude <= 103.84595763628897
-                      ? require("../assets/Images/allowlocation.gif")
-                      : require("../assets/Images/redlocation.gif")
-                  }
-                  style={
-                    dimension === "sm"
-                      ? CheckStyle.CheckOutLocationRefetchIconSM
-                      : CheckStyle.CheckOutLocationRefetchIcon
-                  }
-                  resizeMode="contain"
-                />
+                {locate === null ? (
+                  <Image
+                    source={require("../assets/Images/Data-Transfer.gif")}
+                    style={
+                      dimension === "sm"
+                        ? { width: 80, height: 80 }
+                        : { width: 100, height: 100 }
+                    }
+                    resizeMode="contain"
+                  />
+                ) : (
+                  <Image
+                    source={
+                      locate?.coords.latitude >= 13.34572060724703 &&
+                      locate?.coords.latitude <= 13.349565026819539 &&
+                      locate?.coords.longitude >= 103.84319363518682 &&
+                      locate?.coords.longitude <= 103.84595763628897
+                        ? require("../assets/Images/allowlocation.gif")
+                        : require("../assets/Images/redlocation.gif")
+                    }
+                    style={
+                      dimension === "sm"
+                        ? CheckStyle.CheckOutLocationRefetchIconSM
+                        : CheckStyle.CheckOutLocationRefetchIcon
+                    }
+                    resizeMode="contain"
+                  />
+                )}
               </TouchableOpacity>
             </View>
           </ScrollView>

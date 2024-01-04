@@ -3,6 +3,7 @@ import { Text, View, Image, Modal, TouchableOpacity } from "react-native";
 import { useLocation, useNavigate } from "react-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery } from "@apollo/client";
+import ImageView from "react-native-image-viewing";
 
 import ProfileStyle from "../styles/ProfileStyle.scss";
 import ModalStyle from "../styles/ModalStyle.scss";
@@ -20,6 +21,7 @@ export default function ProfileScreen() {
   const handleCloseModal = () => {
     setVisible(false);
   };
+  const [visible, setIsVisible] = useState(false);
 
   const handleOpenModal = () => {
     setVisible(true);
@@ -78,18 +80,41 @@ export default function ProfileScreen() {
                 : "--:--"}
             </Text>
           </View>
-          <Animatable.Image
-            animation={"fadeIn"}
-            source={
+          <TouchableOpacity
+            activeOpacity={1}
+            style={{ position: "absolute" }}
+            onPress={() => {
+              if (data?.getUserInfoMobile?.profileImage) {
+                setIsVisible(true);
+              }
+            }}
+          >
+            <Animatable.Image
+              animation={"fadeIn"}
+              source={
+                data?.getUserInfoMobile?.profileImage
+                  ? { uri: data?.getUserInfoMobile?.profileImage }
+                  : require("../assets/Images/user.png")
+              }
+              style={
+                dimension === "sm"
+                  ? ProfileStyle.ImageUserSM
+                  : ProfileStyle.ImageUser
+              }
+            />
+          </TouchableOpacity>
+
+          <ImageView
+            images={[
               data?.getUserInfoMobile?.profileImage
-                ? { uri: data?.getUserInfoMobile?.profileImage }
-                : require("../assets/Images/user.png")
-            }
-            style={
-              dimension === "sm"
-                ? ProfileStyle.ImageUserSM
-                : ProfileStyle.ImageUser
-            }
+                ? {
+                    uri: data?.getUserInfoMobile?.profileImage,
+                  }
+                : require("../assets/Images/user.png"),
+            ]}
+            imageIndex={0}
+            visible={visible}
+            onRequestClose={() => setIsVisible(false)}
           />
         </View>
         <View style={ProfileStyle.ProfileBodyContainer}>

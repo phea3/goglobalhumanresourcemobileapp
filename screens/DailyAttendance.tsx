@@ -110,7 +110,7 @@ export default function DailyAttendance() {
     if (dailyloading) {
       setTimeout(() => {
         setDataload(true);
-      }, 1000);
+      }, 100);
     } else {
       setTimeout(() => {
         setDataload(false);

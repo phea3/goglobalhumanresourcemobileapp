@@ -78,7 +78,7 @@ export default function LeaveScreen() {
             Discription
           </Text>
         </View>
-        <View style={LeaveStyle.LeaveTitleLeftContainer}>
+        <View style={LeaveStyle.LeaveTitleLeftContainer1}>
           <Text
             style={
               dimension === "sm"
@@ -138,12 +138,11 @@ export default function LeaveScreen() {
                       ? LeaveStyle.LeaveBodyReasonTextSM
                       : LeaveStyle.LeaveBodyReasonText
                   }
-                  numberOfLines={1}
                 >
                   {attendance?.description}
                 </Text>
               </View>
-              <View style={LeaveStyle.LeaveTitleLeftContainer}>
+              <View style={LeaveStyle.LeaveTitleLeftContainer1}>
                 <Text
                   style={
                     dimension === "sm"

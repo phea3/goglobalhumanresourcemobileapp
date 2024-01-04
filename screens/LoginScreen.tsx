@@ -239,14 +239,18 @@ export default function LoginScreen() {
           >
             <TextInput
               value={email}
+              autoCorrect={true}
               placeholder="mail@gmail.com"
               style={
                 dimension === "sm"
                   ? LoginStyle.LoginScreenTextInputTextSM
                   : LoginStyle.LoginScreenTextInputText
               }
-              onChangeText={(e) => setEmail(e)}
-              keyboardType="default"
+              onChangeText={(e) => {
+                const updatedText = e.replace(/\s/g, "");
+                setEmail(updatedText);
+              }}
+              keyboardType="email-address"
             />
           </View>
           {email.includes("@gmail.com") ? null : email === "" ? (
@@ -297,13 +301,17 @@ export default function LoginScreen() {
           >
             <TextInput
               value={password}
+              autoCorrect={true}
               placeholder="password"
               style={
                 dimension === "sm"
                   ? LoginStyle.LoginScreenTextInputTextSM
                   : LoginStyle.LoginScreenTextInputText
               }
-              onChangeText={(e) => setPassword(e)}
+              onChangeText={(e) => {
+                const updatedText = e.replace(/\s/g, "");
+                setPassword(updatedText);
+              }}
               keyboardType="default"
               secureTextEntry={eye}
             />

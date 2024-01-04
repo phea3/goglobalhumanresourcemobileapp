@@ -90,7 +90,6 @@ export default function NotificationActiveScreen() {
                 {moment(card?.date).format("DD MMM YY")} | {card?.time}
               </Text>
               <Text
-                numberOfLines={1}
                 style={
                   card?.title === "Leave Cancel" && dimension !== "sm"
                     ? NotificationActionStyle.ActionCommentRed

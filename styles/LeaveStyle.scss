@@ -67,14 +67,22 @@
 }
 
 .LeaveTitleContainer {
-  width: 22%;
+  width: 20%;
   height: 100%;
   align-items: center;
   justify-content: center;
 }
 
 .LeaveTitleLeftContainer {
-  width: 28%;
+  width: 35%;
+  height: 100%;
+  align-items: left;
+  justify-content: center;
+  margin-left: 6px;
+}
+
+.LeaveTitleLeftContainer1 {
+  width: 25%;
   height: 100%;
   align-items: left;
   justify-content: center;
