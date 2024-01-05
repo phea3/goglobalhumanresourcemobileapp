@@ -7,6 +7,7 @@ import NotificationActionStyle from "../styles/NotificationActionStyle.scss";
 import { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { GET_NOTIFICATION_CONTACT } from "../graphql/NotificationAction";
+import SwiperPage from "../includes/SwiperPage";
 
 export default function NotificationActiveScreen() {
   const { dimension } = useContext(AuthContext);
@@ -30,101 +31,118 @@ export default function NotificationActiveScreen() {
   useEffect(() => {
     refetch();
   }, []);
+  const [isScrolling, setIsScrolling] = useState(false);
+
+  const handleScroll = () => {
+    setIsScrolling(true);
+  };
+
+  const handleScrollEnd = () => {
+    setIsScrolling(false);
+  };
 
   return (
-    <View style={NotificationActionStyle.NotificationActionContainer}>
-      <ScrollView
-        contentContainerStyle={{ alignItems: "center" }}
-        style={{ flex: 1, width: "100%" }}
-        showsVerticalScrollIndicator={false}
-      >
-        {NotificationData?.map((card: any, index: number) => (
-          <View style={NotificationActionStyle.ActionCardContainer} key={index}>
-            <View style={NotificationActionStyle.ActionCardBodyLeft}>
-              <View
-                style={
-                  card?.title === "Leave Cancel" && dimension !== "sm"
-                    ? NotificationActionStyle.ActionCardIconRed
-                    : card?.title === "Leave Cancel" && dimension === "sm"
-                    ? NotificationActionStyle.ActionCardIconRedSM
-                    : dimension === "sm"
-                    ? NotificationActionStyle.ActionCardIconSM
-                    : NotificationActionStyle.ActionCardIcon
-                }
-              >
-                <Image
-                  source={require("../assets/Images/briefcase.png")}
+    <SwiperPage path="/home" page="notificationAcc" isScrolling={isScrolling}>
+      <View style={NotificationActionStyle.NotificationActionContainer}>
+        <ScrollView
+          contentContainerStyle={{ alignItems: "center" }}
+          style={{ flex: 1, width: "100%" }}
+          showsVerticalScrollIndicator={false}
+          onScroll={handleScroll}
+          onScrollEndDrag={handleScrollEnd}
+          onMomentumScrollEnd={handleScrollEnd}
+        >
+          {NotificationData?.map((card: any, index: number) => (
+            <View
+              style={NotificationActionStyle.ActionCardContainer}
+              key={index}
+            >
+              <View style={NotificationActionStyle.ActionCardBodyLeft}>
+                <View
                   style={
-                    dimension === "sm"
-                      ? NotificationActionStyle.ActionIconSM
-                      : NotificationActionStyle.ActionIcon
+                    card?.title === "Leave Cancel" && dimension !== "sm"
+                      ? NotificationActionStyle.ActionCardIconRed
+                      : card?.title === "Leave Cancel" && dimension === "sm"
+                      ? NotificationActionStyle.ActionCardIconRedSM
+                      : dimension === "sm"
+                      ? NotificationActionStyle.ActionCardIconSM
+                      : NotificationActionStyle.ActionCardIcon
                   }
-                />
+                >
+                  <Image
+                    source={require("../assets/Images/briefcase.png")}
+                    style={
+                      dimension === "sm"
+                        ? NotificationActionStyle.ActionIconSM
+                        : NotificationActionStyle.ActionIcon
+                    }
+                  />
+                </View>
+              </View>
+              <View style={NotificationActionStyle.ActionCardBodyRight}>
+                <Text
+                  style={
+                    card?.title === "Leave Cancel" && dimension !== "sm"
+                      ? NotificationActionStyle.ActionLeaveTitleRed
+                      : card?.title === "Leave Cancel" && dimension === "sm"
+                      ? NotificationActionStyle.ActionLeaveTitleRedSM
+                      : dimension === "sm"
+                      ? NotificationActionStyle.ActionLeaveTitleSM
+                      : NotificationActionStyle.ActionLeaveTitle
+                  }
+                >
+                  {card?.title}
+                </Text>
+                <Text
+                  style={
+                    card?.title === "Leave Cancel" && dimension !== "sm"
+                      ? NotificationActionStyle.ActionDatTimeRed
+                      : card?.title === "Leave Cancel" && dimension === "sm"
+                      ? NotificationActionStyle.ActionDatTimeRedSM
+                      : dimension === "sm"
+                      ? NotificationActionStyle.ActionDatTimeSM
+                      : NotificationActionStyle.ActionDatTime
+                  }
+                >
+                  {moment(card?.date).format("DD MMM YY")} | {card?.time}
+                </Text>
+                <Text
+                  style={
+                    card?.title === "Leave Cancel" && dimension !== "sm"
+                      ? NotificationActionStyle.ActionCommentRed
+                      : card?.title === "Leave Cancel" && dimension === "sm"
+                      ? NotificationActionStyle.ActionCommentRedSM
+                      : dimension === "sm"
+                      ? NotificationActionStyle.ActionCommentSM
+                      : NotificationActionStyle.ActionComment
+                  }
+                >
+                  {card?.body}
+                </Text>
               </View>
             </View>
-            <View style={NotificationActionStyle.ActionCardBodyRight}>
-              <Text
-                style={
-                  card?.title === "Leave Cancel" && dimension !== "sm"
-                    ? NotificationActionStyle.ActionLeaveTitleRed
-                    : card?.title === "Leave Cancel" && dimension === "sm"
-                    ? NotificationActionStyle.ActionLeaveTitleRedSM
-                    : dimension === "sm"
-                    ? NotificationActionStyle.ActionLeaveTitleSM
-                    : NotificationActionStyle.ActionLeaveTitle
-                }
-              >
-                {card?.title}
-              </Text>
-              <Text
-                style={
-                  card?.title === "Leave Cancel" && dimension !== "sm"
-                    ? NotificationActionStyle.ActionDatTimeRed
-                    : card?.title === "Leave Cancel" && dimension === "sm"
-                    ? NotificationActionStyle.ActionDatTimeRedSM
-                    : dimension === "sm"
-                    ? NotificationActionStyle.ActionDatTimeSM
-                    : NotificationActionStyle.ActionDatTime
-                }
-              >
-                {moment(card?.date).format("DD MMM YY")} | {card?.time}
-              </Text>
-              <Text
-                style={
-                  card?.title === "Leave Cancel" && dimension !== "sm"
-                    ? NotificationActionStyle.ActionCommentRed
-                    : card?.title === "Leave Cancel" && dimension === "sm"
-                    ? NotificationActionStyle.ActionCommentRedSM
-                    : dimension === "sm"
-                    ? NotificationActionStyle.ActionCommentSM
-                    : NotificationActionStyle.ActionComment
-                }
-              >
-                {card?.body}
-              </Text>
-            </View>
-          </View>
-        ))}
-        {NotificationData.length >= limit ? (
-          <TouchableOpacity
-            onPress={() => {
-              setLimit(10 + limit);
-            }}
-            style={{
-              width: "100%",
-              alignItems: "center",
-              justifyContent: "center",
-              height: 40,
-            }}
-          >
-            <Text
-              style={{ fontFamily: "Century-Gothic-Bold", color: "#3c6efb" }}
+          ))}
+          {NotificationData.length >= limit ? (
+            <TouchableOpacity
+              onPress={() => {
+                setLimit(10 + limit);
+              }}
+              style={{
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "center",
+                height: 40,
+              }}
             >
-              {"see more..."}
-            </Text>
-          </TouchableOpacity>
-        ) : null}
-      </ScrollView>
-    </View>
+              <Text
+                style={{ fontFamily: "Century-Gothic-Bold", color: "#3c6efb" }}
+              >
+                {"see more..."}
+              </Text>
+            </TouchableOpacity>
+          ) : null}
+        </ScrollView>
+      </View>
+    </SwiperPage>
   );
 }

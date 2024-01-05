@@ -66,7 +66,8 @@ export default function Router() {
         locationToBack == "/attendance" ||
         locationToBack == "/home/leave" ||
         locationToBack == "/notification/action" ||
-        locationToBack == "/notification/meeting"
+        locationToBack == "/notification/meeting" ||
+        locationToBack == "/"
       ) {
         navigate("/home/main");
       } else if (locationToBack == "/report/daily-attendace") {

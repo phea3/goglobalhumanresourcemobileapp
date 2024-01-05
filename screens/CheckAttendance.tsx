@@ -21,6 +21,7 @@ import CheckModal from "../components/CheckModal";
 import { AuthContext } from "../Context/AuthContext";
 import { getDistance, getPreciseDistance, isPointWithinRadius } from "geolib";
 import { GET_EMPLOYEEBYID } from "../graphql/GetEmployeeById";
+import SwiperPage from "../includes/SwiperPage";
 
 export default function ChecKAttendance({ locate }: any) {
   const { uid } = useContext(AuthContext);
@@ -191,6 +192,22 @@ export default function ChecKAttendance({ locate }: any) {
       },
     });
   };
+  const [isScrolling, setIsScrolling] = useState(false);
+
+  const handleScroll = () => {
+    // Update state to indicate that the user is scrolling
+    setIsScrolling(true);
+
+    // You can perform additional actions while the user is scrolling
+    // For example, you might want to update UI elements or fetch more data
+  };
+
+  const handleScrollEnd = () => {
+    // Update state to indicate that the user has stopped scrolling
+    setIsScrolling(false);
+
+    // Perform additional actions when scrolling stops
+  };
 
   if (errorMsg) {
     return (
@@ -320,326 +337,331 @@ export default function ChecKAttendance({ locate }: any) {
           data={checkData}
         />
         <View style={CheckStyle.CheckContainer}>
-          <View style={LeaveStyle.LeaveBackButtonContainer}>
-            <TouchableOpacity
-              onPress={() => navigate("/home")}
-              style={
-                dimension === "sm"
-                  ? LeaveStyle.LeaveBackButtonSM
-                  : LeaveStyle.LeaveBackButton
-              }
-            >
-              <Image
-                source={require("../assets/Images/back-dark-blue.png")}
-                style={
-                  dimension === "sm"
-                    ? LeaveStyle.LeaveBackButtonIconSM
-                    : LeaveStyle.LeaveBackButtonIcon
-                }
-              />
-              <Text
-                style={
-                  dimension === "sm"
-                    ? LeaveStyle.LeaveBackButtonTitleSM
-                    : LeaveStyle.LeaveBackButtonTitle
-                }
-              >
-                Check In/Out
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          <ScrollView
-            contentContainerStyle={{
-              alignItems: "center",
-              backgroundColor: "#f8f8f8",
-              padding: 10,
-              borderRadius: 10,
-              borderWidth: 1,
-              borderColor: "#dcdcdc",
-            }}
-            style={{
-              flex: 1,
-              width: "100%",
-              padding: 10,
-            }}
-          >
-            <View
-              style={
-                dimension === "sm"
-                  ? HomeStyle.HomeMainSelectDateButtonLabelContainerSM
-                  : HomeStyle.HomeMainSelectDateButtonLabelContainer
-              }
-            >
-              <Text
-                style={
-                  dimension === "sm"
-                    ? HomeStyle.HomeMainSelectDateButtonLabelSM
-                    : HomeStyle.HomeMainSelectDateButtonLabel
-                }
-              >
-                Select Shifts
-              </Text>
-            </View>
-            <View style={CheckStyle.CheckMainSelectDateSection}>
+          <SwiperPage path={"/home"} page="checkAtt" isScrolling={isScrolling}>
+            <View style={LeaveStyle.LeaveBackButtonContainer}>
               <TouchableOpacity
-                style={[
-                  CheckStyle.CheckMainSelectDateButton,
-                  {
-                    marginRight: 10,
-                  },
-                ]}
-                onPress={() => {
-                  setMorning(true);
-                  setAfternoon(false);
-                }}
+                onPress={() => navigate("/home")}
+                style={
+                  dimension === "sm"
+                    ? LeaveStyle.LeaveBackButtonSM
+                    : LeaveStyle.LeaveBackButton
+                }
               >
                 <Image
-                  source={
-                    morning
-                      ? require("../assets/Images/rec.png")
-                      : require("../assets/Images/reced.png")
-                  }
-                  style={[
+                  source={require("../assets/Images/back-dark-blue.png")}
+                  style={
                     dimension === "sm"
-                      ? HomeStyle.HomeMainSelectIconSM
-                      : HomeStyle.HomeMainSelectIcon,
-                    { marginRight: 10 },
-                  ]}
+                      ? LeaveStyle.LeaveBackButtonIconSM
+                      : LeaveStyle.LeaveBackButtonIcon
+                  }
                 />
                 <Text
                   style={
                     dimension === "sm"
-                      ? HomeStyle.HomeMainSelectDateButtonPlaceholderSM
-                      : HomeStyle.HomeMainSelectDateButtonPlaceholder
+                      ? LeaveStyle.LeaveBackButtonTitleSM
+                      : LeaveStyle.LeaveBackButtonTitle
                   }
                 >
-                  Morning
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={CheckStyle.CheckMainSelectDateButton}
-                onPress={() => {
-                  setMorning(false);
-                  setAfternoon(true);
-                }}
-              >
-                <Image
-                  source={
-                    afternoon
-                      ? require("../assets/Images/rec.png")
-                      : require("../assets/Images/reced.png")
-                  }
-                  style={[
-                    dimension === "sm"
-                      ? HomeStyle.HomeMainSelectIconSM
-                      : HomeStyle.HomeMainSelectIcon,
-                    { marginRight: 10 },
-                  ]}
-                />
-                <Text
-                  style={
-                    dimension === "sm"
-                      ? HomeStyle.HomeMainSelectDateButtonPlaceholderSM
-                      : HomeStyle.HomeMainSelectDateButtonPlaceholder
-                  }
-                >
-                  Afternoon
+                  Check In/Out
                 </Text>
               </TouchableOpacity>
             </View>
-            {locate ? (
-              <>
-                <TouchableOpacity
-                  style={
-                    dimension === "sm"
-                      ? CheckStyle.CheckInButtonContainerSM
-                      : CheckStyle.CheckInButtonContainer
-                  }
-                  onPress={async () => {
-                    HandleCheckAttendance("checkIn");
-                  }}
-                >
-                  <Text
-                    style={
-                      dimension === "sm"
-                        ? CheckStyle.CheckButtonTextSM
-                        : CheckStyle.CheckButtonText
-                    }
-                  >
-                    CHECK IN
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={
-                    dimension === "sm"
-                      ? CheckStyle.CheckOutButtonContainerSM
-                      : CheckStyle.CheckOutButtonContainer
-                  }
-                  onPress={() => {
-                    HandleCheckAttendance("checkOut");
-                  }}
-                >
-                  <Text
-                    style={
-                      dimension === "sm"
-                        ? CheckStyle.CheckButtonTextSM
-                        : CheckStyle.CheckButtonText
-                    }
-                  >
-                    CHECK OUT
-                  </Text>
-                </TouchableOpacity>
-              </>
-            ) : (
-              <>
-                <View
-                  style={
-                    dimension === "sm"
-                      ? CheckStyle.CheckDisableButtonContainerSM
-                      : CheckStyle.CheckDisableButtonContainer
-                  }
-                >
-                  <Text
-                    style={
-                      dimension === "sm"
-                        ? CheckStyle.CheckButtonTextSM
-                        : CheckStyle.CheckButtonText
-                    }
-                  >
-                    CHECK IN
-                  </Text>
-                </View>
-                <View
-                  style={
-                    dimension === "sm"
-                      ? CheckStyle.CheckOutDisableButtonContainerSM
-                      : CheckStyle.CheckOutDisableButtonContainer
-                  }
-                >
-                  <Text
-                    style={
-                      dimension === "sm"
-                        ? CheckStyle.CheckButtonTextSM
-                        : CheckStyle.CheckButtonText
-                    }
-                  >
-                    CHECK OUT
-                  </Text>
-                </View>
-              </>
-            )}
 
-            <View style={CheckStyle.CheckOutLocationFullContainer}>
+            <ScrollView
+              contentContainerStyle={{
+                alignItems: "center",
+                backgroundColor: "#f8f8f8",
+                padding: 10,
+                borderRadius: 10,
+                borderWidth: 1,
+                borderColor: "#dcdcdc",
+              }}
+              style={{
+                flex: 1,
+                width: "100%",
+                padding: 10,
+              }}
+              onScroll={handleScroll}
+              onScrollEndDrag={handleScrollEnd}
+              onMomentumScrollEnd={handleScrollEnd}
+            >
               <View
-                style={[
-                  CheckStyle.CheckOutLocationContainer,
-                  {
-                    padding: 10,
-                    borderColor:
-                      locate?.coords.latitude >= 13.34572060724703 &&
-                      locate?.coords.latitude <= 13.349565026819539 &&
-                      locate?.coords.longitude >= 103.84319363518682 &&
-                      locate?.coords.longitude <= 103.84595763628897
-                        ? "green"
-                        : "red",
-                  },
-                ]}
+                style={
+                  dimension === "sm"
+                    ? HomeStyle.HomeMainSelectDateButtonLabelContainerSM
+                    : HomeStyle.HomeMainSelectDateButtonLabelContainer
+                }
               >
                 <Text
-                  style={[
+                  style={
                     dimension === "sm"
-                      ? CheckStyle.CheckOutLocationTitleSM
-                      : CheckStyle.CheckOutLocationTitle,
-                    {
-                      color:
-                        // location?.coords.latitude || locate?.coords.latitude
-                        locate === null
-                          ? "#9aa3a6"
-                          : locate?.coords.latitude >= 13.34572060724703 &&
-                            locate?.coords.latitude <= 13.349565026819539 &&
-                            locate?.coords.longitude >= 103.84319363518682 &&
-                            locate?.coords.longitude <= 103.84595763628897
-                          ? "green"
-                          : "red",
-                    },
-                  ]}
+                      ? HomeStyle.HomeMainSelectDateButtonLabelSM
+                      : HomeStyle.HomeMainSelectDateButtonLabel
+                  }
                 >
-                  {locate?.coords.latitude >= 13.34572060724703 &&
-                  locate?.coords.latitude <= 13.349565026819539 &&
-                  locate?.coords.longitude >= 103.84319363518682 &&
-                  locate?.coords.longitude <= 103.84595763628897
-                    ? "Coordinates are within the specified range."
-                    : "Coordinates are outside the specified range."}
-                </Text>
-
-                <Text
-                  style={[
-                    dimension === "sm"
-                      ? CheckStyle.CheckOutLocationBodySM
-                      : CheckStyle.CheckOutLocationBody,
-                    {
-                      color:
-                        // location?.coords.latitude || locate?.coords.latitude
-                        locate === null
-                          ? "#9aa3a6"
-                          : locate?.coords.latitude >= 13.34572060724703 &&
-                            locate?.coords.latitude <= 13.349565026819539 &&
-                            locate?.coords.longitude >= 103.84319363518682 &&
-                            locate?.coords.longitude <= 103.84595763628897
-                          ? "green"
-                          : "red",
-                      paddingTop: 10,
-                    },
-                  ]}
-                >
-                  Latitude:{" "}
-                  {locate?.coords.latitude ? locate?.coords.latitude : ""},
-                  {"\n"}Longitude:{" "}
-                  {locate?.coords.longitude ? locate?.coords.longitude : ""}
+                  Select Shifts
                 </Text>
               </View>
-              <TouchableOpacity
-                style={
-                  dimension === "sm"
-                    ? CheckStyle.CheckOutLocationRefetchButtonSM
-                    : CheckStyle.CheckOutLocationRefetchButton
-                }
-                onPress={() => {
-                  getLocation();
-                }}
-              >
-                {locate === null ? (
-                  <Image
-                    source={require("../assets/Images/Data-Transfer.gif")}
-                    style={
-                      dimension === "sm"
-                        ? { width: 80, height: 80 }
-                        : { width: 100, height: 100 }
-                    }
-                    resizeMode="contain"
-                  />
-                ) : (
+              <View style={CheckStyle.CheckMainSelectDateSection}>
+                <TouchableOpacity
+                  style={[
+                    CheckStyle.CheckMainSelectDateButton,
+                    {
+                      marginRight: 10,
+                    },
+                  ]}
+                  onPress={() => {
+                    setMorning(true);
+                    setAfternoon(false);
+                  }}
+                >
                   <Image
                     source={
-                      locate?.coords.latitude >= 13.34572060724703 &&
-                      locate?.coords.latitude <= 13.349565026819539 &&
-                      locate?.coords.longitude >= 103.84319363518682 &&
-                      locate?.coords.longitude <= 103.84595763628897
-                        ? require("../assets/Images/allowlocation.gif")
-                        : require("../assets/Images/redlocation.gif")
+                      morning
+                        ? require("../assets/Images/rec.png")
+                        : require("../assets/Images/reced.png")
                     }
+                    style={[
+                      dimension === "sm"
+                        ? HomeStyle.HomeMainSelectIconSM
+                        : HomeStyle.HomeMainSelectIcon,
+                      { marginRight: 10 },
+                    ]}
+                  />
+                  <Text
                     style={
                       dimension === "sm"
-                        ? CheckStyle.CheckOutLocationRefetchIconSM
-                        : CheckStyle.CheckOutLocationRefetchIcon
+                        ? HomeStyle.HomeMainSelectDateButtonPlaceholderSM
+                        : HomeStyle.HomeMainSelectDateButtonPlaceholder
                     }
-                    resizeMode="contain"
+                  >
+                    Morning
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={CheckStyle.CheckMainSelectDateButton}
+                  onPress={() => {
+                    setMorning(false);
+                    setAfternoon(true);
+                  }}
+                >
+                  <Image
+                    source={
+                      afternoon
+                        ? require("../assets/Images/rec.png")
+                        : require("../assets/Images/reced.png")
+                    }
+                    style={[
+                      dimension === "sm"
+                        ? HomeStyle.HomeMainSelectIconSM
+                        : HomeStyle.HomeMainSelectIcon,
+                      { marginRight: 10 },
+                    ]}
                   />
-                )}
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
+                  <Text
+                    style={
+                      dimension === "sm"
+                        ? HomeStyle.HomeMainSelectDateButtonPlaceholderSM
+                        : HomeStyle.HomeMainSelectDateButtonPlaceholder
+                    }
+                  >
+                    Afternoon
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              {locate ? (
+                <>
+                  <TouchableOpacity
+                    style={
+                      dimension === "sm"
+                        ? CheckStyle.CheckInButtonContainerSM
+                        : CheckStyle.CheckInButtonContainer
+                    }
+                    onPress={async () => {
+                      HandleCheckAttendance("checkIn");
+                    }}
+                  >
+                    <Text
+                      style={
+                        dimension === "sm"
+                          ? CheckStyle.CheckButtonTextSM
+                          : CheckStyle.CheckButtonText
+                      }
+                    >
+                      CHECK IN
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={
+                      dimension === "sm"
+                        ? CheckStyle.CheckOutButtonContainerSM
+                        : CheckStyle.CheckOutButtonContainer
+                    }
+                    onPress={() => {
+                      HandleCheckAttendance("checkOut");
+                    }}
+                  >
+                    <Text
+                      style={
+                        dimension === "sm"
+                          ? CheckStyle.CheckButtonTextSM
+                          : CheckStyle.CheckButtonText
+                      }
+                    >
+                      CHECK OUT
+                    </Text>
+                  </TouchableOpacity>
+                </>
+              ) : (
+                <>
+                  <View
+                    style={
+                      dimension === "sm"
+                        ? CheckStyle.CheckDisableButtonContainerSM
+                        : CheckStyle.CheckDisableButtonContainer
+                    }
+                  >
+                    <Text
+                      style={
+                        dimension === "sm"
+                          ? CheckStyle.CheckButtonTextSM
+                          : CheckStyle.CheckButtonText
+                      }
+                    >
+                      CHECK IN
+                    </Text>
+                  </View>
+                  <View
+                    style={
+                      dimension === "sm"
+                        ? CheckStyle.CheckOutDisableButtonContainerSM
+                        : CheckStyle.CheckOutDisableButtonContainer
+                    }
+                  >
+                    <Text
+                      style={
+                        dimension === "sm"
+                          ? CheckStyle.CheckButtonTextSM
+                          : CheckStyle.CheckButtonText
+                      }
+                    >
+                      CHECK OUT
+                    </Text>
+                  </View>
+                </>
+              )}
+
+              <View style={CheckStyle.CheckOutLocationFullContainer}>
+                <View
+                  style={[
+                    CheckStyle.CheckOutLocationContainer,
+                    {
+                      padding: 10,
+                      borderColor:
+                        locate?.coords.latitude >= 13.34572060724703 &&
+                        locate?.coords.latitude <= 13.349565026819539 &&
+                        locate?.coords.longitude >= 103.84319363518682 &&
+                        locate?.coords.longitude <= 103.84595763628897
+                          ? "green"
+                          : "red",
+                    },
+                  ]}
+                >
+                  <Text
+                    style={[
+                      dimension === "sm"
+                        ? CheckStyle.CheckOutLocationTitleSM
+                        : CheckStyle.CheckOutLocationTitle,
+                      {
+                        color:
+                          // location?.coords.latitude || locate?.coords.latitude
+                          locate === null
+                            ? "#9aa3a6"
+                            : locate?.coords.latitude >= 13.34572060724703 &&
+                              locate?.coords.latitude <= 13.349565026819539 &&
+                              locate?.coords.longitude >= 103.84319363518682 &&
+                              locate?.coords.longitude <= 103.84595763628897
+                            ? "green"
+                            : "red",
+                      },
+                    ]}
+                  >
+                    {locate?.coords.latitude >= 13.34572060724703 &&
+                    locate?.coords.latitude <= 13.349565026819539 &&
+                    locate?.coords.longitude >= 103.84319363518682 &&
+                    locate?.coords.longitude <= 103.84595763628897
+                      ? "Coordinates are within the specified range."
+                      : "Coordinates are outside the specified range."}
+                  </Text>
+
+                  <Text
+                    style={[
+                      dimension === "sm"
+                        ? CheckStyle.CheckOutLocationBodySM
+                        : CheckStyle.CheckOutLocationBody,
+                      {
+                        color:
+                          // location?.coords.latitude || locate?.coords.latitude
+                          locate === null
+                            ? "#9aa3a6"
+                            : locate?.coords.latitude >= 13.34572060724703 &&
+                              locate?.coords.latitude <= 13.349565026819539 &&
+                              locate?.coords.longitude >= 103.84319363518682 &&
+                              locate?.coords.longitude <= 103.84595763628897
+                            ? "green"
+                            : "red",
+                        paddingTop: 10,
+                      },
+                    ]}
+                  >
+                    Latitude:{" "}
+                    {locate?.coords.latitude ? locate?.coords.latitude : ""},
+                    {"\n"}Longitude:{" "}
+                    {locate?.coords.longitude ? locate?.coords.longitude : ""}
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  style={
+                    dimension === "sm"
+                      ? CheckStyle.CheckOutLocationRefetchButtonSM
+                      : CheckStyle.CheckOutLocationRefetchButton
+                  }
+                  onPress={() => {
+                    getLocation();
+                  }}
+                >
+                  {locate === null ? (
+                    <Image
+                      source={require("../assets/Images/Data-Transfer.gif")}
+                      style={
+                        dimension === "sm"
+                          ? { width: 80, height: 80 }
+                          : { width: 100, height: 100 }
+                      }
+                      resizeMode="contain"
+                    />
+                  ) : (
+                    <Image
+                      source={
+                        locate?.coords.latitude >= 13.34572060724703 &&
+                        locate?.coords.latitude <= 13.349565026819539 &&
+                        locate?.coords.longitude >= 103.84319363518682 &&
+                        locate?.coords.longitude <= 103.84595763628897
+                          ? require("../assets/Images/allowlocation.gif")
+                          : require("../assets/Images/redlocation.gif")
+                      }
+                      style={
+                        dimension === "sm"
+                          ? CheckStyle.CheckOutLocationRefetchIconSM
+                          : CheckStyle.CheckOutLocationRefetchIcon
+                      }
+                      resizeMode="contain"
+                    />
+                  )}
+                </TouchableOpacity>
+              </View>
+            </ScrollView>
+          </SwiperPage>
         </View>
       </>
     );

@@ -13,6 +13,7 @@ import auth from "../Auth/auth";
 import useLoginUser from "../Hook/useLoginUser";
 import { GET_USER_INFO } from "../graphql/GetUserInfo";
 import * as Animatable from "react-native-animatable";
+import SwiperPage from "../includes/SwiperPage";
 
 export default function ProfileScreen() {
   const location = useLocation();
@@ -61,88 +62,14 @@ export default function ProfileScreen() {
           style={{
             width: "100%",
             height: "85%",
-            backgroundColor: "white",
+            backgroundColor: "#0d3aa9",
             position: "absolute",
           }}
         />
-        <View style={ProfileStyle.ProfileTopContainer}>
-          <View style={ProfileStyle.ProfileFirstTopContainer} />
-          <View style={ProfileStyle.ProfileSecondTopContainer}>
-            <Text
-              style={
-                dimension === "sm"
-                  ? ProfileStyle.UserNameSM
-                  : ProfileStyle.UserName
-              }
-            >
-              {data?.getUserInfoMobile?.latinName
-                ? data?.getUserInfoMobile?.latinName
-                : "--:--"}
-            </Text>
-          </View>
-          <TouchableOpacity
-            activeOpacity={1}
-            style={{ position: "absolute" }}
-            onPress={() => {
-              if (data?.getUserInfoMobile?.profileImage) {
-                setIsVisible(true);
-              }
-            }}
-          >
-            <Animatable.Image
-              animation={"fadeIn"}
-              source={
-                data?.getUserInfoMobile?.profileImage
-                  ? { uri: data?.getUserInfoMobile?.profileImage }
-                  : require("../assets/Images/user.png")
-              }
-              style={
-                dimension === "sm"
-                  ? ProfileStyle.ImageUserSM
-                  : ProfileStyle.ImageUser
-              }
-            />
-          </TouchableOpacity>
-
-          <ImageView
-            images={[
-              data?.getUserInfoMobile?.profileImage
-                ? {
-                    uri: data?.getUserInfoMobile?.profileImage,
-                  }
-                : require("../assets/Images/user.png"),
-            ]}
-            imageIndex={0}
-            visible={visible}
-            onRequestClose={() => setIsVisible(false)}
-          />
-        </View>
-        <View style={ProfileStyle.ProfileBodyContainer}>
-          <View>
-            <Text
-              style={
-                dimension === "sm"
-                  ? ProfileStyle.UserPositionSM
-                  : ProfileStyle.UserPosition
-              }
-            >
-              Position:{" "}
-              {data?.getUserInfoMobile?.position
-                ? data?.getUserInfoMobile?.position
-                : "--:--"}
-            </Text>
-          </View>
-          <View style={ProfileStyle.LogoutContainer}>
-            <View
-              style={{
-                flex: 1,
-                width: "90%",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#f1f1f1",
-                borderRadius: 15,
-              }}
-            >
+        <SwiperPage path="/home" page="profile" isScrolling={false}>
+          <View style={ProfileStyle.ProfileTopContainer}>
+            <View style={ProfileStyle.ProfileFirstTopContainer} />
+            <View style={ProfileStyle.ProfileSecondTopContainer}>
               <Text
                 style={
                   dimension === "sm"
@@ -150,32 +77,108 @@ export default function ProfileScreen() {
                     : ProfileStyle.UserName
                 }
               >
-                Empty
+                {data?.getUserInfoMobile?.latinName
+                  ? data?.getUserInfoMobile?.latinName
+                  : "--:--"}
               </Text>
             </View>
-
             <TouchableOpacity
-              style={
-                dimension === "sm"
-                  ? ProfileStyle.LogoutScreenLogoutButtonSM
-                  : ProfileStyle.LogoutScreenLogoutButton
-              }
+              activeOpacity={1}
+              style={{ position: "absolute" }}
               onPress={() => {
-                handleOpenModal();
+                if (data?.getUserInfoMobile?.profileImage) {
+                  setIsVisible(true);
+                }
               }}
             >
+              <Animatable.Image
+                animation={"fadeIn"}
+                source={
+                  data?.getUserInfoMobile?.profileImage
+                    ? { uri: data?.getUserInfoMobile?.profileImage }
+                    : require("../assets/Images/user.png")
+                }
+                style={
+                  dimension === "sm"
+                    ? ProfileStyle.ImageUserSM
+                    : ProfileStyle.ImageUser
+                }
+              />
+            </TouchableOpacity>
+
+            <ImageView
+              images={[
+                data?.getUserInfoMobile?.profileImage
+                  ? {
+                      uri: data?.getUserInfoMobile?.profileImage,
+                    }
+                  : require("../assets/Images/user.png"),
+              ]}
+              imageIndex={0}
+              visible={visible}
+              onRequestClose={() => setIsVisible(false)}
+            />
+          </View>
+          <View style={ProfileStyle.ProfileBodyContainer}>
+            <View>
               <Text
                 style={
                   dimension === "sm"
-                    ? ProfileStyle.LogoutScreenLogoutButtonTextSM
-                    : ProfileStyle.LogoutScreenLogoutButtonText
+                    ? ProfileStyle.UserPositionSM
+                    : ProfileStyle.UserPosition
                 }
               >
-                Logout
+                Position:{" "}
+                {data?.getUserInfoMobile?.position
+                  ? data?.getUserInfoMobile?.position
+                  : "--:--"}
               </Text>
-            </TouchableOpacity>
+            </View>
+            <View style={ProfileStyle.LogoutContainer}>
+              <View
+                style={{
+                  flex: 1,
+                  width: "90%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "#f1f1f1",
+                  borderRadius: 15,
+                }}
+              >
+                <Text
+                  style={
+                    dimension === "sm"
+                      ? ProfileStyle.UserNameSM
+                      : ProfileStyle.UserName
+                  }
+                >
+                  Empty
+                </Text>
+              </View>
+
+              <TouchableOpacity
+                style={
+                  dimension === "sm"
+                    ? ProfileStyle.LogoutScreenLogoutButtonSM
+                    : ProfileStyle.LogoutScreenLogoutButton
+                }
+                onPress={() => {
+                  handleOpenModal();
+                }}
+              >
+                <Text
+                  style={
+                    dimension === "sm"
+                      ? ProfileStyle.LogoutScreenLogoutButtonTextSM
+                      : ProfileStyle.LogoutScreenLogoutButtonText
+                  }
+                >
+                  Logout
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
+        </SwiperPage>
       </View>
       {/* ========================START MODAL ALERT============================ */}
       <Modal

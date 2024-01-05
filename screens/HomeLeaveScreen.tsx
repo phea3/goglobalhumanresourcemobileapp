@@ -21,6 +21,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { REQUEST_LEAVE } from "../graphql/RequestLeave";
 import { GETTIMEOFFSFORMOBILE } from "../graphql/GetTimeOffsForMobile";
 import KeyboardDismissableArea from "../functions/KeyboardDismissableArea";
+import SwiperPage from "../includes/SwiperPage";
 
 export default function HomeLeaveScreen() {
   const { dimension } = useContext(AuthContext);
@@ -162,8 +163,19 @@ export default function HomeLeaveScreen() {
     };
   }, []);
 
+  const [isScrolling, setIsScrolling] = useState(false);
+
+  const handleScroll = () => {
+    setIsScrolling(true);
+  };
+
+  const handleScrollEnd = () => {
+    setIsScrolling(false);
+  };
+
   return (
     <View style={HomeStyle.HomeMainContentContainer}>
+      {/* <SwiperPage path={"/home"} isScrolling={isScrolling}> */}
       <View
         style={
           dimension === "sm"
@@ -203,6 +215,9 @@ export default function HomeLeaveScreen() {
         }}
         style={HomeStyle.HomeMainScrollviewStyle}
         showsVerticalScrollIndicator={false}
+        onScroll={handleScroll}
+        onScrollEndDrag={handleScrollEnd}
+        onMomentumScrollEnd={handleScrollEnd}
       >
         <KeyboardDismissableArea />
         {!isKeyboardVisible ? (
@@ -670,6 +685,7 @@ export default function HomeLeaveScreen() {
           </TouchableOpacity>
         ) : null}
       </ScrollView>
+      {/* </SwiperPage> */}
     </View>
   );
 }

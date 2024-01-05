@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { Outlet } from "react-router-native";
 import LayoutStyle from "../styles/LayoutStyle.scss";
 import Tabview from "../includes/TabView";
+import SwiperPage from "../includes/SwiperPage";
 
 export default function NotificationLayout() {
   return (

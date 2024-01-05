@@ -8,6 +8,7 @@ import moment from "moment";
 import { AuthContext } from "../Context/AuthContext";
 import HomeStyle from "../styles/HomeStyle.scss";
 import * as Animatable from "react-native-animatable";
+import SwiperPage from "../includes/SwiperPage";
 
 export default function AttendanceScreen() {
   const navigate = useNavigate();
@@ -40,185 +41,199 @@ export default function AttendanceScreen() {
   useEffect(() => {
     AttendanceRefetch();
   }, []);
+  const [isScrolling, setIsScrolling] = useState(false);
+
+  const handleScroll = () => {
+    setIsScrolling(true);
+  };
+
+  const handleScrollEnd = () => {
+    setIsScrolling(false);
+  };
 
   return (
     <View style={AttendanceStyle.AttendanceContainer}>
-      <View style={AttendanceStyle.AttendanceBackButtonContainer}>
-        <TouchableOpacity
-          onPress={() => navigate("/home")}
-          style={AttendanceStyle.AttendanceBackButton}
-        >
-          <Image
-            source={require("../assets/Images/back-dark-blue.png")}
-            style={
-              dimension === "sm"
-                ? AttendanceStyle.AttendanceBackButtonIconSM
-                : AttendanceStyle.AttendanceBackButtonIcon
-            }
-          />
-          <Text
-            style={
-              dimension === "sm"
-                ? AttendanceStyle.AttendanceBackButtonTitleSM
-                : AttendanceStyle.AttendanceBackButtonTitle
-            }
+      <SwiperPage path={"/home"} page="attendance" isScrolling={isScrolling}>
+        <View style={AttendanceStyle.AttendanceBackButtonContainer}>
+          <TouchableOpacity
+            onPress={() => navigate("/home")}
+            style={AttendanceStyle.AttendanceBackButton}
           >
-            Attendances
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={AttendanceStyle.AttendanceTitlesContainer}>
-        <View style={AttendanceStyle.AttendanceDateTitleContainer}>
-          <Text
-            style={
-              dimension === "sm"
-                ? AttendanceStyle.AttendanceTitleTextSM
-                : AttendanceStyle.AttendanceTitleText
-            }
-          >
-            Date
-          </Text>
-        </View>
-        <View style={AttendanceStyle.AttendanceTitleContainer}>
-          <Text
-            style={
-              dimension === "sm"
-                ? AttendanceStyle.AttendanceTitleTextSM
-                : AttendanceStyle.AttendanceTitleText
-            }
-          >
-            Morning
-          </Text>
-        </View>
-        <View style={AttendanceStyle.AttendanceTitleContainer}>
-          <Text
-            style={
-              dimension === "sm"
-                ? AttendanceStyle.AttendanceTitleTextSM
-                : AttendanceStyle.AttendanceTitleText
-            }
-          >
-            Afternoon
-          </Text>
-        </View>
-        <View style={AttendanceStyle.AttendanceFineTitleContainer}>
-          <Text
-            style={
-              dimension === "sm"
-                ? AttendanceStyle.AttendanceTitleTextSM
-                : AttendanceStyle.AttendanceTitleText
-            }
-          >
-            Fine
-          </Text>
-        </View>
-      </View>
-      {load ? (
-        <View style={HomeStyle.HomeContentContainer}>
-          <Image
-            source={require("../assets/Images/loader-1.gif")}
-            style={{ width: 100, height: 100 }}
-          />
-        </View>
-      ) : (
-        <ScrollView
-          contentContainerStyle={{ alignItems: "center" }}
-          style={{ flex: 1, width: "100%" }}
-          showsVerticalScrollIndicator={false}
-        >
-          {AttendanceData?.getAttendanceMobile.map(
-            (attendance: any, index: number) => (
-              <Animatable.View
-                style={AttendanceStyle.AttendanceBodyContainer}
-                key={index}
-                animation={load ? "fadeInUp" : "fadeInUp"}
-              >
-                <View style={AttendanceStyle.AttendanceDateTitleContainer}>
-                  <Text
-                    style={
-                      dimension === "sm"
-                        ? AttendanceStyle.AttendanceBodyTextSM
-                        : AttendanceStyle.AttendanceBodyText
-                    }
-                  >
-                    {moment(attendance?.date).format("DD MMM YY")}
-                  </Text>
-                </View>
-                <View style={AttendanceStyle.AttendanceTitleContainer}>
-                  <Text
-                    style={
-                      dimension === "sm"
-                        ? AttendanceStyle.AttendanceBodyTextSM
-                        : AttendanceStyle.AttendanceBodyText
-                    }
-                  >
-                    {attendance?.morning}
-                  </Text>
-                </View>
-                <View style={AttendanceStyle.AttendanceTitleContainer}>
-                  <Text
-                    style={
-                      dimension === "sm"
-                        ? AttendanceStyle.AttendanceBodyTextSM
-                        : AttendanceStyle.AttendanceBodyText
-                    }
-                  >
-                    {attendance?.afternoon}
-                  </Text>
-                </View>
-                <View style={AttendanceStyle.AttendanceFineTitleContainer}>
-                  {attendance?.fine > 0 ? (
-                    <Text
-                      style={
-                        dimension === "sm"
-                          ? AttendanceStyle.AttendanceBodyFineTextSM
-                          : AttendanceStyle.AttendanceBodyFineText
-                      }
-                    >
-                      ${attendance?.fine}
-                    </Text>
-                  ) : (
-                    <Text
-                      style={
-                        dimension === "sm"
-                          ? AttendanceStyle.AttendanceBodyNoFineTextSM
-                          : AttendanceStyle.AttendanceBodyNoFineText
-                      }
-                    >
-                      ${attendance?.fine}
-                    </Text>
-                  )}
-                </View>
-              </Animatable.View>
-            )
-          )}
-
-          {AttendanceData?.getAttendanceMobile.length >= limit ? (
-            <TouchableOpacity
-              onPress={() => {
-                setLimit(10 + limit);
-              }}
-              style={{
-                width: "100%",
-                alignItems: "center",
-                justifyContent: "center",
-                height: 40,
-              }}
+            <Image
+              source={require("../assets/Images/back-dark-blue.png")}
+              style={
+                dimension === "sm"
+                  ? AttendanceStyle.AttendanceBackButtonIconSM
+                  : AttendanceStyle.AttendanceBackButtonIcon
+              }
+            />
+            <Text
+              style={
+                dimension === "sm"
+                  ? AttendanceStyle.AttendanceBackButtonTitleSM
+                  : AttendanceStyle.AttendanceBackButtonTitle
+              }
             >
-              <Text
+              Attendances
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={AttendanceStyle.AttendanceTitlesContainer}>
+          <View style={AttendanceStyle.AttendanceDateTitleContainer}>
+            <Text
+              style={
+                dimension === "sm"
+                  ? AttendanceStyle.AttendanceTitleTextSM
+                  : AttendanceStyle.AttendanceTitleText
+              }
+            >
+              Date
+            </Text>
+          </View>
+          <View style={AttendanceStyle.AttendanceTitleContainer}>
+            <Text
+              style={
+                dimension === "sm"
+                  ? AttendanceStyle.AttendanceTitleTextSM
+                  : AttendanceStyle.AttendanceTitleText
+              }
+            >
+              Morning
+            </Text>
+          </View>
+          <View style={AttendanceStyle.AttendanceTitleContainer}>
+            <Text
+              style={
+                dimension === "sm"
+                  ? AttendanceStyle.AttendanceTitleTextSM
+                  : AttendanceStyle.AttendanceTitleText
+              }
+            >
+              Afternoon
+            </Text>
+          </View>
+          <View style={AttendanceStyle.AttendanceFineTitleContainer}>
+            <Text
+              style={
+                dimension === "sm"
+                  ? AttendanceStyle.AttendanceTitleTextSM
+                  : AttendanceStyle.AttendanceTitleText
+              }
+            >
+              Fine
+            </Text>
+          </View>
+        </View>
+        {load ? (
+          <View style={HomeStyle.HomeContentContainer}>
+            <Image
+              source={require("../assets/Images/loader-1.gif")}
+              style={{ width: 100, height: 100 }}
+            />
+          </View>
+        ) : (
+          <ScrollView
+            contentContainerStyle={{ alignItems: "center" }}
+            style={{ flex: 1, width: "100%" }}
+            showsVerticalScrollIndicator={false}
+            onScroll={handleScroll}
+            onScrollEndDrag={handleScrollEnd}
+            onMomentumScrollEnd={handleScrollEnd}
+          >
+            {AttendanceData?.getAttendanceMobile.map(
+              (attendance: any, index: number) => (
+                <Animatable.View
+                  style={AttendanceStyle.AttendanceBodyContainer}
+                  key={index}
+                  animation={load ? "fadeInUp" : "fadeInUp"}
+                >
+                  <View style={AttendanceStyle.AttendanceDateTitleContainer}>
+                    <Text
+                      style={
+                        dimension === "sm"
+                          ? AttendanceStyle.AttendanceBodyTextSM
+                          : AttendanceStyle.AttendanceBodyText
+                      }
+                    >
+                      {moment(attendance?.date).format("DD MMM YY")}
+                    </Text>
+                  </View>
+                  <View style={AttendanceStyle.AttendanceTitleContainer}>
+                    <Text
+                      style={
+                        dimension === "sm"
+                          ? AttendanceStyle.AttendanceBodyTextSM
+                          : AttendanceStyle.AttendanceBodyText
+                      }
+                    >
+                      {attendance?.morning}
+                    </Text>
+                  </View>
+                  <View style={AttendanceStyle.AttendanceTitleContainer}>
+                    <Text
+                      style={
+                        dimension === "sm"
+                          ? AttendanceStyle.AttendanceBodyTextSM
+                          : AttendanceStyle.AttendanceBodyText
+                      }
+                    >
+                      {attendance?.afternoon}
+                    </Text>
+                  </View>
+                  <View style={AttendanceStyle.AttendanceFineTitleContainer}>
+                    {attendance?.fine > 0 ? (
+                      <Text
+                        style={
+                          dimension === "sm"
+                            ? AttendanceStyle.AttendanceBodyFineTextSM
+                            : AttendanceStyle.AttendanceBodyFineText
+                        }
+                      >
+                        ${attendance?.fine}
+                      </Text>
+                    ) : (
+                      <Text
+                        style={
+                          dimension === "sm"
+                            ? AttendanceStyle.AttendanceBodyNoFineTextSM
+                            : AttendanceStyle.AttendanceBodyNoFineText
+                        }
+                      >
+                        ${attendance?.fine}
+                      </Text>
+                    )}
+                  </View>
+                </Animatable.View>
+              )
+            )}
+
+            {AttendanceData?.getAttendanceMobile.length >= limit ? (
+              <TouchableOpacity
+                onPress={() => {
+                  setLimit(10 + limit);
+                }}
                 style={{
-                  fontFamily: "Century-Gothic-Bold",
-                  color: "#3c6efb",
-                  fontSize: dimension === "sm" ? 12 : 16,
+                  width: "100%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: 50,
                 }}
               >
-                {"see more..."}
-              </Text>
-            </TouchableOpacity>
-          ) : null}
-        </ScrollView>
-      )}
+                <Text
+                  style={{
+                    fontFamily: "Century-Gothic-Bold",
+                    color: "#3c6efb",
+                    fontSize: dimension === "sm" ? 12 : 16,
+                  }}
+                >
+                  {"see more..."}
+                </Text>
+              </TouchableOpacity>
+            ) : null}
+          </ScrollView>
+        )}
+      </SwiperPage>
     </View>
   );
 }

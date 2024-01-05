@@ -9,12 +9,14 @@ import { useNavigate } from "react-router-native";
 interface SwiperPageProps {
   children: React.ReactNode;
   path: string;
+  page: string;
   isScrolling: boolean;
 }
 
 export default function SwiperPage({
   children,
   path,
+  page,
   isScrolling,
 }: SwiperPageProps): React.JSX.Element {
   const navigate = useNavigate();
@@ -39,7 +41,7 @@ export default function SwiperPage({
       if (event.nativeEvent.translationX > -100) {
         // Perform navigation or any other action
         // console.log("Swiped left, perform action");
-        if (event.nativeEvent.translationX > 200) {
+        if (event.nativeEvent.translationX > 180) {
           // console.log(event.nativeEvent.translationX);
           navigate(path);
         }
@@ -80,7 +82,12 @@ export default function SwiperPage({
     // You can customize the left actions here
     return (
       <View
-        style={{ flex: 1, justifyContent: "center", alignItems: "flex-start" }}
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "flex-start",
+          width: "100%",
+        }}
       >
         {/* <Text style={{ padding: 10, backgroundColor: "blue", color: "white" }}>
           Left Action
@@ -123,26 +130,49 @@ export default function SwiperPage({
       </PanGestureHandler>
     );
   } else {
-    return (
-      <Swipeable
-        enabled={!isScrolling}
-        onEnded={onNavigate}
-        renderLeftActions={renderLeftActions}
-        // renderRightActions={renderRightActions}
-        // onSwipeableClose={onNavigate}
-      >
-        <Animated.View
-          style={{
-            flex: 1,
-            width: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-            transform: [{ translateX: translateX }],
-          }}
+    if (page === "report" || page === "checkAtt" || page === "profile") {
+      return (
+        <PanGestureHandler
+          enabled={!isScrolling}
+          onGestureEvent={onGestureEvent}
+          onHandlerStateChange={(event) => onHandlerStateChange(event)}
         >
-          {children}
-        </Animated.View>
-      </Swipeable>
-    );
+          <Animated.View
+            style={{
+              flex: 1,
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              transform: [{ translateX: translateX }],
+            }}
+          >
+            {children}
+          </Animated.View>
+        </PanGestureHandler>
+      );
+    } else {
+      return (
+        <Swipeable
+          enabled={!isScrolling}
+          onEnded={onNavigate}
+          renderLeftActions={renderLeftActions}
+          // renderRightActions={renderRightActions}
+          // onSwipeableClose={onNavigate}
+        >
+          <Animated.View
+            style={{
+              flex: 1,
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              transform: [{ translateX: translateX }],
+              position: "relative",
+            }}
+          >
+            {children}
+          </Animated.View>
+        </Swipeable>
+      );
+    }
   }
 }

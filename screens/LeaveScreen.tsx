@@ -68,7 +68,7 @@ export default function LeaveScreen() {
 
   return (
     <View style={LeaveStyle.LeaveContainer}>
-      <SwiperPage path={"/home"} isScrolling={isScrolling}>
+      <SwiperPage path={"/home"} page="leave" isScrolling={isScrolling}>
         <View style={LeaveStyle.LeaveBackButtonContainer}>
           <TouchableOpacity
             onPress={() => navigate("/home")}
@@ -151,9 +151,9 @@ export default function LeaveScreen() {
             contentContainerStyle={{ alignItems: "center" }}
             style={{ flex: 1, width: "100%" }}
             showsVerticalScrollIndicator={false}
-            // onScroll={handleScroll}
-            // onScrollEndDrag={handleScrollEnd}
-            // onMomentumScrollEnd={handleScrollEnd}
+            onScroll={handleScroll}
+            onScrollEndDrag={handleScrollEnd}
+            onMomentumScrollEnd={handleScrollEnd}
           >
             {leavListData?.map((attendance: any, index: number) => (
               <Animatable.View
