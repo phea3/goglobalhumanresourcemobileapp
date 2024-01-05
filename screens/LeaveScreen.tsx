@@ -49,9 +49,26 @@ export default function LeaveScreen() {
     refetch();
   }, []);
 
+  const [isScrolling, setIsScrolling] = useState(false);
+
+  const handleScroll = () => {
+    // Update state to indicate that the user is scrolling
+    setIsScrolling(true);
+
+    // You can perform additional actions while the user is scrolling
+    // For example, you might want to update UI elements or fetch more data
+  };
+
+  const handleScrollEnd = () => {
+    // Update state to indicate that the user has stopped scrolling
+    setIsScrolling(false);
+
+    // Perform additional actions when scrolling stops
+  };
+
   return (
     <View style={LeaveStyle.LeaveContainer}>
-      <SwiperPage path={"/home"}>
+      <SwiperPage path={"/home"} isScrolling={isScrolling}>
         <View style={LeaveStyle.LeaveBackButtonContainer}>
           <TouchableOpacity
             onPress={() => navigate("/home")}
@@ -134,6 +151,9 @@ export default function LeaveScreen() {
             contentContainerStyle={{ alignItems: "center" }}
             style={{ flex: 1, width: "100%" }}
             showsVerticalScrollIndicator={false}
+            // onScroll={handleScroll}
+            // onScrollEndDrag={handleScrollEnd}
+            // onMomentumScrollEnd={handleScrollEnd}
           >
             {leavListData?.map((attendance: any, index: number) => (
               <Animatable.View

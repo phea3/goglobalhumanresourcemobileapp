@@ -1,15 +1,21 @@
-import { Animated, Easing } from "react-native";
-import { PanGestureHandler, State } from "react-native-gesture-handler";
+import { Animated, Easing, Platform, Text, View } from "react-native";
+import {
+  PanGestureHandler,
+  State,
+  Swipeable,
+} from "react-native-gesture-handler";
 import { useNavigate } from "react-router-native";
 
 interface SwiperPageProps {
   children: React.ReactNode;
   path: string;
+  isScrolling: boolean;
 }
 
 export default function SwiperPage({
   children,
   path,
+  isScrolling,
 }: SwiperPageProps): React.JSX.Element {
   const navigate = useNavigate();
   // Define animated values and handlers
@@ -56,22 +62,87 @@ export default function SwiperPage({
   // Call the updateTranslationX function periodically (for example, every 500ms)
   setInterval(updateTranslationX, 1000);
 
-  return (
-    <PanGestureHandler
-      onGestureEvent={onGestureEvent}
-      onHandlerStateChange={(event) => onHandlerStateChange(event)}
-    >
-      <Animated.View
-        style={{
-          flex: 1,
-          width: "100%",
-          justifyContent: "center",
-          alignItems: "center",
-          transform: [{ translateX: translateX }],
-        }}
+  const onNavigate = () => {
+    // Your custom action when swiped left
+    navigate(path);
+  };
+  const onSwipeableLeftOpen = () => {
+    // Your custom action when swiped left
+    console.log("Swiped left!");
+  };
+
+  const onSwipeableRightOpen = () => {
+    // Your custom action when swiped right
+    console.log("Swiped right!");
+  };
+
+  const renderLeftActions = (progress: any, dragX: any) => {
+    // You can customize the left actions here
+    return (
+      <View
+        style={{ flex: 1, justifyContent: "center", alignItems: "flex-start" }}
       >
-        {children}
-      </Animated.View>
-    </PanGestureHandler>
-  );
+        {/* <Text style={{ padding: 10, backgroundColor: "blue", color: "white" }}>
+          Left Action
+        </Text> */}
+      </View>
+    );
+  };
+
+  const renderRightActions = (progress: any, dragX: any) => {
+    // You can customize the right actions here
+    return (
+      <View
+        style={{ flex: 1, justifyContent: "center", alignItems: "flex-end" }}
+      >
+        <Text style={{ padding: 10, backgroundColor: "red", color: "white" }}>
+          Right Action
+        </Text>
+      </View>
+    );
+  };
+
+  if (Platform.OS === "ios") {
+    return (
+      <PanGestureHandler
+        enabled={!isScrolling}
+        onGestureEvent={onGestureEvent}
+        onHandlerStateChange={(event) => onHandlerStateChange(event)}
+      >
+        <Animated.View
+          style={{
+            flex: 1,
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            transform: [{ translateX: translateX }],
+          }}
+        >
+          {children}
+        </Animated.View>
+      </PanGestureHandler>
+    );
+  } else {
+    return (
+      <Swipeable
+        enabled={!isScrolling}
+        onEnded={onNavigate}
+        renderLeftActions={renderLeftActions}
+        // renderRightActions={renderRightActions}
+        // onSwipeableClose={onNavigate}
+      >
+        <Animated.View
+          style={{
+            flex: 1,
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            transform: [{ translateX: translateX }],
+          }}
+        >
+          {children}
+        </Animated.View>
+      </Swipeable>
+    );
+  }
 }
