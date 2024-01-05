@@ -18,6 +18,7 @@ import LoginStyle from "../styles/LoginStyle.scss";
 import ForgotPasswordStyle from "../styles/ForgotPasswordStyle.scss";
 import { AuthContext } from "../Context/AuthContext";
 import { FORGOT_PASSWORD } from "../graphql/ForgotPassword";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ForgotPasswordScreen() {
   const navigate = useNavigate();
@@ -62,7 +63,6 @@ export default function ForgotPasswordScreen() {
       email !== "" &&
       email.indexOf(" ") === -1
     ) {
-      console.log("true");
       setLoadingPage(true);
       getToForgotPass({
         variables: {
@@ -94,6 +94,17 @@ export default function ForgotPasswordScreen() {
       keyboardDidShowListener.remove();
       keyboardDidHideListener.remove();
     };
+  }, []);
+
+  useEffect(() => {
+    async function getAccount() {
+      let userGmail = await AsyncStorage.getItem("@gmail");
+      // console.log(userGmail + "\n" + userPassword);
+      if (userGmail) {
+        setEmail(userGmail);
+      }
+    }
+    getAccount();
   }, []);
 
   return (
@@ -173,7 +184,10 @@ export default function ForgotPasswordScreen() {
                   ? ForgotPasswordStyle.ForgotScreenTextInputTextSM
                   : ForgotPasswordStyle.ForgotScreenTextInputText
               }
-              onChangeText={(e) => setEmail(e)}
+              onChangeText={(e) => {
+                const updatedText = e.replace(/\s/g, "");
+                setEmail(updatedText);
+              }}
               keyboardType="default"
               secureTextEntry={false}
             />

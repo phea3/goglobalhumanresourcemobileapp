@@ -13,7 +13,7 @@ import LoginScreen from "./screens/LoginScreen";
 import { AuthContext } from "./Context/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useLoginUser from "./Hook/useLoginUser";
-import { Alert, Dimensions, Platform } from "react-native";
+import { Alert, BackHandler, Dimensions, Platform } from "react-native";
 import HomeMainScreen from "./screens/HomeMainScreen";
 import HomeLeaveScreen from "./screens/HomeLeaveScreen";
 import LeaveScreen from "./screens/LeaveScreen";
@@ -40,6 +40,49 @@ export default function Router() {
   const { dispatch, REDUCER_ACTIONS } = useLoginUser();
   const height = Dimensions.get("screen").height;
   const width = Dimensions.get("screen").width;
+  let locationToBack = local?.pathname;
+
+  useEffect(() => {
+    if (Platform.OS === "android") {
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        handleBackPress
+      );
+
+      return () => {
+        backHandler.remove();
+      };
+    }
+  }, [local]);
+
+  const handleBackPress = () => {
+    console.log("Back button pressed!", locationToBack);
+    if (token !== "" && token !== undefined) {
+      if (
+        locationToBack == "/report" ||
+        locationToBack == "/check" ||
+        locationToBack == "/leave" ||
+        locationToBack == "/profile" ||
+        locationToBack == "/attendance" ||
+        locationToBack == "/home/leave" ||
+        locationToBack == "/notification/action" ||
+        locationToBack == "/notification/meeting"
+      ) {
+        navigate("/home/main");
+      } else if (locationToBack == "/report/daily-attendace") {
+        navigate("/report");
+      } else {
+        BackHandler.exitApp();
+      }
+    } else {
+      if (locationToBack == "/forgot-pass") {
+        navigate("/login");
+      } else {
+        BackHandler.exitApp();
+      }
+    }
+    return true;
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -210,7 +253,6 @@ export default function Router() {
     {
       path: "/",
       element: <LoginLayout />,
-
       children: [
         { path: "/", element: <LoginScreen /> },
         { path: "/login", element: <LoginScreen /> },

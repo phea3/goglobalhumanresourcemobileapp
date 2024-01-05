@@ -11,7 +11,7 @@ import { AuthContext } from "../Context/AuthContext";
 
 const Actions = [
   {
-    title: "Annual leave",
+    title: "Remain leave",
   },
   {
     title: "Permission",
@@ -113,7 +113,7 @@ export default function HomeScreen() {
                         : HomeStyle.HomeBoxInSideCircleText
                     }
                   >
-                    {action.title === "Annual leave"
+                    {action.title === "Remain leave"
                       ? leaveData?.getEmployeeLeaveInfo?.al
                         ? leaveData?.getEmployeeLeaveInfo?.al
                         : "0"

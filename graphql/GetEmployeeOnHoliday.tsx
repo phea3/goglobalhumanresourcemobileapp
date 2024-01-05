@@ -6,6 +6,7 @@ export const GET_EMPLOYEEONHOLIDAY = gql`
       _id
       profileImage
       latinName
+      timeOff
       reason
       dateLeave
     }
