@@ -9,8 +9,8 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../Context/AuthContext";
 
 export default function ApolloConfig({ children }: any) {
-  // const URI = "endpoint-school-hr-v3.go-globalit.com/graphql";
-  const URI = "192.168.2.30:4320/graphql";
+  const URI = "endpoint-school-hr-v3.go-globalit.com/graphql";
+  // const URI = "192.168.2.30:4320/graphql";
   const { token } = useContext(AuthContext);
 
   const authLink = setContext((_, { headers }: any) => {
@@ -23,7 +23,7 @@ export default function ApolloConfig({ children }: any) {
   });
 
   const uploadLink = createHttpLink({
-    uri: `http://${URI}`,
+    uri: `https://${URI}`,
   });
 
   const client = new ApolloClient({

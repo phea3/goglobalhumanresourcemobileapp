@@ -8,6 +8,7 @@ import { AuthProvider } from "./Context/AuthContext";
 import ApolloConfig from "./Config/ApolloConfig";
 import { BackHandler } from "react-native";
 import { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   useEffect(() => {
@@ -27,22 +28,26 @@ export default function App() {
 
   return (
     <>
-      <MenuProvider>
-        <StyleProvider>
-          <AuthProvider>
-            <ApolloConfig>
-              <Routers>
-                <StatusBar
-                  barStyle={
-                    Platform.OS === "android" ? "dark-content" : "light-content"
-                  }
-                />
-                <Router />
-              </Routers>
-            </ApolloConfig>
-          </AuthProvider>
-        </StyleProvider>
-      </MenuProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <MenuProvider>
+          <StyleProvider>
+            <AuthProvider>
+              <ApolloConfig>
+                <Routers>
+                  <StatusBar
+                    barStyle={
+                      Platform.OS === "android"
+                        ? "dark-content"
+                        : "light-content"
+                    }
+                  />
+                  <Router />
+                </Routers>
+              </ApolloConfig>
+            </AuthProvider>
+          </StyleProvider>
+        </MenuProvider>
+      </GestureHandlerRootView>
     </>
   );
 }
