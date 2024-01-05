@@ -274,13 +274,13 @@
 .HomeHolidayTitle2SM {
   font-size: 8px;
   font-family: $century-bold-italic;
-  color: $color-red;
+  color: $color-dark-blue;
 }
 
 .HomeHolidayTitle2 {
   font-size: 12px;
   font-family: $century-bold-italic;
-  color: $color-red;
+  color: $color-dark-blue;
 }
 
 .HomeHolidayTitle3SM {
@@ -537,7 +537,7 @@
 }
 
 .HomeBoxShiftSM {
-  background-color: $color-dark-blue;
+  background-color: #4bbb17cc;
   padding-left: 4px;
   padding-right: 4px;
   padding-top: 1px;
@@ -546,7 +546,7 @@
 }
 
 .HomeBoxShift {
-  background-color: $color-dark-blue;
+  background-color: #4bbb17cc;
   padding-left: 6px;
   padding-right: 6px;
   padding-top: 1px;
@@ -555,13 +555,16 @@
 }
 
 .HomeBoxTextSM {
-  font-size: 8px;
+  font-size: 7px;
   font-family: $century-regular;
   color: #fff;
+  text-transform: uppercase;
 }
 
 .HomeBoxText {
-  font-size: 9px;
+  text-transform: uppercase;
+  font-size: 8px;
   font-family: $century-regular;
   color: #fff;
+  // $color-dark-blue: #082b9e73;
 }

@@ -1,6 +1,6 @@
 import { Platform, StatusBar } from "react-native";
 import Router from "./Router";
-import { NativeRouter as Routers } from "react-router-native";
+import { NativeRouter as Routers, useNavigation } from "react-router-native";
 import { useNavigate, useLocation } from "react-router-native";
 import { MenuProvider } from "react-native-popup-menu";
 import StyleProvider from "./styleProvider";
@@ -8,22 +8,27 @@ import { AuthProvider } from "./Context/AuthContext";
 import ApolloConfig from "./Config/ApolloConfig";
 import { BackHandler } from "react-native";
 import { useEffect } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import LoginLayout from "./layouts/LoginLayout";
+import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
 
 export default function App() {
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      () => {
-        // Disable the default back button behavior
-        return true;
-      }
-    );
+  // const navigation = useNavigation();
 
-    return () => {
-      // Unsubscribe from the back button event when the component is unmounted
-      backHandler.remove();
-    };
-  }, []);
+  // function handleBackButtonClick() {
+  //   // navigation.goBack();
+  //   return true;
+  // }
+
+  // useEffect(() => {
+  //   BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick);
+  //   return () => {
+  //     BackHandler.removeEventListener(
+  //       "hardwareBackPress",
+  //       handleBackButtonClick
+  //     );
+  //   };
+  // }, []);
 
   return (
     <>

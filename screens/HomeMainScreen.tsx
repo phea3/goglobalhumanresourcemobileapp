@@ -43,8 +43,8 @@ export default function HomeMainScreen() {
   const { refetch: HoliRefetch } = useQuery(GET_EMPLOYEEONHOLIDAY, {
     pollInterval: 2000,
     onCompleted(GetEmployeeOnHoliday) {
-      // console.log(holiData);
       setHolidata(GetEmployeeOnHoliday?.getEmployeeOnHoliday);
+      // console.log(holiData);
     },
     onError(error) {
       console.log(error?.message);
@@ -174,7 +174,7 @@ export default function HomeMainScreen() {
         </View>
 
         {holiData
-          ? holiData.map((leave: any, index: number) => (
+          ? holiData?.map((leave: any, index: number) => (
               <Animatable.View
                 animation={load ? "fadeInUp" : "fadeInUp"}
                 style={
@@ -233,7 +233,7 @@ export default function HomeMainScreen() {
                           : HomeStyle.HomeBoxText
                       }
                     >
-                      Morning
+                      {leave?.timeOff}
                     </Text>
                   </View>
                   <Text

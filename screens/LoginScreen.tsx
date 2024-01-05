@@ -60,7 +60,6 @@ export default function LoginScreen() {
     };
   }, []);
 
-  let createStatus = false;
   const [mobilelogin] = useMutation(MOBILE_LOGIN, {
     onError(error) {
       if (
