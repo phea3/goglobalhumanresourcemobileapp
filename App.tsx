@@ -8,7 +8,6 @@ import { AuthProvider } from "./Context/AuthContext";
 import ApolloConfig from "./Config/ApolloConfig";
 import { BackHandler } from "react-native";
 import { useEffect } from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import LoginLayout from "./layouts/LoginLayout";
 import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
 
