@@ -6,11 +6,12 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
+  Vibration,
   View,
 } from "react-native";
 import LeaveStyle from "../styles/LeaveStyle.scss";
-import { useLocation, useNavigate } from "react-router-native";
-import { useMutation, useQuery } from "@apollo/client";
+import { useNavigate } from "react-router-native";
+import { useMutation } from "@apollo/client";
 import { EMPLOYEECHECKATTENDANCE } from "../graphql/EmployeeCheckAttendance";
 import CheckStyle from "../styles/CheckStyle.scss";
 import { useContext, useEffect, useState } from "react";
@@ -19,21 +20,20 @@ import ModalStyle from "../styles/ModalStyle.scss";
 import * as Location from "expo-location";
 import CheckModal from "../components/CheckModal";
 import { AuthContext } from "../Context/AuthContext";
-import { getDistance, getPreciseDistance, isPointWithinRadius } from "geolib";
-import { GET_EMPLOYEEBYID } from "../graphql/GetEmployeeById";
 import SwiperPage from "../includes/SwiperPage";
 
-export default function ChecKAttendance({ locate }: any) {
-  const { uid } = useContext(AuthContext);
+export default function ChecKAttendance() {
   const navigate = useNavigate();
-  const located = useLocation();
   const [isVisible, setVisible] = useState(false);
   const [CheckIsVisible, setCheckVisible] = useState(false);
   const [scanType, setScanType] = useState("");
   const { dimension } = useContext(AuthContext);
-  const [checkData, setCheckData] = useState({
+  const [checkData, setCheckData] = useState<{
+    message: string;
+    status: boolean | null;
+  }>({
     message: "",
-    status: false,
+    status: null,
   });
   const [location, setLocation] = useState<Location.LocationObject | null>(
     null
@@ -41,50 +41,22 @@ export default function ChecKAttendance({ locate }: any) {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [morning, setMorning] = useState(true);
   const [afternoon, setAfternoon] = useState(false);
-
-  // const { data: employeeData, refetch: employeeRefetch } = useQuery(
-  //   GET_EMPLOYEEBYID,
-  //   {
-  //     pollInterval: 2000,
-  //     variables: {
-  //       id: uid ? uid : "",
-  //     },
-  //     onCompleted: ({ getEmployeeById }) => {},
-  //   }
-  // );
-
-  // useEffect(() => {
-  //   employeeRefetch();
-  // }, [uid]);
-
-  // const distance = getDistance(
-  //   {
-  //     latitude: locate?.coords.latitude ? locate?.coords.latitude : 0,
-  //     longitude: locate?.coords.longitude ? locate?.coords.longitude : 0,
-  //   },
-  //   {
-  //     latitude: parseFloat(
-  //       employeeData?.getEmployeeById?.latitude
-  //         ? employeeData?.getEmployeeById?.latitude
-  //         : ""
-  //     ),
-  //     longitude: parseFloat(
-  //       employeeData?.getEmployeeById?.longitude
-  //         ? employeeData?.getEmployeeById?.longitude
-  //         : ""
-  //     ),
-  //   }
-  // );
+  const [load, setLoad] = useState(true);
 
   const handleCheckClose = () => {
     setCheckVisible(false);
   };
 
   const handleClose = () => {
-    if (checkData?.status === true) {
-      navigate("/attendance");
-    }
     setVisible(false);
+    setTimeout(() => {
+      setCheckData({
+        message: "",
+        status: null,
+      });
+    }, 500);
+    setLocation(null);
+    setLoad(true);
   };
 
   const handleCheckOpen = () => {
@@ -128,41 +100,15 @@ export default function ChecKAttendance({ locate }: any) {
     }
   };
 
-  async function getLocation() {
-    const { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      setErrorMsg("Permission to access location was denied");
-      return;
-    }
-
-    // Get the current location
-    try {
-      const location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-    } catch (error) {
-      setErrorMsg("Error getting location");
-    }
-  }
-
-  useEffect(() => {
-    getLocation();
-  }, [located.pathname]);
-
-  // console.log(locate);
   const [employeeCheckAttendance] = useMutation(EMPLOYEECHECKATTENDANCE);
 
-  const HandleCheckAttendance = async (check: string) => {
-    setScanType(check);
-    handleCheckOpen();
-  };
-
-  const CheckInOut = async () => {
+  const CheckInOut = async (located: any) => {
     let createValue = {
-      longitude: locate?.coords.longitude
-        ? locate?.coords.longitude.toString()
+      longitude: located?.coords.longitude
+        ? located?.coords.longitude.toString()
         : "",
-      latitude: locate?.coords.latitude
-        ? locate?.coords.latitude.toString()
+      latitude: located?.coords.latitude
+        ? located?.coords.latitude.toString()
         : "",
       shift: morning ? "morning" : afternoon ? "afternoon" : "",
       scan: scanType,
@@ -174,23 +120,60 @@ export default function ChecKAttendance({ locate }: any) {
       },
       onCompleted(data) {
         // console.log("Succeed", data);
+        if (data?.employeeCheckAttendance?.status === false) {
+          Vibration.vibrate();
+        }
         setCheckData({
           message: data?.employeeCheckAttendance?.message,
           status: data?.employeeCheckAttendance?.status,
         });
+        setLoad(false);
         if (checkData) {
-          handleOpen();
+          setTimeout(() => {
+            handleClose();
+          }, 2000);
         }
       },
       onError(error: any) {
+        setLoad(false);
         // console.log("Fail", error?.message);
         setCheckData({
           message: error?.message,
           status: error?.status,
         });
-        handleOpen();
+        setTimeout(() => {
+          handleClose();
+        }, 2000);
       },
     });
+  };
+
+  async function getLocation() {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      setErrorMsg("Permission to access location was denied");
+      return;
+    }
+
+    try {
+      const location = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Low,
+      });
+      // console.log(location);
+      setLocation(location);
+      if (location) {
+        setTimeout(() => {
+          CheckInOut(location);
+        }, 2000);
+      }
+    } catch (error) {
+      setErrorMsg("Error getting location");
+    }
+  }
+
+  const HandleCheckAttendance = async (check: string) => {
+    setScanType(check);
+    handleCheckOpen();
   };
   const [isScrolling, setIsScrolling] = useState(false);
 
@@ -208,6 +191,12 @@ export default function ChecKAttendance({ locate }: any) {
 
     // Perform additional actions when scrolling stops
   };
+
+  useEffect(() => {
+    if (errorMsg === "Permission to access location was denied.") {
+      Alert.alert("Oop!", "Permission to access location was denied.");
+    }
+  }, [errorMsg]);
 
   if (errorMsg) {
     return (
@@ -308,7 +297,8 @@ export default function ChecKAttendance({ locate }: any) {
                 <TouchableOpacity
                   onPress={() => {
                     handleCheckClose();
-                    CheckInOut();
+                    getLocation();
+                    handleOpen();
                   }}
                   style={[
                     ModalStyle.ModalButtonOptionLeft,
@@ -332,9 +322,11 @@ export default function ChecKAttendance({ locate }: any) {
 
         {/* ============= Alert After Check Attendance ============= */}
         <CheckModal
+          location={location}
           isVisible={isVisible}
           handleClose={handleClose}
           data={checkData}
+          load={load}
         />
         <View style={CheckStyle.CheckContainer}>
           <SwiperPage path={"/home"} page="checkAtt" isScrolling={isScrolling}>
@@ -366,7 +358,6 @@ export default function ChecKAttendance({ locate }: any) {
                 </Text>
               </TouchableOpacity>
             </View>
-
             <ScrollView
               contentContainerStyle={{
                 alignItems: "center",
@@ -469,197 +460,46 @@ export default function ChecKAttendance({ locate }: any) {
                   </Text>
                 </TouchableOpacity>
               </View>
-              {locate ? (
-                <>
-                  <TouchableOpacity
-                    style={
-                      dimension === "sm"
-                        ? CheckStyle.CheckInButtonContainerSM
-                        : CheckStyle.CheckInButtonContainer
-                    }
-                    onPress={async () => {
-                      HandleCheckAttendance("checkIn");
-                    }}
-                  >
-                    <Text
-                      style={
-                        dimension === "sm"
-                          ? CheckStyle.CheckButtonTextSM
-                          : CheckStyle.CheckButtonText
-                      }
-                    >
-                      CHECK IN
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={
-                      dimension === "sm"
-                        ? CheckStyle.CheckOutButtonContainerSM
-                        : CheckStyle.CheckOutButtonContainer
-                    }
-                    onPress={() => {
-                      HandleCheckAttendance("checkOut");
-                    }}
-                  >
-                    <Text
-                      style={
-                        dimension === "sm"
-                          ? CheckStyle.CheckButtonTextSM
-                          : CheckStyle.CheckButtonText
-                      }
-                    >
-                      CHECK OUT
-                    </Text>
-                  </TouchableOpacity>
-                </>
-              ) : (
-                <>
-                  <View
-                    style={
-                      dimension === "sm"
-                        ? CheckStyle.CheckDisableButtonContainerSM
-                        : CheckStyle.CheckDisableButtonContainer
-                    }
-                  >
-                    <Text
-                      style={
-                        dimension === "sm"
-                          ? CheckStyle.CheckButtonTextSM
-                          : CheckStyle.CheckButtonText
-                      }
-                    >
-                      CHECK IN
-                    </Text>
-                  </View>
-                  <View
-                    style={
-                      dimension === "sm"
-                        ? CheckStyle.CheckOutDisableButtonContainerSM
-                        : CheckStyle.CheckOutDisableButtonContainer
-                    }
-                  >
-                    <Text
-                      style={
-                        dimension === "sm"
-                          ? CheckStyle.CheckButtonTextSM
-                          : CheckStyle.CheckButtonText
-                      }
-                    >
-                      CHECK OUT
-                    </Text>
-                  </View>
-                </>
-              )}
-
-              <View style={CheckStyle.CheckOutLocationFullContainer}>
-                <View
-                  style={[
-                    CheckStyle.CheckOutLocationContainer,
-                    {
-                      padding: 10,
-                      borderColor:
-                        locate?.coords.latitude >= 13.34572060724703 &&
-                        locate?.coords.latitude <= 13.349565026819539 &&
-                        locate?.coords.longitude >= 103.84319363518682 &&
-                        locate?.coords.longitude <= 103.84595763628897
-                          ? "green"
-                          : "red",
-                    },
-                  ]}
-                >
-                  <Text
-                    style={[
-                      dimension === "sm"
-                        ? CheckStyle.CheckOutLocationTitleSM
-                        : CheckStyle.CheckOutLocationTitle,
-                      {
-                        color:
-                          // location?.coords.latitude || locate?.coords.latitude
-                          locate === null
-                            ? "#9aa3a6"
-                            : locate?.coords.latitude >= 13.34572060724703 &&
-                              locate?.coords.latitude <= 13.349565026819539 &&
-                              locate?.coords.longitude >= 103.84319363518682 &&
-                              locate?.coords.longitude <= 103.84595763628897
-                            ? "green"
-                            : "red",
-                      },
-                    ]}
-                  >
-                    {locate?.coords.latitude >= 13.34572060724703 &&
-                    locate?.coords.latitude <= 13.349565026819539 &&
-                    locate?.coords.longitude >= 103.84319363518682 &&
-                    locate?.coords.longitude <= 103.84595763628897
-                      ? "Coordinates are within the specified range."
-                      : "Coordinates are outside the specified range."}
-                  </Text>
-
-                  <Text
-                    style={[
-                      dimension === "sm"
-                        ? CheckStyle.CheckOutLocationBodySM
-                        : CheckStyle.CheckOutLocationBody,
-                      {
-                        color:
-                          // location?.coords.latitude || locate?.coords.latitude
-                          locate === null
-                            ? "#9aa3a6"
-                            : locate?.coords.latitude >= 13.34572060724703 &&
-                              locate?.coords.latitude <= 13.349565026819539 &&
-                              locate?.coords.longitude >= 103.84319363518682 &&
-                              locate?.coords.longitude <= 103.84595763628897
-                            ? "green"
-                            : "red",
-                        paddingTop: 10,
-                      },
-                    ]}
-                  >
-                    Latitude:{" "}
-                    {locate?.coords.latitude ? locate?.coords.latitude : ""},
-                    {"\n"}Longitude:{" "}
-                    {locate?.coords.longitude ? locate?.coords.longitude : ""}
-                  </Text>
-                </View>
-                <TouchableOpacity
+              <TouchableOpacity
+                style={
+                  dimension === "sm"
+                    ? CheckStyle.CheckInButtonContainerSM
+                    : CheckStyle.CheckInButtonContainer
+                }
+                onPress={async () => {
+                  HandleCheckAttendance("checkIn");
+                }}
+              >
+                <Text
                   style={
                     dimension === "sm"
-                      ? CheckStyle.CheckOutLocationRefetchButtonSM
-                      : CheckStyle.CheckOutLocationRefetchButton
+                      ? CheckStyle.CheckButtonTextSM
+                      : CheckStyle.CheckButtonText
                   }
-                  onPress={() => {
-                    getLocation();
-                  }}
                 >
-                  {locate === null ? (
-                    <Image
-                      source={require("../assets/Images/Data-Transfer.gif")}
-                      style={
-                        dimension === "sm"
-                          ? { width: 80, height: 80 }
-                          : { width: 100, height: 100 }
-                      }
-                      resizeMode="contain"
-                    />
-                  ) : (
-                    <Image
-                      source={
-                        locate?.coords.latitude >= 13.34572060724703 &&
-                        locate?.coords.latitude <= 13.349565026819539 &&
-                        locate?.coords.longitude >= 103.84319363518682 &&
-                        locate?.coords.longitude <= 103.84595763628897
-                          ? require("../assets/Images/allowlocation.gif")
-                          : require("../assets/Images/redlocation.gif")
-                      }
-                      style={
-                        dimension === "sm"
-                          ? CheckStyle.CheckOutLocationRefetchIconSM
-                          : CheckStyle.CheckOutLocationRefetchIcon
-                      }
-                      resizeMode="contain"
-                    />
-                  )}
-                </TouchableOpacity>
-              </View>
+                  CHECK IN
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={
+                  dimension === "sm"
+                    ? CheckStyle.CheckOutButtonContainerSM
+                    : CheckStyle.CheckOutButtonContainer
+                }
+                onPress={() => {
+                  HandleCheckAttendance("checkOut");
+                }}
+              >
+                <Text
+                  style={
+                    dimension === "sm"
+                      ? CheckStyle.CheckButtonTextSM
+                      : CheckStyle.CheckButtonText
+                  }
+                >
+                  CHECK OUT
+                </Text>
+              </TouchableOpacity>
             </ScrollView>
           </SwiperPage>
         </View>

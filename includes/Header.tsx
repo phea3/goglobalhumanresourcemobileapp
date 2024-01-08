@@ -7,7 +7,7 @@ import {
   fetchDataLocalStorage,
   initMobileUserLogin,
 } from "../functions/FetchDataLocalStorage";
-import Back from "./Back";
+import { horizontalScale, moderateScale, verticalScale } from "../ Metrics";
 
 export default function Header() {
   const [mobileUserLogin, setMobileUserLogin] = useState(initMobileUserLogin);
@@ -125,34 +125,35 @@ export default function Header() {
                       ? { uri: mobileUserLogin?.profileImg }
                       : require("../assets/Images/user.png")
                   }
-                  style={
-                    dimension === "sm"
-                      ? HeaderStyle.HeaderUserProfileImageSM
-                      : HeaderStyle.HeaderUserProfileImage
-                  }
+                  style={[
+                    HeaderStyle.HeaderUserProfileImage,
+                    {
+                      height: horizontalScale(40),
+                      width: horizontalScale(40),
+                      margin: horizontalScale(8),
+                    },
+                  ]}
+                  resizeMode="contain"
                 />
                 <View
-                  style={
-                    dimension === "sm"
-                      ? HeaderStyle.HeaderTitleContainerSM
-                      : HeaderStyle.HeaderTitleContainer
-                  }
+                  style={[
+                    HeaderStyle.HeaderTitleContainer,
+                    { height: horizontalScale(40) },
+                  ]}
                 >
                   <Text
-                    style={
-                      dimension === "sm"
-                        ? HeaderStyle.HeaderTitle1SM
-                        : HeaderStyle.HeaderTitle1
-                    }
+                    style={[
+                      HeaderStyle.HeaderTitle1,
+                      { fontSize: moderateScale(14) },
+                    ]}
                   >
                     Hi {mobileUserLogin?.englishName}!
                   </Text>
                   <Text
-                    style={
-                      dimension === "sm"
-                        ? HeaderStyle.HeaderTitle2SM
-                        : HeaderStyle.HeaderTitle2
-                    }
+                    style={[
+                      HeaderStyle.HeaderTitle2,
+                      { fontSize: moderateScale(12) },
+                    ]}
                   >
                     View Profile{" >"}
                   </Text>
@@ -171,11 +172,11 @@ export default function Header() {
           >
             <Image
               source={require("../assets/Images/bell.png")}
-              style={
-                dimension === "sm"
-                  ? HeaderStyle.HeaderUserBellSM
-                  : HeaderStyle.HeaderUserBell
-              }
+              resizeMode="contain"
+              style={{
+                height: horizontalScale(30),
+                width: horizontalScale(30),
+              }}
             />
           </TouchableOpacity>
         )}
