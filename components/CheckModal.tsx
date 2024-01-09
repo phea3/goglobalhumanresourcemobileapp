@@ -23,7 +23,6 @@ export default function CheckModal({
       }, 500);
     }
   }, [data?.status]);
-  const [count, setCount] = useState(0);
 
   return (
     <Modal
@@ -35,7 +34,9 @@ export default function CheckModal({
       <View style={ModalStyle.ModalContainer}>
         <TouchableOpacity
           style={ModalStyle.ModalBackgroundOpacity}
-          // onPress={() => handleClose()}
+          // onPress={() => {
+          //   handleClose();
+          // }}
           activeOpacity={0.2}
         />
         <View
@@ -47,10 +48,10 @@ export default function CheckModal({
         >
           <Image
             source={
-              !location
-                ? require("../assets/Images/cross-outline.gif")
-                : load
+              load
                 ? require("../assets/Images/loader-1.gif")
+                : data?.status === null
+                ? require("../assets/Images/cross-outline.gif")
                 : data?.status === true
                 ? require("../assets/Images/check-outline.gif")
                 : require("../assets/Images/cross-outline.gif")
@@ -68,10 +69,10 @@ export default function CheckModal({
                 : ModalStyle.ModalButtonTextTitle
             }
           >
-            {!location
-              ? "Can't get your location."
-              : load
+            {load
               ? "Loading"
+              : data?.status === null
+              ? "Can't get your location."
               : data?.status === true
               ? "Success!"
               : "Fail!"}
@@ -83,10 +84,10 @@ export default function CheckModal({
                 : ModalStyle.ModalButtonTextBody
             }
           >
-            {!location
-              ? "Please try again."
-              : load
+            {load
               ? `Getting your current location. \n please wait... \n it's depend on your device.`
+              : data?.status === null
+              ? "Please try again."
               : data
               ? data?.message
               : ""}

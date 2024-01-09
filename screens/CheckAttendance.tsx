@@ -135,12 +135,12 @@ export default function ChecKAttendance() {
         }
       },
       onError(error: any) {
-        setLoad(false);
         // console.log("Fail", error?.message);
         setCheckData({
           message: error?.message,
           status: error?.status,
         });
+        setLoad(false);
         setTimeout(() => {
           handleClose();
         }, 2000);
@@ -156,14 +156,26 @@ export default function ChecKAttendance() {
     }
 
     try {
-      const location = await Location.getCurrentPositionAsync({
+      const $location = await Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.Low,
       });
-      // console.log(location);
-      setLocation(location);
-      if (location) {
+      // const $location = null;
+      // console.log($location);
+      setLocation($location);
+      if ($location) {
+        handleOpen();
         setTimeout(() => {
-          CheckInOut(location);
+          CheckInOut($location);
+        }, 1000);
+      } else if ($location === null) {
+        handleOpen();
+        setCheckData({
+          message: "Cannot get your location!",
+          status: null,
+        });
+        setLoad(false);
+        setTimeout(() => {
+          handleClose();
         }, 2000);
       }
     } catch (error) {
@@ -196,6 +208,8 @@ export default function ChecKAttendance() {
   useEffect(() => {
     if (errorMsg === "Permission to access location was denied.") {
       Alert.alert("Oop!", "Permission to access location was denied.");
+    } else if (errorMsg === "Error getting location") {
+      Alert.alert("Error getting location");
     }
   }, [errorMsg]);
 
@@ -299,7 +313,6 @@ export default function ChecKAttendance() {
                   onPress={() => {
                     handleCheckClose();
                     getLocation();
-                    handleOpen();
                   }}
                   style={[
                     ModalStyle.ModalButtonOptionLeft,
