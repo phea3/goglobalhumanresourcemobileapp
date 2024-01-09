@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-native";
 import { useContext, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import SwiperPage from "../includes/SwiperPage";
+import { horizontalScale, moderateScale, verticalScale } from "../ Metrics";
 
 export default function ReportScreen() {
   const navigate = useNavigate();
@@ -20,31 +21,40 @@ export default function ReportScreen() {
     setIsScrolling(false);
   };
   return (
-    <View style={ReportStyle.ReportContainer}>
+    <View
+      style={[
+        ReportStyle.ReportContainer,
+        {
+          borderTopLeftRadius: moderateScale(15),
+          borderTopRightRadius: moderateScale(15),
+          borderTopWidth: moderateScale(1),
+          borderRightWidth: moderateScale(1),
+          borderLeftWidth: moderateScale(1),
+        },
+      ]}
+    >
       <SwiperPage path={"/home"} page="report" isScrolling={isScrolling}>
         <View style={ReportStyle.ReportBackButtonContainer}>
           <TouchableOpacity
             onPress={() => navigate("/home")}
-            style={
-              dimension === "sm"
-                ? ReportStyle.ReportBackButtonSM
-                : ReportStyle.ReportBackButton
-            }
+            style={[
+              ReportStyle.ReportBackButton,
+              { padding: moderateScale(15) },
+            ]}
           >
             <Image
               source={require("../assets/Images/back-dark-blue.png")}
-              style={
-                dimension === "sm"
-                  ? ReportStyle.ReportBackButtonIconSM
-                  : ReportStyle.ReportBackButtonIcon
-              }
+              style={{
+                width: moderateScale(20),
+                height: moderateScale(20),
+                marginRight: moderateScale(10),
+              }}
             />
             <Text
-              style={
-                dimension === "sm"
-                  ? ReportStyle.ReportBackButtonTitleSM
-                  : ReportStyle.ReportBackButtonTitle
-              }
+              style={[
+                ReportStyle.ReportBackButtonTitle,
+                { fontSize: moderateScale(14) },
+              ]}
             >
               REPORTS
             </Text>
@@ -58,43 +68,55 @@ export default function ReportScreen() {
           onScrollEndDrag={handleScrollEnd}
           onMomentumScrollEnd={handleScrollEnd}
         >
-          <View style={ReportStyle.ReportBodyContainer}>
+          <View
+            style={[
+              ReportStyle.ReportBodyContainer,
+              { marginTop: moderateScale(10) },
+            ]}
+          >
             <TouchableOpacity
-              style={ReportStyle.ReportCardContainer}
+              style={[
+                ReportStyle.ReportCardContainer,
+                { borderRadius: moderateScale(10), padding: moderateScale(10) },
+              ]}
               onPress={() => navigate("/report/daily-attendace")}
             >
               <View
-                style={
-                  dimension === "sm"
-                    ? ReportStyle.ReportIconSM
-                    : ReportStyle.ReportIcon
-                }
+                style={[
+                  ReportStyle.ReportIcon,
+                  {
+                    width: moderateScale(60),
+                    height: moderateScale(60),
+                    borderRadius: moderateScale(10),
+                  },
+                ]}
               >
                 <Image
                   source={require("../assets/Images/attendance.png")}
-                  style={
-                    dimension === "sm"
-                      ? ReportStyle.ImageIconSM
-                      : ReportStyle.ImageIcon
-                  }
+                  style={[
+                    { width: moderateScale(45), height: moderateScale(45) },
+                  ]}
                 />
               </View>
-              <View style={ReportStyle.TitleContainer}>
+              <View
+                style={[
+                  ReportStyle.TitleContainer,
+                  { paddingHorizontal: moderateScale(10) },
+                ]}
+              >
                 <Text
-                  style={
-                    dimension === "sm"
-                      ? ReportStyle.TitleAttSM
-                      : ReportStyle.TitleAtt
-                  }
+                  style={[
+                    ReportStyle.TitleAtt,
+                    { fontSize: moderateScale(14) },
+                  ]}
                 >
                   Daily Attendance
                 </Text>
                 <Text
-                  style={
-                    dimension === "sm"
-                      ? ReportStyle.ReasonAttSM
-                      : ReportStyle.ReasonAtt
-                  }
+                  style={[
+                    ReportStyle.ReasonAtt,
+                    { fontSize: moderateScale(12) },
+                  ]}
                 >
                   The specific day for which the attendance is being recorded.
                 </Text>

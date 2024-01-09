@@ -21,6 +21,7 @@ import * as Location from "expo-location";
 import CheckModal from "../components/CheckModal";
 import { AuthContext } from "../Context/AuthContext";
 import SwiperPage from "../includes/SwiperPage";
+import { moderateScale } from "../ Metrics";
 
 export default function ChecKAttendance() {
   const navigate = useNavigate();
@@ -214,30 +215,36 @@ export default function ChecKAttendance() {
 
   if (errorMsg) {
     return (
-      <View style={LeaveStyle.LeaveContainer}>
+      <View
+        style={[
+          LeaveStyle.LeaveContainer,
+          {
+            borderTopLeftRadius: moderateScale(15),
+            borderTopRightRadius: moderateScale(15),
+            borderTopWidth: moderateScale(1),
+            borderRightWidth: moderateScale(1),
+            borderLeftWidth: moderateScale(1),
+          },
+        ]}
+      >
         <View style={LeaveStyle.LeaveBackButtonContainer}>
           <TouchableOpacity
             onPress={() => navigate("/home")}
-            style={
-              dimension === "sm"
-                ? LeaveStyle.LeaveBackButtonSM
-                : LeaveStyle.LeaveBackButton
-            }
+            style={[LeaveStyle.LeaveBackButton, { padding: moderateScale(15) }]}
           >
             <Image
               source={require("../assets/Images/back-dark-blue.png")}
-              style={
-                dimension === "sm"
-                  ? LeaveStyle.LeaveBackButtonIconSM
-                  : LeaveStyle.LeaveBackButtonIcon
-              }
+              style={{
+                width: moderateScale(20),
+                height: moderateScale(20),
+                marginRight: moderateScale(10),
+              }}
             />
             <Text
-              style={
-                dimension === "sm"
-                  ? LeaveStyle.LeaveBackButtonTitleSM
-                  : LeaveStyle.LeaveBackButtonTitle
-              }
+              style={[
+                LeaveStyle.LeaveBackButtonTitle,
+                { fontSize: moderateScale(14) },
+              ]}
             >
               Leave Check
             </Text>
@@ -248,12 +255,16 @@ export default function ChecKAttendance() {
             onPress={() => {
               handleLocationPermission();
             }}
-            style={{ backgroundColor: "#082b9e", padding: 10, marginTop: 5 }}
+            style={{
+              backgroundColor: "#082b9e",
+              padding: moderateScale(10),
+              marginTop: moderateScale(5),
+            }}
           >
             <Text
               style={[
                 CheckStyle.LeaveErrorTitle,
-                { fontSize: dimension === "sm" ? 12 : 16 },
+                { fontSize: moderateScale(16) },
               ]}
             >
               Permission to access location was denied.
@@ -278,14 +289,27 @@ export default function ChecKAttendance() {
               onPress={handleCheckClose}
               activeOpacity={0.2}
             />
-            <View style={ModalStyle.ModalButtonContainerMain}>
-              <View style={ModalStyle.ModalButtonTextTitleContainerMain}>
+            <View
+              style={[
+                ModalStyle.ModalButtonContainerMain,
+                {
+                  height: moderateScale(200),
+                  borderRadius: moderateScale(10),
+                  borderWidth: moderateScale(1),
+                },
+              ]}
+            >
+              <View
+                style={[
+                  ModalStyle.ModalButtonTextTitleContainerMain,
+                  { padding: moderateScale(20) },
+                ]}
+              >
                 <Text
-                  style={
-                    dimension === "sm"
-                      ? ModalStyle.ModalButtonTextTitleMainSM
-                      : ModalStyle.ModalButtonTextTitleMain
-                  }
+                  style={[
+                    ModalStyle.ModalButtonTextTitleMain,
+                    { fontSize: moderateScale(16) },
+                  ]}
                 >
                   {scanType === "checkIn"
                     ? "Do you want to check in?"
@@ -296,14 +320,16 @@ export default function ChecKAttendance() {
               <View style={ModalStyle.ModalButtonOptionContainer}>
                 <TouchableOpacity
                   onPress={() => handleCheckClose()}
-                  style={ModalStyle.ModalButtonOptionLeft}
+                  style={[
+                    ModalStyle.ModalButtonOptionLeft,
+                    { padding: moderateScale(15) },
+                  ]}
                 >
                   <Text
-                    style={
-                      dimension === "sm"
-                        ? ModalStyle.ModalButtonTextTitleMainSM
-                        : ModalStyle.ModalButtonTextTitleMain
-                    }
+                    style={[
+                      ModalStyle.ModalButtonTextTitleMain,
+                      { fontSize: moderateScale(16) },
+                    ]}
                   >
                     No
                   </Text>
@@ -315,15 +341,17 @@ export default function ChecKAttendance() {
                   }}
                   style={[
                     ModalStyle.ModalButtonOptionLeft,
-                    { borderLeftWidth: 1 },
+                    {
+                      padding: moderateScale(15),
+                      borderLeftWidth: moderateScale(1),
+                    },
                   ]}
                 >
                   <Text
-                    style={
-                      dimension === "sm"
-                        ? ModalStyle.ModalButtonTextTitleMainSM
-                        : ModalStyle.ModalButtonTextTitleMain
-                    }
+                    style={[
+                      ModalStyle.ModalButtonTextTitleMain,
+                      { fontSize: moderateScale(16) },
+                    ]}
                   >
                     Yes
                   </Text>
@@ -341,31 +369,40 @@ export default function ChecKAttendance() {
           data={checkData}
           load={load}
         />
-        <View style={CheckStyle.CheckContainer}>
+        <View
+          style={[
+            CheckStyle.CheckContainer,
+            {
+              borderTopLeftRadius: moderateScale(15),
+              borderTopRightRadius: moderateScale(15),
+              borderTopWidth: moderateScale(1),
+              borderRightWidth: moderateScale(1),
+              borderLeftWidth: moderateScale(1),
+            },
+          ]}
+        >
           <SwiperPage path={"/home"} page="checkAtt" isScrolling={isScrolling}>
             <View style={LeaveStyle.LeaveBackButtonContainer}>
               <TouchableOpacity
                 onPress={() => navigate("/home")}
-                style={
-                  dimension === "sm"
-                    ? LeaveStyle.LeaveBackButtonSM
-                    : LeaveStyle.LeaveBackButton
-                }
+                style={[
+                  LeaveStyle.LeaveBackButton,
+                  { padding: moderateScale(15) },
+                ]}
               >
                 <Image
                   source={require("../assets/Images/back-dark-blue.png")}
-                  style={
-                    dimension === "sm"
-                      ? LeaveStyle.LeaveBackButtonIconSM
-                      : LeaveStyle.LeaveBackButtonIcon
-                  }
+                  style={{
+                    width: moderateScale(20),
+                    height: moderateScale(20),
+                    marginRight: moderateScale(10),
+                  }}
                 />
                 <Text
-                  style={
-                    dimension === "sm"
-                      ? LeaveStyle.LeaveBackButtonTitleSM
-                      : LeaveStyle.LeaveBackButtonTitle
-                  }
+                  style={[
+                    LeaveStyle.LeaveBackButtonTitle,
+                    { fontSize: moderateScale(14) },
+                  ]}
                 >
                   Check In/Out
                 </Text>
@@ -375,33 +412,31 @@ export default function ChecKAttendance() {
               contentContainerStyle={{
                 alignItems: "center",
                 backgroundColor: "#f8f8f8",
-                padding: 10,
-                borderRadius: 10,
-                borderWidth: 1,
+                padding: moderateScale(10),
+                borderRadius: moderateScale(10),
+                borderWidth: moderateScale(1),
                 borderColor: "#dcdcdc",
               }}
               style={{
                 flex: 1,
                 width: "100%",
-                padding: 10,
+                padding: moderateScale(10),
               }}
               onScroll={handleScroll}
               onScrollEndDrag={handleScrollEnd}
               onMomentumScrollEnd={handleScrollEnd}
             >
               <View
-                style={
-                  dimension === "sm"
-                    ? HomeStyle.HomeMainSelectDateButtonLabelContainerSM
-                    : HomeStyle.HomeMainSelectDateButtonLabelContainer
-                }
+                style={[
+                  HomeStyle.HomeMainSelectDateButtonLabelContainer,
+                  { height: moderateScale(40) },
+                ]}
               >
                 <Text
-                  style={
-                    dimension === "sm"
-                      ? HomeStyle.HomeMainSelectDateButtonLabelSM
-                      : HomeStyle.HomeMainSelectDateButtonLabel
-                  }
+                  style={[
+                    HomeStyle.HomeMainSelectDateButtonLabel,
+                    { fontSize: moderateScale(14) },
+                  ]}
                 >
                   Select Shifts
                 </Text>
@@ -411,7 +446,10 @@ export default function ChecKAttendance() {
                   style={[
                     CheckStyle.CheckMainSelectDateButton,
                     {
-                      marginRight: 10,
+                      height: moderateScale(40),
+                      marginRight: moderateScale(10),
+                      paddingHorizontal: moderateScale(10),
+                      borderRadius: moderateScale(10),
                     },
                   ]}
                   onPress={() => {
@@ -425,25 +463,30 @@ export default function ChecKAttendance() {
                         ? require("../assets/Images/rec.png")
                         : require("../assets/Images/reced.png")
                     }
-                    style={[
-                      dimension === "sm"
-                        ? HomeStyle.HomeMainSelectIconSM
-                        : HomeStyle.HomeMainSelectIcon,
-                      { marginRight: 10 },
-                    ]}
+                    style={{
+                      width: moderateScale(20),
+                      height: moderateScale(20),
+                      marginRight: moderateScale(10),
+                    }}
                   />
                   <Text
-                    style={
-                      dimension === "sm"
-                        ? HomeStyle.HomeMainSelectDateButtonPlaceholderSM
-                        : HomeStyle.HomeMainSelectDateButtonPlaceholder
-                    }
+                    style={[
+                      HomeStyle.HomeMainSelectDateButtonPlaceholder,
+                      { fontSize: moderateScale(12) },
+                    ]}
                   >
                     Morning
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={CheckStyle.CheckMainSelectDateButton}
+                  style={[
+                    CheckStyle.CheckMainSelectDateButton,
+                    {
+                      height: moderateScale(40),
+                      marginRight: moderateScale(10),
+                      borderRadius: moderateScale(10),
+                    },
+                  ]}
                   onPress={() => {
                     setMorning(false);
                     setAfternoon(true);
@@ -455,60 +498,62 @@ export default function ChecKAttendance() {
                         ? require("../assets/Images/rec.png")
                         : require("../assets/Images/reced.png")
                     }
-                    style={[
-                      dimension === "sm"
-                        ? HomeStyle.HomeMainSelectIconSM
-                        : HomeStyle.HomeMainSelectIcon,
-                      { marginRight: 10 },
-                    ]}
+                    style={{
+                      width: moderateScale(20),
+                      height: moderateScale(20),
+                      marginRight: moderateScale(10),
+                    }}
                   />
                   <Text
-                    style={
-                      dimension === "sm"
-                        ? HomeStyle.HomeMainSelectDateButtonPlaceholderSM
-                        : HomeStyle.HomeMainSelectDateButtonPlaceholder
-                    }
+                    style={[
+                      HomeStyle.HomeMainSelectDateButtonPlaceholder,
+                      { fontSize: moderateScale(12) },
+                    ]}
                   >
                     Afternoon
                   </Text>
                 </TouchableOpacity>
               </View>
               <TouchableOpacity
-                style={
-                  dimension === "sm"
-                    ? CheckStyle.CheckInButtonContainerSM
-                    : CheckStyle.CheckInButtonContainer
-                }
+                style={[
+                  CheckStyle.CheckInButtonContainer,
+                  {
+                    padding: moderateScale(10),
+                    borderRadius: moderateScale(10),
+                    marginVertical: moderateScale(10),
+                  },
+                ]}
                 onPress={async () => {
                   HandleCheckAttendance("checkIn");
                 }}
               >
                 <Text
-                  style={
-                    dimension === "sm"
-                      ? CheckStyle.CheckButtonTextSM
-                      : CheckStyle.CheckButtonText
-                  }
+                  style={[
+                    CheckStyle.CheckButtonText,
+                    { fontSize: moderateScale(14) },
+                  ]}
                 >
                   CHECK IN
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={
-                  dimension === "sm"
-                    ? CheckStyle.CheckOutButtonContainerSM
-                    : CheckStyle.CheckOutButtonContainer
-                }
+                style={[
+                  CheckStyle.CheckOutButtonContainer,
+                  {
+                    padding: moderateScale(10),
+                    borderRadius: moderateScale(10),
+                    marginBottom: moderateScale(10),
+                  },
+                ]}
                 onPress={() => {
                   HandleCheckAttendance("checkOut");
                 }}
               >
                 <Text
-                  style={
-                    dimension === "sm"
-                      ? CheckStyle.CheckButtonTextSM
-                      : CheckStyle.CheckButtonText
-                  }
+                  style={[
+                    CheckStyle.CheckButtonText,
+                    { fontSize: moderateScale(14) },
+                  ]}
                 >
                   CHECK OUT
                 </Text>

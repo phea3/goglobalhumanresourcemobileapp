@@ -6,6 +6,7 @@ import { AuthContext } from "../Context/AuthContext";
 import { useQuery } from "@apollo/client";
 import { GET_EMPLOYEEONHOLIDAY } from "../graphql/GetEmployeeOnHoliday";
 import * as Animatable from "react-native-animatable";
+import { horizontalScale, moderateScale, verticalScale } from "../ Metrics";
 
 const Features = [
   {
@@ -56,24 +57,30 @@ export default function HomeMainScreen() {
   }, [location.pathname]);
 
   return (
-    <View style={HomeStyle.HomeMainContentContainer}>
+    <View
+      style={[
+        HomeStyle.HomeMainContentContainer,
+        {
+          borderTopLeftRadius: moderateScale(15),
+          borderTopRightRadius: moderateScale(15),
+        },
+      ]}
+    >
       <View style={HomeStyle.HomeFeaturesTitle}>
         <Text
-          style={
-            dimension === "sm"
-              ? HomeStyle.HomeFeaturesTitleTextSM
-              : HomeStyle.HomeFeaturesTitleText
-          }
+          style={[
+            HomeStyle.HomeFeaturesTitleText,
+            { padding: moderateScale(15), fontSize: moderateScale(14) },
+          ]}
         >
           FEATURES
         </Text>
       </View>
       <View
-        style={
-          dimension === "sm"
-            ? HomeStyle.HomeFeaturesBoxesContaienrSM
-            : HomeStyle.HomeFeaturesBoxesContaienr
-        }
+        style={[
+          HomeStyle.HomeFeaturesBoxesContaienr,
+          { height: moderateScale(100) },
+        ]}
       >
         {Features.map((feature: any, index: number) => (
           <TouchableOpacity
@@ -88,35 +95,25 @@ export default function HomeMainScreen() {
                 navigate("/report");
               }
             }}
-            style={
-              dimension === "sm"
-                ? HomeStyle.HomeFeaturesBoxContaienrSM
-                : HomeStyle.HomeFeaturesBoxContaienr
-            }
+            style={[
+              HomeStyle.HomeFeaturesBoxContaienr,
+              { height: moderateScale(100) },
+            ]}
             key={index}
           >
             <View
-              style={
-                dimension === "sm"
-                  ? HomeStyle.HomeBoxStyleSM
-                  : HomeStyle.HomeBoxStyle
-              }
+              style={[HomeStyle.HomeBoxStyle, { height: moderateScale(90) }]}
             >
               <Animatable.Image
                 animation={"bounce"}
                 source={feature.icon}
-                style={
-                  dimension === "sm"
-                    ? HomeStyle.HomeFeaturesIconSM
-                    : HomeStyle.HomeFeaturesIcon
-                }
+                style={{ width: moderateScale(30), height: moderateScale(30) }}
               />
               <Text
-                style={
-                  dimension === "sm"
-                    ? HomeStyle.HomeFeaturesBoxTitleSM
-                    : HomeStyle.HomeFeaturesBoxTitle
-                }
+                style={[
+                  HomeStyle.HomeFeaturesBoxTitle,
+                  { fontSize: moderateScale(10) },
+                ]}
               >
                 {feature.title}
               </Text>
@@ -125,19 +122,21 @@ export default function HomeMainScreen() {
         ))}
       </View>
       <TouchableOpacity
-        style={
-          dimension === "sm"
-            ? HomeStyle.HomeLeaveRequestContainerSM
-            : HomeStyle.HomeLeaveRequestContainer
-        }
+        style={[
+          HomeStyle.HomeLeaveRequestContainer,
+          {
+            padding: moderateScale(10),
+            borderRadius: moderateScale(10),
+            marginBottom: moderateScale(10),
+          },
+        ]}
         onPress={() => navigate("/home/leave")}
       >
         <Text
-          style={
-            dimension === "sm"
-              ? HomeStyle.HomeLeaveRequestTextSM
-              : HomeStyle.HomeLeaveRequestText
-          }
+          style={[
+            HomeStyle.HomeLeaveRequestText,
+            { fontSize: moderateScale(14) },
+          ]}
         >
           REQUEST LEAVE
         </Text>
@@ -150,24 +149,22 @@ export default function HomeMainScreen() {
         style={{
           width: "95%",
           backgroundColor: "#f8f8f8",
-          borderRadius: 15,
-          borderWidth: 1,
+          borderRadius: moderateScale(15),
+          borderWidth: moderateScale(1),
           borderColor: "#dcdcdc",
         }}
       >
         <View
-          style={
-            dimension === "sm"
-              ? HomeStyle.HomeHolidayTopContainerSM
-              : HomeStyle.HomeHolidayTopContainer
-          }
+          style={[
+            HomeStyle.HomeHolidayTopContainer,
+            { padding: moderateScale(10) },
+          ]}
         >
           <Text
-            style={
-              dimension === "sm"
-                ? HomeStyle.HomeFeaturesTitleTextSM
-                : HomeStyle.HomeFeaturesTitleText
-            }
+            style={[
+              HomeStyle.HomeFeaturesTitleText,
+              { fontSize: moderateScale(14) },
+            ]}
           >
             Employees on holiday
           </Text>
@@ -177,11 +174,10 @@ export default function HomeMainScreen() {
           ? holiData?.map((leave: any, index: number) => (
               <Animatable.View
                 animation={load ? "fadeInUp" : "fadeInUp"}
-                style={
-                  dimension === "sm"
-                    ? HomeStyle.HomeHolidayCardContainerSM
-                    : HomeStyle.HomeHolidayCardContainer
-                }
+                style={[
+                  HomeStyle.HomeHolidayCardContainer,
+                  { padding: moderateScale(10) },
+                ]}
                 key={index}
               >
                 <Animatable.Image
@@ -191,28 +187,30 @@ export default function HomeMainScreen() {
                       ? { uri: leave?.profileImage }
                       : require("../assets/Images/user.png")
                   }
-                  style={
-                    dimension === "sm"
-                      ? HomeStyle.HomeHolidayProfileImageSM
-                      : HomeStyle.HomeHolidayProfileImage
-                  }
+                  style={[
+                    HomeStyle.HomeHolidayProfileImage,
+                    {
+                      width: moderateScale(40),
+                      height: moderateScale(40),
+                      marginRight: moderateScale(10),
+                      borderWidth: moderateScale(1),
+                    },
+                  ]}
                 />
                 <View style={HomeStyle.HomeHolidayTitleContainer}>
                   <Text
-                    style={
-                      dimension === "sm"
-                        ? HomeStyle.HomeHolidayTitle1SM
-                        : HomeStyle.HomeHolidayTitle1
-                    }
+                    style={[
+                      HomeStyle.HomeHolidayTitle1,
+                      { fontSize: moderateScale(14) },
+                    ]}
                   >
                     {leave?.latinName}
                   </Text>
                   <Text
-                    style={
-                      dimension === "sm"
-                        ? HomeStyle.HomeHolidayTitle3SM
-                        : HomeStyle.HomeHolidayTitle3
-                    }
+                    style={[
+                      HomeStyle.HomeHolidayTitle3,
+                      { fontSize: moderateScale(12) },
+                    ]}
                     numberOfLines={1}
                   >
                     {leave?.reason}
@@ -220,28 +218,30 @@ export default function HomeMainScreen() {
                 </View>
                 <View style={HomeStyle.HomeHolidayTitleLeftContainer}>
                   <View
-                    style={
-                      dimension === "sm"
-                        ? HomeStyle.HomeBoxShiftSM
-                        : HomeStyle.HomeBoxShift
-                    }
+                    style={[
+                      HomeStyle.HomeBoxShift,
+                      {
+                        paddingHorizontal: moderateScale(6),
+                        paddingVertical: moderateScale(1),
+                        borderRadius: moderateScale(4),
+                        height: moderateScale(14),
+                      },
+                    ]}
                   >
                     <Text
-                      style={
-                        dimension === "sm"
-                          ? HomeStyle.HomeBoxTextSM
-                          : HomeStyle.HomeBoxText
-                      }
+                      style={[
+                        HomeStyle.HomeBoxText,
+                        { fontSize: moderateScale(8) },
+                      ]}
                     >
                       {leave?.timeOff}
                     </Text>
                   </View>
                   <Text
-                    style={
-                      dimension === "sm"
-                        ? HomeStyle.HomeHolidayTitle2SM
-                        : HomeStyle.HomeHolidayTitle2
-                    }
+                    style={[
+                      HomeStyle.HomeHolidayTitle2,
+                      { fontSize: moderateScale(12) },
+                    ]}
                   >
                     {leave?.dateLeave ? leave?.dateLeave : ""}
                   </Text>

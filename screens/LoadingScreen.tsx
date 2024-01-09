@@ -10,6 +10,7 @@ import {
 import LoadingStyle from "../styles/LoadingStyle.scss";
 import { useEffect, useState } from "react";
 import NetInfo from "@react-native-community/netinfo";
+import { moderateScale } from "../ Metrics";
 
 export default function LoadingScreen() {
   const [isConnected, setIsConnected] = useState(true);
@@ -39,11 +40,21 @@ export default function LoadingScreen() {
         <View style={LoadingStyle.LoadingImageContainer}>
           {isConnected ? (
             <Image
-              source={require("../assets/Images/18-location-pin-gradient.gif")}
-              style={LoadingStyle.LoadingImageStyle}
+              source={require("../assets/Images/loader-1.gif")}
+              style={[
+                LoadingStyle.LoadingImageStyle,
+                { height: moderateScale(100), width: moderateScale(100) },
+              ]}
             />
           ) : (
-            <Text style={LoadingStyle.LoadingNointernetacess}>No internet</Text>
+            <Text
+              style={[
+                LoadingStyle.LoadingNointernetacess,
+                { fontSize: moderateScale(14) },
+              ]}
+            >
+              No internet
+            </Text>
           )}
         </View>
         <View style={LoadingStyle.LogoImageContainer}>

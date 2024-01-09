@@ -8,6 +8,7 @@ import { useQuery } from "@apollo/client";
 import { GETEMPLOYEELEAVEINFO } from "../graphql/GetEmployeeLeaveInfo";
 import { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
+import { horizontalScale, moderateScale, verticalScale } from "../ Metrics";
 
 const Actions = [
   {
@@ -27,7 +28,6 @@ const Actions = [
 export default function HomeScreen() {
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const { uid } = useContext(AuthContext);
-  const { dimension } = useContext(AuthContext);
   const [load, setLoad] = useState(true);
 
   useEffect(() => {
@@ -80,11 +80,10 @@ export default function HomeScreen() {
         <>
           <View style={HomeStyle.HomeSelectDateContainer}>
             <Text
-              style={
-                dimension === "sm"
-                  ? HomeStyle.HomeSelectDateTextSM
-                  : HomeStyle.HomeSelectDateText
-              }
+              style={[
+                HomeStyle.HomeSelectDateText,
+                { fontSize: moderateScale(14) },
+              ]}
             >
               {moment(new Date()).format("MMMM, YYYY")}
             </Text>
@@ -92,26 +91,27 @@ export default function HomeScreen() {
           <View style={HomeStyle.HomeBoxesContainer}>
             {Actions.map((action: any, index: number) => (
               <View
-                style={
-                  dimension === "sm"
-                    ? HomeStyle.HomeBoxContainerSM
-                    : HomeStyle.HomeBoxContainer
-                }
+                style={[
+                  HomeStyle.HomeBoxContainer,
+                  { height: moderateScale(120) },
+                ]}
                 key={index}
               >
                 <View
-                  style={
-                    dimension === "sm"
-                      ? HomeStyle.HomeBoxCircleSM
-                      : HomeStyle.HomeBoxCircle
-                  }
+                  style={[
+                    HomeStyle.HomeBoxCircle,
+                    {
+                      width: moderateScale(70),
+                      height: moderateScale(70),
+                      borderWidth: moderateScale(2),
+                    },
+                  ]}
                 >
                   <Text
-                    style={
-                      dimension === "sm"
-                        ? HomeStyle.HomeBoxInSideCircleTextSM
-                        : HomeStyle.HomeBoxInSideCircleText
-                    }
+                    style={[
+                      HomeStyle.HomeBoxInSideCircleText,
+                      { fontSize: moderateScale(20) },
+                    ]}
                   >
                     {action.title === "Remain leave"
                       ? leaveData?.getEmployeeLeaveInfo?.al
@@ -133,11 +133,10 @@ export default function HomeScreen() {
                   </Text>
                 </View>
                 <Text
-                  style={
-                    dimension === "sm"
-                      ? HomeStyle.HomeBoxCircleTextSM
-                      : HomeStyle.HomeBoxCircleText
-                  }
+                  style={[
+                    HomeStyle.HomeBoxCircleText,
+                    { fontSize: moderateScale(10) },
+                  ]}
                 >
                   {action.title}
                 </Text>
@@ -147,14 +146,33 @@ export default function HomeScreen() {
         </>
       ) : null}
       {load ? (
-        <View style={HomeStyle.HomeContentContainer}>
+        <View
+          style={[
+            HomeStyle.HomeContentContainer,
+            {
+              borderTopLeftRadius: moderateScale(15),
+              borderTopRightRadius: moderateScale(15),
+            },
+          ]}
+        >
           <Image
             source={require("../assets/Images/loader-1.gif")}
-            style={{ width: 100, height: 100 }}
+            style={{
+              width: moderateScale(100),
+              height: moderateScale(100),
+            }}
           />
         </View>
       ) : (
-        <View style={HomeStyle.HomeContentContainer}>
+        <View
+          style={[
+            HomeStyle.HomeContentContainer,
+            {
+              borderTopLeftRadius: moderateScale(15),
+              borderTopRightRadius: moderateScale(15),
+            },
+          ]}
+        >
           <Outlet />
         </View>
       )}

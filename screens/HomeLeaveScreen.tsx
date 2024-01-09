@@ -22,6 +22,7 @@ import { REQUEST_LEAVE } from "../graphql/RequestLeave";
 import { GETTIMEOFFSFORMOBILE } from "../graphql/GetTimeOffsForMobile";
 import KeyboardDismissableArea from "../functions/KeyboardDismissableArea";
 import SwiperPage from "../includes/SwiperPage";
+import { moderateScale } from "../ Metrics";
 
 export default function HomeLeaveScreen() {
   const { dimension } = useContext(AuthContext);
@@ -174,33 +175,37 @@ export default function HomeLeaveScreen() {
   };
 
   return (
-    <View style={HomeStyle.HomeMainContentContainer}>
+    <View
+      style={[
+        HomeStyle.HomeMainContentContainer,
+        {
+          borderTopLeftRadius: moderateScale(15),
+          borderTopRightRadius: moderateScale(15),
+        },
+      ]}
+    >
       {/* <SwiperPage path={"/home"} isScrolling={isScrolling}> */}
-      <View
-        style={
-          dimension === "sm"
-            ? HomeStyle.HomeFeaturesTitleSM
-            : HomeStyle.HomeFeaturesTitle
-        }
-      >
+      <View style={HomeStyle.HomeFeaturesTitle}>
         <TouchableOpacity
-          style={HomeStyle.HomeFeaturesTitleButton}
+          style={[
+            HomeStyle.HomeFeaturesTitleButton,
+            { padding: moderateScale(15) },
+          ]}
           onPress={() => navigate("/home/main")}
         >
           <Image
             source={require("../assets/Images/back-dark-blue.png")}
-            style={
-              dimension === "sm"
-                ? HomeStyle.HomeMainBackIconSM
-                : HomeStyle.HomeMainBackIcon
-            }
+            style={{
+              width: moderateScale(20),
+              height: moderateScale(20),
+              marginRight: moderateScale(10),
+            }}
           />
           <Text
-            style={
-              dimension === "sm"
-                ? LeaveStyle.LeaveBackButtonTitleSM
-                : LeaveStyle.LeaveBackButtonTitle
-            }
+            style={[
+              LeaveStyle.LeaveBackButtonTitle,
+              { fontSize: moderateScale(14) },
+            ]}
           >
             Main Leave
           </Text>
@@ -210,10 +215,13 @@ export default function HomeLeaveScreen() {
         contentContainerStyle={{
           alignItems: "center",
           backgroundColor: "#f8f8f8",
-          padding: dimension === "sm" ? 5 : 10,
-          borderRadius: 10,
+          padding: moderateScale(10),
+          borderRadius: moderateScale(10),
         }}
-        style={HomeStyle.HomeMainScrollviewStyle}
+        style={[
+          HomeStyle.HomeMainScrollviewStyle,
+          { padding: moderateScale(10) },
+        ]}
         showsVerticalScrollIndicator={false}
         onScroll={handleScroll}
         onScrollEndDrag={handleScrollEnd}
@@ -222,23 +230,26 @@ export default function HomeLeaveScreen() {
         <KeyboardDismissableArea />
         {!isKeyboardVisible ? (
           <>
-            <View style={HomeStyle.HomeMainSelectDateButtonLabelContainer}>
+            <View
+              style={[
+                HomeStyle.HomeMainSelectDateButtonLabelContainer,
+                { height: moderateScale(40) },
+              ]}
+            >
               <Text
-                style={
-                  dimension === "sm"
-                    ? HomeStyle.HomeMainSelectDateButtonLabelSM
-                    : HomeStyle.HomeMainSelectDateButtonLabel
-                }
+                style={[
+                  HomeStyle.HomeMainSelectDateButtonLabel,
+                  { fontSize: moderateScale(14) },
+                ]}
               >
                 Select Shift
               </Text>
             </View>
             <View
-              style={
-                dimension === "sm"
-                  ? HomeStyle.HomeMainSelectTimeContainerSM
-                  : HomeStyle.HomeMainSelectTimeContainer
-              }
+              style={[
+                HomeStyle.HomeMainSelectTimeContainer,
+                { height: moderateScale(40), paddingTop: moderateScale(10) },
+              ]}
             >
               <TouchableOpacity
                 style={[
@@ -255,18 +266,17 @@ export default function HomeLeaveScreen() {
                       ? require("../assets/Images/rec.png")
                       : require("../assets/Images/reced.png")
                   }
-                  style={
-                    dimension === "sm"
-                      ? HomeStyle.HomeMainSelectIconSM
-                      : HomeStyle.HomeMainSelectIcon
-                  }
+                  style={{
+                    width: moderateScale(20),
+                    height: moderateScale(20),
+                    marginRight: moderateScale(10),
+                  }}
                 />
                 <Text
-                  style={
-                    dimension === "sm"
-                      ? HomeStyle.HomeMainSelectTitleSM
-                      : HomeStyle.HomeMainSelectTitle
-                  }
+                  style={[
+                    HomeStyle.HomeMainSelectTitle,
+                    { fontSize: moderateScale(14) },
+                  ]}
                 >
                   All Day
                 </Text>
@@ -283,18 +293,17 @@ export default function HomeLeaveScreen() {
                       ? require("../assets/Images/rec.png")
                       : require("../assets/Images/reced.png")
                   }
-                  style={
-                    dimension === "sm"
-                      ? HomeStyle.HomeMainSelectIconSM
-                      : HomeStyle.HomeMainSelectIcon
-                  }
+                  style={{
+                    width: moderateScale(20),
+                    height: moderateScale(20),
+                    marginRight: moderateScale(10),
+                  }}
                 />
                 <Text
-                  style={
-                    dimension === "sm"
-                      ? HomeStyle.HomeMainSelectTitleSM
-                      : HomeStyle.HomeMainSelectTitle
-                  }
+                  style={[
+                    HomeStyle.HomeMainSelectTitle,
+                    { fontSize: moderateScale(14) },
+                  ]}
                 >
                   Half Day
                 </Text>
@@ -308,47 +317,46 @@ export default function HomeLeaveScreen() {
                 ]}
               >
                 <View
-                  style={
-                    dimension === "sm"
-                      ? HomeStyle.HomeMainSelectDateButtonLabelContainerSM
-                      : HomeStyle.HomeMainSelectDateButtonLabelContainer
-                  }
+                  style={[
+                    HomeStyle.HomeMainSelectDateButtonLabelContainer,
+                    { height: moderateScale(40) },
+                  ]}
                 >
                   <Text
-                    style={
-                      dimension === "sm"
-                        ? HomeStyle.HomeMainSelectDateButtonLabelSM
-                        : HomeStyle.HomeMainSelectDateButtonLabel
-                    }
+                    style={[
+                      HomeStyle.HomeMainSelectDateButtonLabel,
+                      { fontSize: moderateScale(14) },
+                    ]}
                   >
                     {allDay ? "Start Date" : "Date"}
                   </Text>
                 </View>
 
                 <View
-                  style={
-                    dimension === "sm"
-                      ? HomeStyle.HomeMainSelectDateButtonSM
-                      : HomeStyle.HomeMainSelectDateButton
-                  }
+                  style={[
+                    HomeStyle.HomeMainSelectDateButton,
+                    {
+                      height: moderateScale(40),
+                      paddingHorizontal: moderateScale(10),
+                      borderRadius: moderateScale(10),
+                    },
+                  ]}
                 >
                   <Image
                     source={require("../assets/Images/calendar.png")}
-                    style={[
-                      dimension === "sm"
-                        ? HomeStyle.HomeMainSelectIconSM
-                        : HomeStyle.HomeMainSelectIcon,
-                      { marginRight: 10 },
-                    ]}
+                    style={{
+                      width: moderateScale(20),
+                      height: moderateScale(20),
+                      marginRight: moderateScale(10),
+                    }}
                   />
                   <View style={HomeStyle.HomeMainSelectDateSection}>
                     <TouchableOpacity onPress={showDatePicker}>
                       <Text
-                        style={
-                          dimension === "sm"
-                            ? HomeStyle.HomeMainSelectDateButtonPlaceholderSM
-                            : HomeStyle.HomeMainSelectDateButtonPlaceholder
-                        }
+                        style={[
+                          HomeStyle.HomeMainSelectDateButtonPlaceholder,
+                          { fontSize: moderateScale(12) },
+                        ]}
                       >
                         {moment(startDate).format("DD-MM-YYYY")}
                       </Text>
@@ -364,18 +372,16 @@ export default function HomeLeaveScreen() {
               </View>
               <View style={HomeStyle.HomeMainSelectDateMiniContainer}>
                 <View
-                  style={
-                    dimension === "sm"
-                      ? HomeStyle.HomeMainSelectDateButtonLabelContainerSM
-                      : HomeStyle.HomeMainSelectDateButtonLabelContainer
-                  }
+                  style={[
+                    HomeStyle.HomeMainSelectDateButtonLabelContainer,
+                    { height: moderateScale(40) },
+                  ]}
                 >
                   <Text
-                    style={
-                      dimension === "sm"
-                        ? HomeStyle.HomeMainSelectDateButtonLabelSM
-                        : HomeStyle.HomeMainSelectDateButtonLabel
-                    }
+                    style={[
+                      HomeStyle.HomeMainSelectDateButtonLabel,
+                      { fontSize: moderateScale(14) },
+                    ]}
                   >
                     {halfDay ? "Request For" : "End Date"}
                   </Text>
@@ -391,14 +397,15 @@ export default function HomeLeaveScreen() {
                   >
                     <TouchableOpacity
                       style={[
-                        dimension === "sm"
-                          ? HomeStyle.HomeMainSelectDateButtonSM
-                          : HomeStyle.HomeMainSelectDateButton,
+                        HomeStyle.HomeMainSelectDateButton,
                         {
-                          marginRight: 10,
+                          height: moderateScale(40),
+                          paddingHorizontal: moderateScale(10),
+                          borderRadius: moderateScale(10),
+                          marginRight: moderateScale(10),
                           marginBottom:
                             dimension === "sm" || Platform.OS === "android"
-                              ? 10
+                              ? moderateScale(10)
                               : 0,
                         },
                       ]}
@@ -413,29 +420,34 @@ export default function HomeLeaveScreen() {
                             ? require("../assets/Images/rec.png")
                             : require("../assets/Images/reced.png")
                         }
-                        style={[
-                          dimension === "sm"
-                            ? HomeStyle.HomeMainSelectIconSM
-                            : HomeStyle.HomeMainSelectIcon,
-                          { marginRight: 10 },
-                        ]}
+                        style={{
+                          width: moderateScale(20),
+                          height: moderateScale(20),
+                          marginRight: moderateScale(10),
+                        }}
                       />
                       <Text
-                        style={
-                          dimension === "sm"
-                            ? HomeStyle.HomeMainSelectDateButtonPlaceholderSM
-                            : HomeStyle.HomeMainSelectDateButtonPlaceholder
-                        }
+                        style={[
+                          HomeStyle.HomeMainSelectDateButtonPlaceholder,
+                          { fontSize: moderateScale(12) },
+                        ]}
                       >
                         Morning
                       </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                      style={
-                        dimension === "sm"
-                          ? HomeStyle.HomeMainSelectDateButtonSM
-                          : HomeStyle.HomeMainSelectDateButton
-                      }
+                      style={[
+                        HomeStyle.HomeMainSelectDateButton,
+                        {
+                          height: moderateScale(40),
+                          paddingHorizontal: moderateScale(10),
+                          borderRadius: moderateScale(10),
+                          marginBottom:
+                            dimension === "sm" || Platform.OS === "android"
+                              ? moderateScale(10)
+                              : 0,
+                        },
+                      ]}
                       onPress={() => {
                         setMorning(false);
                         setAfternoon(true);
@@ -447,19 +459,17 @@ export default function HomeLeaveScreen() {
                             ? require("../assets/Images/rec.png")
                             : require("../assets/Images/reced.png")
                         }
-                        style={[
-                          dimension === "sm"
-                            ? HomeStyle.HomeMainSelectIconSM
-                            : HomeStyle.HomeMainSelectIcon,
-                          { marginRight: 10 },
-                        ]}
+                        style={{
+                          width: moderateScale(20),
+                          height: moderateScale(20),
+                          marginRight: moderateScale(10),
+                        }}
                       />
                       <Text
-                        style={
-                          dimension === "sm"
-                            ? HomeStyle.HomeMainSelectDateButtonPlaceholderSM
-                            : HomeStyle.HomeMainSelectDateButtonPlaceholder
-                        }
+                        style={[
+                          HomeStyle.HomeMainSelectDateButtonPlaceholder,
+                          { fontSize: moderateScale(12) },
+                        ]}
                       >
                         Afternoon
                       </Text>
@@ -467,28 +477,29 @@ export default function HomeLeaveScreen() {
                   </View>
                 ) : (
                   <View
-                    style={
-                      dimension === "sm"
-                        ? HomeStyle.HomeMainSelectDateButtonSM
-                        : HomeStyle.HomeMainSelectDateButton
-                    }
+                    style={[
+                      HomeStyle.HomeMainSelectDateButton,
+                      {
+                        height: moderateScale(40),
+                        paddingHorizontal: moderateScale(10),
+                        borderRadius: moderateScale(10),
+                      },
+                    ]}
                   >
                     <Image
                       source={require("../assets/Images/calendar.png")}
-                      style={[
-                        dimension === "sm"
-                          ? HomeStyle.HomeMainSelectIconSM
-                          : HomeStyle.HomeMainSelectIcon,
-                        { marginRight: 10 },
-                      ]}
+                      style={{
+                        width: moderateScale(20),
+                        height: moderateScale(20),
+                        marginRight: moderateScale(10),
+                      }}
                     />
                     <TouchableOpacity onPress={showDatePicker2}>
                       <Text
-                        style={
-                          dimension === "sm"
-                            ? HomeStyle.HomeMainSelectDateButtonPlaceholderSM
-                            : HomeStyle.HomeMainSelectDateButtonPlaceholder
-                        }
+                        style={[
+                          HomeStyle.HomeMainSelectDateButtonPlaceholder,
+                          { fontSize: moderateScale(12) },
+                        ]}
                       >
                         {moment(endDate).format("DD-MM-YYYY")}
                       </Text>
@@ -506,18 +517,16 @@ export default function HomeLeaveScreen() {
           </>
         ) : null}
         <View
-          style={
-            dimension === "sm"
-              ? HomeStyle.HomeMainSelectDateButtonLabelContainerSM
-              : HomeStyle.HomeMainSelectDateButtonLabelContainer
-          }
+          style={[
+            HomeStyle.HomeMainSelectDateButtonLabelContainer,
+            { height: moderateScale(40) },
+          ]}
         >
           <Text
-            style={
-              dimension === "sm"
-                ? HomeStyle.HomeMainSelectDateButtonLabelSM
-                : HomeStyle.HomeMainSelectDateButtonLabel
-            }
+            style={[
+              HomeStyle.HomeMainSelectDateButtonLabel,
+              { fontSize: moderateScale(14) },
+            ]}
           >
             Type Time Off
           </Text>
@@ -555,11 +564,10 @@ export default function HomeLeaveScreen() {
               return (
                 <View>
                   <Text
-                    style={
-                      dimension === "sm"
-                        ? HomeStyle.HomeMainSelectDateButtonPlaceholderSM
-                        : HomeStyle.HomeMainSelectDateButtonPlaceholder
-                    }
+                    style={[
+                      HomeStyle.HomeMainSelectDateButtonPlaceholder,
+                      { fontSize: moderateScale(12) },
+                    ]}
                   >
                     {selectedItem?.timeOff
                       ? selectedItem?.timeOff
@@ -580,11 +588,10 @@ export default function HomeLeaveScreen() {
               return (
                 <View>
                   <Text
-                    style={
-                      dimension === "sm"
-                        ? HomeStyle.HomeMainSelectDateButtonPlaceholderSM
-                        : HomeStyle.HomeMainSelectDateButtonPlaceholder
-                    }
+                    style={[
+                      HomeStyle.HomeMainSelectDateButtonPlaceholder,
+                      { fontSize: moderateScale(12) },
+                    ]}
                   >
                     {item?.timeOff}
                   </Text>
@@ -593,47 +600,48 @@ export default function HomeLeaveScreen() {
             }}
             buttonStyle={{
               width: "100%",
-              height: dimension === "sm" ? 30 : 40,
+              height: moderateScale(40),
               backgroundColor: "#f8f8f8",
-              borderRadius: 10,
-              borderWidth: 1,
+              borderRadius: moderateScale(10),
+              borderWidth: moderateScale(1),
               borderColor: "#082b9e",
             }}
           />
         )}
 
         <View
-          style={
-            dimension === "sm"
-              ? HomeStyle.HomeMainSelectDateButtonLabelContainerSM
-              : HomeStyle.HomeMainSelectDateButtonLabelContainer
-          }
+          style={[
+            HomeStyle.HomeMainSelectDateButtonLabelContainer,
+            { height: moderateScale(40) },
+          ]}
         >
           <Text
-            style={
-              dimension === "sm"
-                ? HomeStyle.HomeMainSelectDateButtonLabelSM
-                : HomeStyle.HomeMainSelectDateButtonLabel
-            }
+            style={[
+              HomeStyle.HomeMainSelectDateButtonLabel,
+              { fontSize: moderateScale(14) },
+            ]}
           >
             Reason
           </Text>
         </View>
         <View
-          style={
-            dimension === "sm"
-              ? HomeStyle.HomeLeaveReasonContainerSM
-              : HomeStyle.HomeLeaveReasonContainer
-          }
+          style={[
+            HomeStyle.HomeLeaveReasonContainer,
+            {
+              height: moderateScale(40),
+              borderWidth: moderateScale(1),
+              borderRadius: moderateScale(10),
+              paddingLeft: moderateScale(10),
+            },
+          ]}
         >
           <TextInput
             value={reason}
             placeholder="Reason"
-            style={
-              dimension === "sm"
-                ? HomeStyle.HomeLeaveReasonStyleSM
-                : HomeStyle.HomeLeaveReasonStyle
-            }
+            style={[
+              HomeStyle.HomeLeaveReasonStyle,
+              { fontSize: moderateScale(12) },
+            ]}
             onChangeText={(e) => setReason(e)}
             maxLength={50} // Set the maximum number of characters
             returnKeyType="done"
@@ -641,44 +649,55 @@ export default function HomeLeaveScreen() {
         </View>
         {reason.length === 0 && (
           <View style={{ width: "100%" }}>
-            <Text style={{ color: "#ff0000", padding: 5 }}>Require!</Text>
+            <Text
+              style={{
+                color: "#ff0000",
+                padding: moderateScale(5),
+                fontSize: moderateScale(14),
+              }}
+            >
+              Require!
+            </Text>
           </View>
         )}
 
         <View
-          style={
-            dimension === "sm"
-              ? HomeStyle.HomeMainSelectDateButtonLabelContainerSM
-              : HomeStyle.HomeMainSelectDateButtonLabelContainer
-          }
+          style={[
+            HomeStyle.HomeMainSelectDateButtonLabelContainer,
+            { height: moderateScale(40) },
+          ]}
         >
-          <Text style={HomeStyle.HomeMainSelectDateButtonLabel}> </Text>
+          <Text
+            style={[
+              HomeStyle.HomeMainSelectDateButtonLabel,
+              { fontSize: moderateScale(14) },
+            ]}
+          >
+            {" "}
+          </Text>
         </View>
         {!isKeyboardVisible ? (
           <TouchableOpacity
-            style={
-              dimension === "sm"
-                ? HomeStyle.HomeLeaveRequestButtonSM
-                : HomeStyle.HomeLeaveRequestButton
-            }
+            style={[
+              HomeStyle.HomeLeaveRequestButton,
+              {
+                height: moderateScale(40),
+                padding: moderateScale(10),
+                marginBottom: moderateScale(10),
+                borderRadius: moderateScale(10),
+              },
+            ]}
             onPress={() => {
               if (reason !== "" && timeId !== "") {
                 handlRequest();
               }
-              // else {
-              //   Alert.alert(
-              //     "Oop!",
-              //     "Please field the reason or choose your time off"
-              //   );
-              // }
             }}
           >
             <Text
-              style={
-                dimension === "sm"
-                  ? HomeStyle.HomeLeaveRequestButtonTextSM
-                  : HomeStyle.HomeLeaveRequestButtonText
-              }
+              style={[
+                HomeStyle.HomeLeaveRequestButtonText,
+                { fontSize: moderateScale(14) },
+              ]}
             >
               Request
             </Text>

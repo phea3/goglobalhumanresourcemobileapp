@@ -16,6 +16,7 @@ import moment from "moment";
 import { useQuery } from "@apollo/client";
 import { GET_DAILY_ATTENDANCE_REPORT } from "../graphql/GetDailyAttendanceReport";
 import * as Animatable from "react-native-animatable";
+import { horizontalScale, moderateScale, verticalScale } from "../ Metrics";
 
 export default function DailyAttendance() {
   const navigate = useNavigate();
@@ -54,11 +55,14 @@ export default function DailyAttendance() {
           source={
             uri ? { uri: uri } : require("../assets/Images/user_phoem.jpg")
           }
-          style={
-            dimension === "sm"
-              ? DailyAttendanceStyle.DailyAttCardImgSM
-              : DailyAttendanceStyle.DailyAttCardImg
-          }
+          style={[
+            DailyAttendanceStyle.DailyAttCardImg,
+            {
+              height: moderateScale(40),
+              width: moderateScale(40),
+              borderWidth: moderateScale(1),
+            },
+          ]}
           onLoad={handleLoad}
         />
       </View>
@@ -119,37 +123,53 @@ export default function DailyAttendance() {
   }, [dailyloading]);
 
   return (
-    <View style={DailyAttendanceStyle.DailyAttContainer}>
+    <View
+      style={[
+        DailyAttendanceStyle.DailyAttContainer,
+        {
+          borderTopLeftRadius: moderateScale(15),
+          borderTopRightRadius: moderateScale(15),
+          borderTopWidth: moderateScale(1),
+          borderRightWidth: moderateScale(1),
+          borderLeftWidth: moderateScale(1),
+        },
+      ]}
+    >
       <View style={DailyAttendanceStyle.DailyAttBackButtonContainer}>
         <TouchableOpacity
           onPress={() => navigate("/report")}
-          style={
-            dimension === "sm"
-              ? DailyAttendanceStyle.DailyAttBackButtonSM
-              : DailyAttendanceStyle.DailyAttBackButton
-          }
+          style={[
+            DailyAttendanceStyle.DailyAttBackButton,
+            { padding: moderateScale(15) },
+          ]}
         >
           <Image
             source={require("../assets/Images/back-dark-blue.png")}
-            style={
-              dimension === "sm"
-                ? DailyAttendanceStyle.DailyAttBackButtonIconSM
-                : DailyAttendanceStyle.DailyAttBackButtonIcon
-            }
+            style={{
+              width: moderateScale(20),
+              height: moderateScale(20),
+              marginRight: moderateScale(10),
+            }}
           />
           <Text
             numberOfLines={1}
-            style={
-              dimension === "sm"
-                ? DailyAttendanceStyle.DailyAttBackButtonTitleSM
-                : DailyAttendanceStyle.DailyAttBackButtonTitle
-            }
+            style={[
+              DailyAttendanceStyle.DailyAttBackButtonTitle,
+              {
+                fontSize: moderateScale(14),
+              },
+            ]}
           >
             DAIILY ATTENDANCES
           </Text>
         </TouchableOpacity>
       </View>
-      <View style={DailyAttendanceStyle.DailyAttBodyContainer}>
+      <View
+        style={[
+          DailyAttendanceStyle.DailyAttBodyContainer,
+          { padding: moderateScale(10), borderRadius: moderateScale(10) },
+        ]}
+      >
         <View style={DailyAttendanceStyle.CheckMainSelectDateSection}>
           <View style={{ flexDirection: "row", flex: 1 }}>
             <TouchableOpacity
@@ -157,6 +177,8 @@ export default function DailyAttendance() {
                 DailyAttendanceStyle.CheckMainSelectDateButton,
                 {
                   marginRight: 10,
+                  height: moderateScale(40),
+                  borderRadius: moderateScale(10),
                 },
               ]}
               onPress={() => {
@@ -170,19 +192,17 @@ export default function DailyAttendance() {
                     ? require("../assets/Images/rec.png")
                     : require("../assets/Images/reced.png")
                 }
-                style={[
-                  dimension === "sm"
-                    ? DailyAttendanceStyle.DailyAttMainSelectIconSM
-                    : DailyAttendanceStyle.DailyAttMainSelectIcon,
-                  { marginRight: 10 },
-                ]}
+                style={{
+                  width: moderateScale(20),
+                  height: moderateScale(20),
+                  marginRight: moderateScale(10),
+                }}
               />
               <Text
-                style={
-                  dimension === "sm"
-                    ? DailyAttendanceStyle.DailyAttMainSelectDateButtonPlaceholderSM
-                    : DailyAttendanceStyle.DailyAttMainSelectDateButtonPlaceholder
-                }
+                style={[
+                  DailyAttendanceStyle.DailyAttMainSelectDateButtonPlaceholder,
+                  { fontSize: moderateScale(12) },
+                ]}
               >
                 Morning
               </Text>
@@ -200,19 +220,17 @@ export default function DailyAttendance() {
                     ? require("../assets/Images/rec.png")
                     : require("../assets/Images/reced.png")
                 }
-                style={[
-                  dimension === "sm"
-                    ? DailyAttendanceStyle.DailyAttMainSelectIconSM
-                    : DailyAttendanceStyle.DailyAttMainSelectIcon,
-                  { marginRight: 10 },
-                ]}
+                style={{
+                  width: moderateScale(20),
+                  height: moderateScale(20),
+                  marginRight: moderateScale(10),
+                }}
               />
               <Text
-                style={
-                  dimension === "sm"
-                    ? DailyAttendanceStyle.DailyAttMainSelectDateButtonPlaceholderSM
-                    : DailyAttendanceStyle.DailyAttMainSelectDateButtonPlaceholder
-                }
+                style={[
+                  DailyAttendanceStyle.DailyAttMainSelectDateButtonPlaceholder,
+                  { fontSize: moderateScale(12) },
+                ]}
               >
                 Afternoon
               </Text>
@@ -228,23 +246,21 @@ export default function DailyAttendance() {
           >
             <Image
               source={require("../assets/Images/calendar.png")}
-              style={[
-                dimension === "sm"
-                  ? DailyAttendanceStyle.DailyAttMainSelectIconSM
-                  : DailyAttendanceStyle.DailyAttMainSelectIcon,
-                { marginRight: 10 },
-              ]}
+              style={{
+                width: moderateScale(20),
+                height: moderateScale(20),
+                marginRight: moderateScale(10),
+              }}
             />
             <View
               style={DailyAttendanceStyle.DailyAttMainMainSelectDateSection}
             >
               <View>
                 <Text
-                  style={
-                    dimension === "sm"
-                      ? DailyAttendanceStyle.DailyAttMainSelectDateButtonPlaceholderSM
-                      : DailyAttendanceStyle.DailyAttMainSelectDateButtonPlaceholder
-                  }
+                  style={[
+                    DailyAttendanceStyle.DailyAttMainSelectDateButtonPlaceholder,
+                    { fontSize: moderateScale(12) },
+                  ]}
                 >
                   {moment(date).format("DD-MM-YYYY")}
                 </Text>
@@ -262,7 +278,10 @@ export default function DailyAttendance() {
           <View style={HomeStyle.HomeContentContainer}>
             <Image
               source={require("../assets/Images/loader-1.gif")}
-              style={{ height: 100, width: 100 }}
+              style={{
+                height: moderateScale(100),
+                width: moderateScale(100),
+              }}
             />
           </View>
         ) : (
@@ -278,14 +297,23 @@ export default function DailyAttendance() {
               <Animatable.Image
                 source={require("../assets/Images/Data-Transfer.gif")}
                 resizeMode="contain"
-                style={{ width: 100, height: 100 }}
+                style={{
+                  width: moderateScale(100),
+                  height: moderateScale(100),
+                }}
                 animation={"fadeInDown"}
               />
             )}
             {dailyreport?.getDailyAttendanceReport.map(
               (attendance: any, index: number) => (
                 <Animatable.View
-                  style={DailyAttendanceStyle.DailyAttBodyMiniContainer}
+                  style={[
+                    DailyAttendanceStyle.DailyAttBodyMiniContainer,
+                    {
+                      paddingVertical: moderateScale(10),
+                      borderBottomWidth: moderateScale(1),
+                    },
+                  ]}
                   key={index}
                 >
                   <View style={DailyAttendanceStyle.DailyAttCardContainer}>
@@ -297,28 +325,34 @@ export default function DailyAttendance() {
                             ? { uri: attendance?.profileImage }
                             : require("../assets/Images/user_phoem.jpg")
                         }
-                        style={
-                          dimension === "sm"
-                            ? DailyAttendanceStyle.DailyAttCardImgSM
-                            : DailyAttendanceStyle.DailyAttCardImg
-                        }
+                        style={[
+                          DailyAttendanceStyle.DailyAttCardImg,
+                          {
+                            height: moderateScale(40),
+                            width: moderateScale(40),
+                            borderWidth: moderateScale(1),
+                          },
+                        ]}
                       />
-                      <View style={DailyAttendanceStyle.DailyAttCardTitleCon}>
+                      <View
+                        style={[
+                          DailyAttendanceStyle.DailyAttCardTitleCon,
+                          { paddingLeft: moderateScale(10) },
+                        ]}
+                      >
                         <Text
-                          style={
-                            dimension === "sm"
-                              ? DailyAttendanceStyle.DailyAttCardTitle1SM
-                              : DailyAttendanceStyle.DailyAttCardTitle1
-                          }
+                          style={[
+                            DailyAttendanceStyle.DailyAttCardTitle1,
+                            { fontSize: moderateScale(14) },
+                          ]}
                         >
                           {attendance?.latinName}
                         </Text>
                         <Text
-                          style={
-                            dimension === "sm"
-                              ? DailyAttendanceStyle.DailyAttCardTitle2SM
-                              : DailyAttendanceStyle.DailyAttCardTitle2
-                          }
+                          style={[
+                            DailyAttendanceStyle.DailyAttCardTitle2,
+                            { fontSize: moderateScale(12) },
+                          ]}
                         >
                           {attendance?.reason ? attendance?.reason : "--:--"}
                         </Text>
@@ -327,10 +361,9 @@ export default function DailyAttendance() {
                     <View style={DailyAttendanceStyle.DailyAttCardRight}>
                       <Text
                         style={[
-                          dimension === "sm"
-                            ? DailyAttendanceStyle.DailyAttCardTitle3SM
-                            : DailyAttendanceStyle.DailyAttCardTitle3,
+                          DailyAttendanceStyle.DailyAttCardTitle3,
                           {
+                            fontSize: moderateScale(12),
                             color:
                               attendance?.attendance === "Absence"
                                 ? "red"

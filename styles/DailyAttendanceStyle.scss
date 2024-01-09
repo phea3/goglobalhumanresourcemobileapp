@@ -4,9 +4,8 @@
   width: 100%;
   height: 100%;
   background-color: white;
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
   align-items: center;
+  border-color: $color-medium-blue;
 }
 
 .DailyAttBackButtonContainer {
@@ -21,17 +20,8 @@
   font-family: $kantumruy-bold;
 }
 
-.DailyAttBackButtonSM {
-  width: 40%;
-  padding: 10px;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-}
-
 .DailyAttBackButton {
   width: 50%;
-  padding: 10px;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
@@ -49,12 +39,6 @@
   margin-right: 10px;
 }
 
-.DailyAttBackButtonTitleSM {
-  font-size: 10px;
-  font-family: $kantumruy-bold;
-  color: $color-dark-blue;
-}
-
 .DailyAttBackButtonTitle {
   font-family: $kantumruy-bold;
   color: $color-dark-blue;
@@ -64,17 +48,12 @@
   flex: 1;
   width: 93%;
   background-color: #f8f8f8;
-  border-radius: 10px;
   flex-direction: column;
-  padding: 5px;
 }
 
 .DailyAttBodyMiniContainer {
   flex: 1;
   width: 95%;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border-bottom-width: 1px;
   border-color: $color-gray;
 }
 
@@ -86,10 +65,9 @@
 }
 
 .CheckMainSelectDateButton {
-  height: 40px;
-  border-radius: 10px;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 }
 
 .DailyAttMainSelectIconSM {
@@ -102,12 +80,6 @@
   width: 20px;
   height: 20px;
   margin-right: 10px;
-}
-
-.DailyAttMainSelectDateButtonPlaceholderSM {
-  font-size: 10px;
-  font-family: $century-regular;
-  color: $color-dark-blue;
 }
 
 .DailyAttMainSelectDateButtonPlaceholder {
@@ -197,14 +169,7 @@
 
 .DailyAttCardTitleCon {
   justify-content: center;
-  padding-left: 5px;
   height: 100%;
-}
-
-.DailyAttCardTitle1SM {
-  font-size: 10px;
-  font-family: $century-bold;
-  color: $color-dark-blue;
 }
 
 .DailyAttCardTitle1 {
@@ -213,7 +178,6 @@
 }
 
 .DailyAttCardTitle2SM {
-  font-size: 8px;
   font-family: $century-regular;
   color: $color-dark-blue;
 }
@@ -222,12 +186,6 @@
   font-size: 12px;
   font-family: $century-regular;
   color: $color-dark-blue;
-}
-
-.DailyAttCardTitle3SM {
-  font-size: 10px;
-  font-family: $century-bold;
-  color: $color-pink;
 }
 
 .DailyAttCardTitle3 {

@@ -20,6 +20,7 @@ import useUser from "../Hook/useLoginUser";
 import { AuthContext } from "../Context/AuthContext";
 import { useMutation } from "@apollo/client";
 import { MOBILE_LOGIN } from "../graphql/MobileLogin";
+import { moderateScale } from "../ Metrics";
 
 export default function LoginScreen() {
   const navigate = useNavigate();
@@ -176,40 +177,32 @@ export default function LoginScreen() {
               : LoginStyle.LoginScreenTopContainer
           }
         >
-          <View
-            style={
-              dimension === "sm"
-                ? LoginStyle.LoginScreenLogonImageContainerSM
-                : LoginStyle.LoginScreenLogonImageContainer
-            }
-          >
+          <View style={LoginStyle.LoginScreenLogonImageContainer}>
             <Image
               source={require("../assets/Images/Logo-1.png")}
               resizeMode="contain"
-              style={
-                dimension === "sm"
-                  ? LoginStyle.LoginScreenLoginStyleSM
-                  : LoginStyle.LoginScreenLoginStyle
-              }
+              style={{
+                height: moderateScale(130),
+                width: moderateScale(130),
+                borderRadius: 100,
+              }}
             />
           </View>
 
           <Text
-            style={
-              dimension === "sm"
-                ? LoginStyle.LoginScreenTitle1SM
-                : LoginStyle.LoginScreenTitle1
-            }
+            style={[
+              LoginStyle.LoginScreenTitle1,
+              { fontSize: moderateScale(20) },
+            ]}
           >
             {/* សូមស្វាគមន៍!! */}
             Welcome Back!
           </Text>
           <Text
-            style={
-              dimension === "sm"
-                ? LoginStyle.LoginScreenTitle2SM
-                : LoginStyle.LoginScreenTitle2
-            }
+            style={[
+              LoginStyle.LoginScreenTitle2,
+              { fontSize: moderateScale(18) },
+            ]}
           >
             {/* ប្រព័ន្ធការគ្រប់គ្រងកម្មវិធីសាលាហ្គោឡូប៊ល់ */}
             Go Global HR
@@ -219,43 +212,47 @@ export default function LoginScreen() {
       <View
         style={
           isKeyboardVisible
-            ? LoginStyle.LoginScreenMidContainerKB
+            ? [
+                LoginStyle.LoginScreenMidContainerKB,
+                { marginTop: moderateScale(30) },
+              ]
             : LoginStyle.LoginScreenMidContainer
         }
       >
         <View
-          style={
-            dimension === "sm"
-              ? LoginStyle.LoginScreenTextInputContainerSM
-              : LoginStyle.LoginScreenTextInputContainer
-          }
+          style={[
+            LoginStyle.LoginScreenTextInputContainer,
+            { marginTop: moderateScale(8) },
+          ]}
         >
           <Text
-            style={
-              dimension === "sm"
-                ? LoginStyle.LoginScreenTextInputTextSM
-                : LoginStyle.LoginScreenTextInputText
-            }
+            style={[
+              LoginStyle.LoginScreenTextInputText,
+              { fontSize: moderateScale(14) },
+            ]}
           >
             {/* អ៉ីម៉ែល* */}
             Email*
           </Text>
           <View
-            style={
-              dimension === "sm"
-                ? LoginStyle.LoginScreenTextInputBoxSM
-                : LoginStyle.LoginScreenTextInputBox
-            }
+            style={[
+              LoginStyle.LoginScreenTextInputBox,
+              {
+                padding: moderateScale(10),
+                borderRadius: moderateScale(10),
+                borderWidth: moderateScale(1),
+                marginTop: moderateScale(5),
+              },
+            ]}
           >
             <TextInput
               value={email}
               autoCorrect={true}
               placeholder="mail@gmail.com"
-              style={
-                dimension === "sm"
-                  ? LoginStyle.LoginScreenTextInputTextSM
-                  : LoginStyle.LoginScreenTextInputText
-              }
+              style={[
+                LoginStyle.LoginScreenTextInputText,
+                { fontSize: moderateScale(14) },
+              ]}
               onChangeText={(e) => {
                 const updatedText = e.replace(/\s/g, "");
                 setEmail(updatedText);
@@ -265,69 +262,67 @@ export default function LoginScreen() {
           </View>
           {email === "" ? (
             <Text
-              style={
-                dimension === "sm"
-                  ? LoginStyle.LoginRequireScreenTextInputTextSM
-                  : LoginStyle.LoginRequireScreenTextInputText
-              }
+              style={[
+                LoginStyle.LoginRequireScreenTextInputText,
+                { fontSize: moderateScale(12) },
+              ]}
             >
               Required!
             </Text>
           ) : email.indexOf(" ") !== -1 ? (
             <Text
-              style={
-                dimension === "sm"
-                  ? LoginStyle.LoginRequireScreenTextInputTextSM
-                  : LoginStyle.LoginRequireScreenTextInputText
-              }
+              style={[
+                LoginStyle.LoginRequireScreenTextInputText,
+                { fontSize: moderateScale(12) },
+              ]}
             >
               Invalid email!, email cannot contain spaces
             </Text>
           ) : email.includes("@gmail.com") ? null : (
             <Text
-              style={
-                dimension === "sm"
-                  ? LoginStyle.LoginRequireScreenTextInputTextSM
-                  : LoginStyle.LoginRequireScreenTextInputText
-              }
+              style={[
+                LoginStyle.LoginRequireScreenTextInputText,
+                { fontSize: moderateScale(12) },
+              ]}
             >
               Oop!, invalid email
             </Text>
           )}
         </View>
         <View
-          style={
-            dimension === "sm"
-              ? LoginStyle.LoginScreenTextInputContainerSM
-              : LoginStyle.LoginScreenTextInputContainer
-          }
+          style={[
+            LoginStyle.LoginScreenTextInputContainer,
+            { marginTop: moderateScale(8) },
+          ]}
         >
           <Text
-            style={
-              dimension === "sm"
-                ? LoginStyle.LoginScreenTextInputTextSM
-                : LoginStyle.LoginScreenTextInputText
-            }
+            style={[
+              LoginStyle.LoginScreenTextInputText,
+              { fontSize: moderateScale(14) },
+            ]}
           >
             {/* ពាក្យសម្ងាត់* */}
             Password*
           </Text>
           <View
-            style={
-              dimension === "sm"
-                ? LoginStyle.LoginScreenTextInputBoxSM
-                : LoginStyle.LoginScreenTextInputBox
-            }
+            style={[
+              LoginStyle.LoginScreenTextInputBox,
+              {
+                padding: moderateScale(10),
+                borderRadius: moderateScale(10),
+                borderWidth: moderateScale(1),
+                marginTop: moderateScale(5),
+              },
+            ]}
           >
             <TextInput
               value={password}
               autoCorrect={true}
               placeholder="password"
-              style={
-                dimension === "sm"
-                  ? LoginStyle.LoginScreenTextInputTextSM
-                  : LoginStyle.LoginScreenTextInputText
-              }
+              style={[
+                LoginStyle.LoginScreenTextInputText,
+                { fontSize: moderateScale(14) },
+              ]}
               onChangeText={(e) => {
                 const updatedText = e.replace(/\s/g, "");
                 setPassword(updatedText);
@@ -342,34 +337,33 @@ export default function LoginScreen() {
                     ? require("../assets/Images/view.png")
                     : require("../assets/Images/hide.png")
                 }
-                style={
-                  dimension === "sm"
-                    ? LoginStyle.LoginScreenTextInputIconSM
-                    : LoginStyle.LoginScreenTextInputIcon
-                }
+                style={{ height: moderateScale(20), width: moderateScale(20) }}
               />
             </TouchableOpacity>
           </View>
         </View>
-        <View style={LoginStyle.LoginScreenOptionContainer}>
+        <View
+          style={[
+            LoginStyle.LoginScreenOptionContainer,
+            { marginVertical: moderateScale(10) },
+          ]}
+        >
           <View style={LoginStyle.LoginScreenOptionRememberPasswordContainer}>
             <Checkbox
-              style={
-                dimension === "sm"
-                  ? LoginStyle.LoginScreenCheckboxSM
-                  : LoginStyle.LoginScreenCheckbox
-              }
+              style={[
+                LoginStyle.LoginScreenCheckbox,
+                { height: moderateScale(20), width: moderateScale(20) },
+              ]}
               value={isChecked}
               // onValueChange={setChecked}
               color={isChecked ? "#3C6EFB" : undefined}
             />
             <TouchableOpacity onPress={() => {}}>
               <Text
-                style={
-                  dimension === "sm"
-                    ? LoginStyle.LoginScreenText1SM
-                    : LoginStyle.LoginScreenText1
-                }
+                style={[
+                  LoginStyle.LoginScreenText1,
+                  { fontSize: moderateScale(14) },
+                ]}
               >
                 {/* រក្សាទុកពាក្យសម្ងាត់ */}
                 Save me
@@ -379,11 +373,10 @@ export default function LoginScreen() {
 
           <TouchableOpacity onPress={() => navigate("/forgot-pass")}>
             <Text
-              style={
-                dimension === "sm"
-                  ? LoginStyle.LoginScreenText1SM
-                  : LoginStyle.LoginScreenText1
-              }
+              style={[
+                LoginStyle.LoginScreenText1,
+                { fontSize: moderateScale(14) },
+              ]}
             >
               {/* ភ្លេចពាក្យសម្ងាត់? */}
               Forget password?
@@ -391,21 +384,23 @@ export default function LoginScreen() {
           </TouchableOpacity>
         </View>
         <TouchableOpacity
-          style={
-            dimension === "sm"
-              ? LoginStyle.LoginScreenLoginButtonSM
-              : LoginStyle.LoginScreenLoginButton
-          }
+          style={[
+            LoginStyle.LoginScreenLoginButton,
+            {
+              borderRadius: moderateScale(10),
+              padding: moderateScale(10),
+              marginTop: moderateScale(10),
+            },
+          ]}
           onPress={() => {
             handleLogin();
           }}
         >
           <Text
-            style={
-              dimension === "sm"
-                ? LoginStyle.LoginScreenLoginButtonTextSM
-                : LoginStyle.LoginScreenLoginButtonText
-            }
+            style={[
+              LoginStyle.LoginScreenLoginButtonText,
+              { fontSize: moderateScale(14) },
+            ]}
           >
             Login
           </Text>
