@@ -167,6 +167,7 @@ export default function ChecKAttendance() {
         }, 2000);
       }
     } catch (error) {
+      handleClose();
       setErrorMsg("Error getting location");
     }
   }

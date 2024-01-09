@@ -130,7 +130,12 @@ export default function SwiperPage({
       </PanGestureHandler>
     );
   } else {
-    if (page === "report" || page === "checkAtt" || page === "profile") {
+    if (
+      page === "report" ||
+      page === "checkAtt" ||
+      page === "profile" ||
+      page === "notificationAcc"
+    ) {
       return (
         <PanGestureHandler
           enabled={!isScrolling}
