@@ -111,12 +111,12 @@ export default function ForgotPasswordScreen() {
 
   return (
     <View style={ForgotPasswordStyle.ForgotPassScreenContainer}>
-      <View style={ForgotPasswordStyle.ForgotTopcontainer}>
         {!isKeyboardVisible ? (
+            <View style={ForgotPasswordStyle.ForgotTopcontainer}>
           <View
             style={[
               ForgotPasswordStyle.LogoImageScreenContainer,
-              { height: moderateScale(180) },
+              { height: "70%", justifyContent: 'flex-end', alignItems: 'center' },
             ]}
           >
             <Image
@@ -128,13 +128,7 @@ export default function ForgotPasswordScreen() {
               resizeMode="contain"
             />
           </View>
-        ) : null}
-
-        {/* {isKeyboardVisible ? (
-          <View style={{ height: dimension === "sm" ? 10 : 20 }} />
-        ) : null} */}
-
-        <Text
+           <Text
           style={[
             ForgotPasswordStyle.ForgotScreenTitle1,
             { fontSize: moderateScale(20) },
@@ -142,16 +136,17 @@ export default function ForgotPasswordScreen() {
         >
           Welcome Back!
         </Text>
-        <Text
-          style={[
-            ForgotPasswordStyle.ForgotScreenTitle2,
-            { fontSize: moderateScale(20), marginTop: moderateScale(10) },
-          ]}
-        >
-          Go Global HR
-        </Text>
+        </View>
+        ) : null}
 
-        <View
+        {/* {isKeyboardVisible ? (
+          <View style={{ height: dimension === "sm" ? 10 : 20 }} />
+        ) : null} */}
+
+       
+      
+      <View style={{ width: '100%', height: '45%', alignItems: 'center', marginTop: isKeyboardVisible ? moderateScale(50) : 0}}> 
+      <View
           style={[
             ForgotPasswordStyle.ForgotTextInputContainer,
             {
@@ -289,6 +284,7 @@ export default function ForgotPasswordScreen() {
           </View>
         </View>
       </View>
+     
       {!isKeyboardVisible ? (
         <View style={LoginStyle.LoginScreenFooterContainer}>
           {/* <Image
