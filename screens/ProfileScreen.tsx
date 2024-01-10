@@ -14,6 +14,7 @@ import useLoginUser from "../Hook/useLoginUser";
 import { GET_USER_INFO } from "../graphql/GetUserInfo";
 import * as Animatable from "react-native-animatable";
 import SwiperPage from "../includes/SwiperPage";
+import { moderateScale } from "../ Metrics";
 
 export default function ProfileScreen() {
   const location = useLocation();
@@ -58,23 +59,31 @@ export default function ProfileScreen() {
   return (
     <>
       <View style={ProfileStyle.ProfileContainer}>
-        <View
-          style={{
-            width: "100%",
-            height: "85%",
-            position: "absolute",
-          }}
-        />
         <SwiperPage path="/home" page="profile" isScrolling={false}>
+          <View
+            style={{
+              width: "100%",
+              height: "70%",
+              position: "absolute",
+              backgroundColor: "white",
+            }}
+          />
           <View style={ProfileStyle.ProfileTopContainer}>
             <View style={ProfileStyle.ProfileFirstTopContainer} />
-            <View style={ProfileStyle.ProfileSecondTopContainer}>
+            <View
+              style={[
+                ProfileStyle.ProfileSecondTopContainer,
+                {
+                  borderTopLeftRadius: moderateScale(15),
+                  borderTopRightRadius: moderateScale(15),
+                  borderTopWidth: moderateScale(1),
+                  borderLeftWidth: moderateScale(1),
+                  borderRightWidth: moderateScale(1),
+                },
+              ]}
+            >
               <Text
-                style={
-                  dimension === "sm"
-                    ? ProfileStyle.UserNameSM
-                    : ProfileStyle.UserName
-                }
+                style={[ProfileStyle.UserName, { fontSize: moderateScale(14) }]}
               >
                 {data?.getUserInfoMobile?.latinName
                   ? data?.getUserInfoMobile?.latinName
@@ -92,16 +101,20 @@ export default function ProfileScreen() {
             >
               <Animatable.Image
                 animation={"fadeIn"}
+                resizeMode="cover"
                 source={
                   data?.getUserInfoMobile?.profileImage
                     ? { uri: data?.getUserInfoMobile?.profileImage }
                     : require("../assets/Images/user.png")
                 }
-                style={
-                  dimension === "sm"
-                    ? ProfileStyle.ImageUserSM
-                    : ProfileStyle.ImageUser
-                }
+                style={[
+                  ProfileStyle.ImageUser,
+                  {
+                    width: moderateScale(100),
+                    height: moderateScale(100),
+                    borderWidth: moderateScale(2),
+                  },
+                ]}
               />
             </TouchableOpacity>
 
@@ -118,14 +131,24 @@ export default function ProfileScreen() {
               onRequestClose={() => setIsVisible(false)}
             />
           </View>
-          <View style={ProfileStyle.ProfileBodyContainer}>
+          <View
+            style={[
+              ProfileStyle.ProfileBodyContainer,
+              {
+                borderRightWidth: moderateScale(1),
+                borderLeftWidth: moderateScale(1),
+              },
+            ]}
+          >
             <View>
               <Text
-                style={
-                  dimension === "sm"
-                    ? ProfileStyle.UserPositionSM
-                    : ProfileStyle.UserPosition
-                }
+                style={[
+                  ProfileStyle.UserPosition,
+                  {
+                    fontSize: moderateScale(12),
+                    lineHeight: moderateScale(35),
+                  },
+                ]}
               >
                 Position:{" "}
                 {data?.getUserInfoMobile?.position
@@ -141,36 +164,37 @@ export default function ProfileScreen() {
                   justifyContent: "center",
                   alignItems: "center",
                   backgroundColor: "#f1f1f1",
-                  borderRadius: 15,
+                  borderRadius: moderateScale(15),
                 }}
               >
                 <Text
-                  style={
-                    dimension === "sm"
-                      ? ProfileStyle.UserNameSM
-                      : ProfileStyle.UserName
-                  }
+                  style={[
+                    ProfileStyle.UserName,
+                    { fontSize: moderateScale(14) },
+                  ]}
                 >
                   Empty
                 </Text>
               </View>
 
               <TouchableOpacity
-                style={
-                  dimension === "sm"
-                    ? ProfileStyle.LogoutScreenLogoutButtonSM
-                    : ProfileStyle.LogoutScreenLogoutButton
-                }
+                style={[
+                  ProfileStyle.LogoutScreenLogoutButton,
+                  {
+                    borderRadius: moderateScale(10),
+                    padding: moderateScale(10),
+                    marginVertical: moderateScale(10),
+                  },
+                ]}
                 onPress={() => {
                   handleOpenModal();
                 }}
               >
                 <Text
-                  style={
-                    dimension === "sm"
-                      ? ProfileStyle.LogoutScreenLogoutButtonTextSM
-                      : ProfileStyle.LogoutScreenLogoutButtonText
-                  }
+                  style={[
+                    ProfileStyle.LogoutScreenLogoutButtonText,
+                    { fontSize: moderateScale(14) },
+                  ]}
                 >
                   Logout
                 </Text>
@@ -192,14 +216,27 @@ export default function ProfileScreen() {
             onPress={handleCloseModal}
             activeOpacity={0.2}
           />
-          <View style={ModalStyle.ModalButtonContainerMain}>
-            <View style={ModalStyle.ModalButtonTextTitleContainerMain}>
+          <View
+            style={[
+              ModalStyle.ModalButtonContainerMain,
+              {
+                height: moderateScale(200),
+                borderRadius: moderateScale(10),
+                borderWidth: moderateScale(1),
+              },
+            ]}
+          >
+            <View
+              style={[
+                ModalStyle.ModalButtonTextTitleContainerMain,
+                { padding: moderateScale(20) },
+              ]}
+            >
               <Text
-                style={
-                  dimension === "sm"
-                    ? ModalStyle.ModalButtonTextTitleMainSM
-                    : ModalStyle.ModalButtonTextTitleMain
-                }
+                style={[
+                  ModalStyle.ModalButtonTextTitleMain,
+                  { fontSize: moderateScale(16) },
+                ]}
               >
                 Do you want to logout?
               </Text>
@@ -208,14 +245,16 @@ export default function ProfileScreen() {
             <View style={ModalStyle.ModalButtonOptionContainer}>
               <TouchableOpacity
                 onPress={() => handleCloseModal()}
-                style={ModalStyle.ModalButtonOptionLeft}
+                style={[
+                  ModalStyle.ModalButtonOptionLeft,
+                  { padding: moderateScale(15) },
+                ]}
               >
                 <Text
-                  style={
-                    dimension === "sm"
-                      ? ModalStyle.ModalButtonTextTitleMainSM
-                      : ModalStyle.ModalButtonTextTitleMain
-                  }
+                  style={[
+                    ModalStyle.ModalButtonTextTitleMain,
+                    { fontSize: moderateScale(16) },
+                  ]}
                 >
                   No
                 </Text>
@@ -227,15 +266,17 @@ export default function ProfileScreen() {
                 }}
                 style={[
                   ModalStyle.ModalButtonOptionLeft,
-                  { borderLeftWidth: 1 },
+                  {
+                    padding: moderateScale(15),
+                    borderLeftWidth: moderateScale(1),
+                  },
                 ]}
               >
                 <Text
-                  style={
-                    dimension === "sm"
-                      ? ModalStyle.ModalButtonTextTitleMainSM
-                      : ModalStyle.ModalButtonTextTitleMain
-                  }
+                  style={[
+                    ModalStyle.ModalButtonTextTitleMain,
+                    { fontSize: moderateScale(16) },
+                  ]}
                 >
                   Yes
                 </Text>

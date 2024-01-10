@@ -19,6 +19,7 @@ import ForgotPasswordStyle from "../styles/ForgotPasswordStyle.scss";
 import { AuthContext } from "../Context/AuthContext";
 import { FORGOT_PASSWORD } from "../graphql/ForgotPassword";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { moderateScale } from "../ Metrics";
 
 export default function ForgotPasswordScreen() {
   const navigate = useNavigate();
@@ -112,18 +113,16 @@ export default function ForgotPasswordScreen() {
       <View style={ForgotPasswordStyle.ForgotTopcontainer}>
         {!isKeyboardVisible ? (
           <View
-            style={
-              dimension === "sm"
-                ? ForgotPasswordStyle.LogoImageScreenContainerSm
-                : ForgotPasswordStyle.LogoImageScreenContainer
-            }
+            style={[
+              ForgotPasswordStyle.LogoImageScreenContainer,
+              { height: moderateScale(180) },
+            ]}
           >
             <Image
-              style={
-                dimension === "sm"
-                  ? ForgotPasswordStyle.LogoImageSm
-                  : ForgotPasswordStyle.LogoImage
-              }
+              style={[
+                ForgotPasswordStyle.LogoImage,
+                { width: moderateScale(130), height: moderateScale(130) },
+              ]}
               source={require("../assets/Images/Logo-1.png")}
               resizeMode="contain"
             />
@@ -135,55 +134,59 @@ export default function ForgotPasswordScreen() {
         ) : null} */}
 
         <Text
-          style={
-            dimension === "sm"
-              ? ForgotPasswordStyle.ForgotScreenTitle1Sm
-              : ForgotPasswordStyle.ForgotScreenTitle1
-          }
+          style={[
+            ForgotPasswordStyle.ForgotScreenTitle1,
+            { fontSize: moderateScale(20) },
+          ]}
         >
           Welcome Back!
         </Text>
         <Text
-          style={
-            dimension === "sm"
-              ? ForgotPasswordStyle.ForgotScreenTitle2Sm
-              : ForgotPasswordStyle.ForgotScreenTitle2
-          }
+          style={[
+            ForgotPasswordStyle.ForgotScreenTitle2,
+            { fontSize: moderateScale(18), marginTop: moderateScale(10) },
+          ]}
         >
           Go Global HR
         </Text>
 
         <View
-          style={
-            dimension === "sm"
-              ? ForgotPasswordStyle.ForgotTextInputContainerSm
-              : ForgotPasswordStyle.ForgotTextInputContainer
-          }
+          style={[
+            ForgotPasswordStyle.ForgotTextInputContainer,
+            {
+              marginTop: moderateScale(10),
+              borderWidth: moderateScale(2),
+              padding: moderateScale(15),
+              borderRadius: moderateScale(10),
+            },
+          ]}
         >
           <Text
-            style={
-              dimension === "sm"
-                ? ForgotPasswordStyle.ForgotScreenTextInputTextSM
-                : ForgotPasswordStyle.ForgotScreenTextInputText
-            }
+            style={[
+              ForgotPasswordStyle.ForgotScreenTextInputText,
+              { fontSize: moderateScale(14) },
+            ]}
           >
             Email*
           </Text>
           <View
-            style={
-              dimension === "sm"
-                ? ForgotPasswordStyle.ForgotScreenTextInputBoxSM
-                : ForgotPasswordStyle.ForgotScreenTextInputBox
-            }
+            style={[
+              ForgotPasswordStyle.ForgotScreenTextInputBox,
+              {
+                borderWidth: moderateScale(1),
+                borderRadius: moderateScale(10),
+                padding: moderateScale(10),
+                marginTop: moderateScale(10),
+              },
+            ]}
           >
             <TextInput
               value={email}
               placeholder="mail@gmail.com"
-              style={
-                dimension === "sm"
-                  ? ForgotPasswordStyle.ForgotScreenTextInputTextSM
-                  : ForgotPasswordStyle.ForgotScreenTextInputText
-              }
+              style={[
+                ForgotPasswordStyle.ForgotScreenTextInputText,
+                { fontSize: moderateScale(14) },
+              ]}
               onChangeText={(e) => {
                 const updatedText = e.replace(/\s/g, "");
                 setEmail(updatedText);
@@ -194,50 +197,49 @@ export default function ForgotPasswordScreen() {
           </View>
           {email === "" ? (
             <Text
-              style={
-                dimension === "sm"
-                  ? LoginStyle.LoginRequireScreenTextInputTextSM
-                  : LoginStyle.LoginRequireScreenTextInputText
-              }
+              style={[
+                LoginStyle.LoginRequireScreenTextInputText,
+                { fontSize: moderateScale(12) },
+              ]}
             >
               Required!
             </Text>
           ) : email.indexOf(" ") !== -1 ? (
             <Text
-              style={
-                dimension === "sm"
-                  ? LoginStyle.LoginRequireScreenTextInputTextSM
-                  : LoginStyle.LoginRequireScreenTextInputText
-              }
+              style={[
+                LoginStyle.LoginRequireScreenTextInputText,
+                { fontSize: moderateScale(12) },
+              ]}
             >
               Invalid email!, email cannot contain spaces
             </Text>
           ) : email.includes("@gmail.com") ? null : (
             <Text
-              style={
-                dimension === "sm"
-                  ? LoginStyle.LoginRequireScreenTextInputTextSM
-                  : LoginStyle.LoginRequireScreenTextInputText
-              }
+              style={[
+                LoginStyle.LoginRequireScreenTextInputText,
+                { fontSize: moderateScale(12) },
+              ]}
             >
               Oop!, invalid email
             </Text>
           )}
           <View style={ForgotPasswordStyle.ForgotScreenBtnContainer}>
             <TouchableOpacity
-              style={
-                dimension === "sm"
-                  ? ForgotPasswordStyle.ForgotScreenForgotButtonBackSM
-                  : ForgotPasswordStyle.ForgotScreenForgotButtonBack
-              }
+              style={[
+                ForgotPasswordStyle.ForgotScreenForgotButtonBack,
+                {
+                  borderRadius: moderateScale(10),
+                  padding: moderateScale(10),
+                  marginTop: moderateScale(10),
+                },
+              ]}
               onPress={() => navigate("/")}
             >
               <Text
-                style={
-                  dimension === "sm"
-                    ? ForgotPasswordStyle.ForgotScreenForgotButtonTextSM
-                    : ForgotPasswordStyle.ForgotScreenForgotButtonText
-                }
+                style={[
+                  ForgotPasswordStyle.ForgotScreenForgotButtonText,
+                  { fontSize: moderateScale(14) },
+                ]}
               >
                 Back
               </Text>
@@ -251,32 +253,33 @@ export default function ForgotPasswordScreen() {
                 }
               >
                 <Text
-                  style={
-                    dimension === "sm"
-                      ? ForgotPasswordStyle.ForgotScreenForgotButtonTextSM
-                      : ForgotPasswordStyle.ForgotScreenForgotButtonText
-                  }
+                  style={[
+                    ForgotPasswordStyle.ForgotScreenForgotButtonText,
+                    { fontSize: moderateScale(14) },
+                  ]}
                 >
                   Loading...
                 </Text>
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
-                style={
-                  dimension === "sm"
-                    ? ForgotPasswordStyle.ForgotScreenForgotButtonSM
-                    : ForgotPasswordStyle.ForgotScreenForgotButton
-                }
+                style={[
+                  ForgotPasswordStyle.ForgotScreenForgotButton,
+                  {
+                    borderRadius: moderateScale(10),
+                    padding: moderateScale(10),
+                    marginTop: moderateScale(10),
+                  },
+                ]}
                 onPress={() => {
                   handleSendEmail();
                 }}
               >
                 <Text
-                  style={
-                    dimension === "sm"
-                      ? ForgotPasswordStyle.ForgotScreenForgotButtonTextSM
-                      : ForgotPasswordStyle.ForgotScreenForgotButtonText
-                  }
+                  style={[
+                    ForgotPasswordStyle.ForgotScreenForgotButtonText,
+                    { fontSize: moderateScale(14) },
+                  ]}
                 >
                   Ok
                 </Text>

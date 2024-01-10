@@ -7,11 +7,9 @@
 
 .ActionCardContainer {
   width: 90%;
-  padding-top: 10px;
-  padding-bottom: 10px;
   flex-direction: row;
   align-items: center;
-  border-bottom-width: 0.5px;
+  justify-content: flex-start;
   border-bottom-color: $color-gray;
 }
 
@@ -20,10 +18,8 @@
 }
 
 .ActionCardIcon {
-  height: 40px;
-  width: 40px;
   background-color: #2058e8;
-  border-radius: 50px;
+  border-radius: 100px;
   align-items: center;
   justify-content: center;
 }
@@ -37,29 +33,10 @@
 }
 
 .ActionCardIconRed {
-  height: 40px;
-  width: 40px;
   background-color: $color-red;
-  border-radius: 50px;
+  border-radius: 100px;
   align-items: center;
   justify-content: center;
-}
-.ActionCardIconRedSM {
-  height: 35px;
-  width: 35px;
-  background-color: $color-red;
-  border-radius: 50px;
-  align-items: center;
-  justify-content: center;
-}
-
-.ActionIcon {
-  height: 22px;
-  width: 22px;
-}
-.ActionIconSM {
-  height: 20px;
-  width: 20px;
 }
 
 .ActionCardBodyRight {
@@ -70,44 +47,18 @@
   color: $color-dark-blue;
 }
 
-.ActionLeaveTitleSM {
-  font-family: $century-bold;
-  font-size: 10px;
-  color: $color-dark-blue;
-}
-
 .ActionLeaveTitleRed {
   font-family: $century-bold;
   color: $color-red;
 }
 
-.ActionLeaveTitleRedSM {
-  font-family: $century-bold;
-  font-size: 10px;
-  color: $color-red;
-}
-
 .ActionDatTime {
   font-family: $century-bold-italic;
-  font-size: 12px;
-  color: $color-dark-blue;
-}
-
-.ActionDatTimeSM {
-  font-family: $century-regular-italic;
-  font-size: 8px;
   color: $color-dark-blue;
 }
 
 .ActionDatTimeRed {
   font-family: $century-bold;
-  font-size: 12px;
-  color: $color-red;
-}
-
-.ActionDatTimeRedSM {
-  font-family: $century-bold;
-  font-size: 8px;
   color: $color-red;
 }
 
@@ -116,19 +67,7 @@
   color: $color-dark-grey;
 }
 
-.ActionCommentSM {
-  font-family: $century-regular;
-  font-size: 10px;
-  color: $color-dark-grey;
-}
-
 .ActionCommentRed {
   font-family: $century-regular;
-  color: $color-red;
-}
-
-.ActionCommentRedSM {
-  font-family: $century-regular;
-  font-size: 10px;
   color: $color-red;
 }

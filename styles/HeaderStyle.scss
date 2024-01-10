@@ -62,14 +62,8 @@
   font-size: 12px;
   font-family: $century-bold;
 }
-.HeaderTitle1BlueSM {
-  font-size: 13px;
-  font-family: $century-bold;
-  color: $color-main;
-}
 
 .HeaderTitle1Blue {
-  font-size: 16px;
   font-family: $century-bold;
   color: $color-main;
 }
@@ -89,14 +83,6 @@
   color: $color-white;
 }
 
-.HeaderTitleNotiContainerSM {
-  padding: 5px;
-}
-
-.HeaderTitleNotiContainer {
-  padding: 5px;
-}
-
 .HeaderTitleContainerSM {
   justify-content: space-between;
 }
@@ -106,12 +92,6 @@
   padding: 0px;
 }
 
-.HeaderBackIconSM {
-  width: 16px;
-  height: 16px;
-  margin: 4px;
-}
-
 .HeaderBackIcon {
   width: 22px;
   height: 22px;
@@ -119,8 +99,6 @@
 }
 
 .ProfileBackButton {
-  // width: 40%;
-  padding: 10px;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;

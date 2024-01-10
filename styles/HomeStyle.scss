@@ -7,35 +7,14 @@
   align-items: center;
 }
 
-.HomeBoxContainerSM {
-  width: 25%;
-  height: 80px;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
 .HomeBoxContainer {
   width: 25%;
-  height: 120px;
   justify-content: space-evenly;
-  align-items: center;
-}
-
-.HomeBoxCircleSM {
-  width: 50px;
-  height: 50px;
-  border-radius: 100px;
-  border-width: 2px;
-  border-color: $color-white;
-  justify-content: center;
   align-items: center;
 }
 
 .HomeBoxCircle {
-  width: 70px;
-  height: 70px;
   border-radius: 100px;
-  border-width: 2px;
   border-color: $color-white;
   justify-content: center;
   align-items: center;
@@ -46,39 +25,18 @@
   justify-content: flex-start;
 }
 
-.HomeSelectDateTextSM {
-  font-size: 10px;
-  color: $color-white;
-  font-family: $century-bold;
-}
-
 .HomeSelectDateText {
   color: $color-white;
   font-family: $century-bold;
 }
 
-.HomeBoxInSideCircleTextSM {
-  font-size: 16px;
-  color: $color-white;
-  font-family: $century-bold;
-}
-
 .HomeBoxInSideCircleText {
-  font-size: 20px;
-  color: $color-white;
-  font-family: $century-bold;
-}
-
-.HomeBoxCircleTextSM {
-  text-transform: uppercase;
-  font-size: 8px;
   color: $color-white;
   font-family: $century-bold;
 }
 
 .HomeBoxCircleText {
   text-transform: uppercase;
-  font-size: 10px;
   color: $color-white;
   font-family: $century-bold;
 }
@@ -91,8 +49,6 @@
   flex: 1;
   width: 100%;
   background-color: $color-white;
-  border-top-right-radius: 15px;
-  border-top-left-radius: 15;
   align-items: center;
   justify-content: center;
 }
@@ -110,16 +66,8 @@
   border-color: $color-medium-blue;
 }
 
-.HomeFeaturesTitleSM {
-  width: 100%;
-  padding: 10px;
-  flex-direction: row;
-  align-items: flex-start;
-}
-
 .HomeFeaturesTitle {
   width: 100%;
-  padding: 15px;
   flex-direction: row;
   align-items: flex-start;
 }
@@ -130,47 +78,20 @@
   align-items: center;
 }
 
-.HomeFeaturesBoxesContaienrSM {
-  width: 100%;
-  height: 80px;
-  flex-direction: row;
-  justify-content: center;
-}
-
 .HomeFeaturesBoxesContaienr {
   width: 100%;
-  height: 100px;
   flex-direction: row;
   justify-content: center;
-}
-
-.HomeFeaturesBoxContaienrSM {
-  width: 24%;
-  height: 80px;
-  justify-content: flex-start;
-  align-items: center;
 }
 
 .HomeFeaturesBoxContaienr {
   width: 24%;
-  height: 100px;
   justify-content: flex-start;
-  align-items: center;
-}
-
-.HomeBoxStyleSM {
-  width: 92%;
-  height: 70px;
-  border-width: 1px;
-  border-color: $color-dark-blue;
-  border-radius: 10px;
-  justify-content: space-evenly;
   align-items: center;
 }
 
 .HomeBoxStyle {
   width: 92%;
-  height: 90px;
   border-width: 1px;
   border-color: $color-dark-blue;
   border-radius: 10px;
@@ -178,57 +99,20 @@
   align-items: center;
 }
 
-.HomeFeaturesIconSM {
-  width: 25px;
-  height: 25px;
-}
-
-.HomeFeaturesIcon {
-  width: 30px;
-  height: 30px;
-}
-
-.HomeFeaturesBoxTitleSM {
-  text-transform: uppercase;
-  font-size: 8px;
-  font-family: $century-bold;
-  color: $color-dark-blue;
-}
-
 .HomeFeaturesBoxTitle {
   text-transform: uppercase;
-  font-size: 10px;
   font-family: $century-bold;
   color: $color-dark-blue;
-}
-
-.HomeFeaturesTitleTextSM {
-  font-size: 10px;
-  font-family: $century-bold;
-  color: $color-dark-blue;
+  text-align: center;
 }
 
 .HomeFeaturesTitleText {
-  font-size: 14px;
   font-family: $century-bold;
   color: $color-dark-blue;
 }
 
-.HomeHolidayTopContainerSM {
-  padding: 5px;
-  width: 100%;
-}
-
 .HomeHolidayTopContainer {
-  padding: 10px;
   width: 100%;
-}
-
-.HomeHolidayCardContainerSM {
-  width: 90%;
-  flex-direction: row;
-  align-items: center;
-  padding: 5px;
 }
 
 .HomeHolidayCardContainer {
@@ -238,21 +122,8 @@
   padding: 10px;
 }
 
-.HomeHolidayProfileImageSM {
-  width: 30px;
-  height: 30px;
-  border-radius: 100px;
-  margin-right: 5px;
-  border-width: 1px;
-  border-color: $color-medium-blue;
-}
-
 .HomeHolidayProfileImage {
-  width: 40px;
-  height: 40px;
   border-radius: 100px;
-  margin-right: 10px;
-  border-width: 1px;
   border-color: $color-medium-blue;
 }
 
@@ -260,65 +131,26 @@
   flex: 1;
 }
 
-.HomeHolidayTitle1SM {
-  font-size: 10px;
-  font-family: $century-bold;
-  color: $color-dark-blue;
-}
-
 .HomeHolidayTitle1 {
   font-family: $century-bold;
   color: $color-dark-blue;
 }
 
-.HomeHolidayTitle2SM {
-  font-size: 8px;
-  font-family: $century-bold-italic;
-  color: $color-dark-blue;
-}
-
 .HomeHolidayTitle2 {
-  font-size: 12px;
   font-family: $century-bold-italic;
-  color: $color-dark-blue;
-}
-
-.HomeHolidayTitle3SM {
-  font-size: 8px;
-  font-family: $century-regular;
   color: $color-dark-blue;
 }
 
 .HomeHolidayTitle3 {
-  font-size: 12px;
   font-family: $century-regular;
   color: $color-dark-blue;
 }
 
-.HomeLeaveRequestContainerSM {
-  width: 94%;
-  padding: 5px;
-  background-color: $color-dark-blue;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
 .HomeLeaveRequestContainer {
   width: 94%;
-  padding: 10px;
   background-color: $color-dark-blue;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
-.HomeLeaveRequestTextSM {
-  font-size: 10px;
-  color: $color-white;
-  font-family: $century-bold;
 }
 
 .HomeLeaveRequestText {
@@ -326,43 +158,8 @@
   font-family: $century-bold;
 }
 
-.HomeMainBackIconSM {
-  width: 15px;
-  height: 15px;
-  margin-right: 5px;
-}
-
-.HomeMainBackIcon {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-}
-
-.HomeMainSelectIconSM {
-  width: 15px;
-  height: 15px;
-  margin-right: 5px;
-}
-
-.HomeMainSelectIcon {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-}
-
-.HomeMainSelectTimeContainerSM {
-  width: 100%;
-  height: 30px;
-  padding-top: 5px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-}
-
 .HomeMainSelectTimeContainer {
   width: 100%;
-  height: 40px;
-  padding-top: 10px;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
@@ -376,24 +173,9 @@
 .HomeMainScrollviewStyle {
   width: 100%;
   height: 100%;
-  padding: 10px;
-}
-
-.HomeMainSelectDateButtonSM {
-  height: 30px;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 10px;
-  flex-direction: row;
-  align-items: center;
-  background-color: $color-light-blue;
 }
 
 .HomeMainSelectDateButton {
-  height: 40px;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 10px;
   flex-direction: row;
   align-items: center;
   background-color: $color-light-blue;
@@ -405,29 +187,12 @@
   justify-content: flex-start;
 }
 
-.HomeMainSelectDateButtonLabelSM {
-  font-size: 10px;
-  font-family: $century-bold;
-}
-
 .HomeMainSelectDateButtonLabel {
   font-family: $century-bold;
 }
 
-.HomeMainSelectTitleSM {
-  font-size: 10px;
-  font-family: $century-bold;
-  color: $color-dark-blue;
-}
-
 .HomeMainSelectTitle {
   font-family: $century-bold;
-  color: $color-dark-blue;
-}
-
-.HomeMainSelectDateButtonPlaceholderSM {
-  font-size: 10px;
-  font-family: $century-regular;
   color: $color-dark-blue;
 }
 
@@ -440,30 +205,10 @@
   justify-content: flex-start;
 }
 
-.HomeLeaveReasonContainerSM {
-  width: 100%;
-  height: 30px;
-  border-width: 1px;
-  border-radius: 10px;
-  padding-left: 10px;
-  border-color: $color-dark-blue;
-  justify-content: center;
-}
-
 .HomeLeaveReasonContainer {
   width: 100%;
-  height: 40px;
-  border-width: 1px;
-  border-radius: 10px;
-  padding-left: 10px;
   border-color: $color-dark-blue;
   justify-content: center;
-}
-
-.HomeLeaveReasonStyleSM {
-  font-size: 10px;
-  width: 100%;
-  font-family: $kantumruy-regular;
 }
 
 .HomeLeaveReasonStyle {
@@ -481,47 +226,17 @@
   align-items: center;
 }
 
-.HomeMainSelectDateButtonLabelContainerSM {
-  width: 100%;
-  height: 20px;
-  align-items: flex-start;
-  justify-content: center;
-}
-
 .HomeMainSelectDateButtonLabelContainer {
   width: 100%;
-  height: 40px;
   align-items: flex-start;
   justify-content: center;
-}
-
-.HomeLeaveRequestButtonSM {
-  width: 100%;
-  height: 30px;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  background-color: $color-dark-blue;
 }
 
 .HomeLeaveRequestButton {
   width: 100%;
-  height: 40px;
   justify-content: center;
   align-items: center;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 10px;
   background-color: $color-dark-blue;
-}
-
-.HomeLeaveRequestButtonTextSM {
-  text-transform: uppercase;
-  font-size: 10px;
-  font-family: $century-bold;
-  color: $color-white;
 }
 
 .HomeLeaveRequestButtonText {
@@ -536,35 +251,13 @@
   align-items: flex-end;
 }
 
-.HomeBoxShiftSM {
-  background-color: #4bbb17cc;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  border-radius: 3px;
-}
-
 .HomeBoxShift {
   background-color: #4bbb17cc;
-  padding-left: 6px;
-  padding-right: 6px;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  border-radius: 4px;
-}
-
-.HomeBoxTextSM {
-  font-size: 7px;
-  font-family: $century-regular;
-  color: #fff;
-  text-transform: uppercase;
+  justify-content: center;
 }
 
 .HomeBoxText {
   text-transform: uppercase;
-  font-size: 8px;
   font-family: $century-regular;
   color: #fff;
-  // $color-dark-blue: #082b9e73;
 }

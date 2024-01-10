@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { GET_NOTIFICATION_CONTACT } from "../graphql/NotificationAction";
 import SwiperPage from "../includes/SwiperPage";
+import { moderateScale } from "../ Metrics";
 
 export default function NotificationActiveScreen() {
   const { dimension } = useContext(AuthContext);
@@ -54,68 +55,66 @@ export default function NotificationActiveScreen() {
         >
           {NotificationData?.map((card: any, index: number) => (
             <View
-              style={NotificationActionStyle.ActionCardContainer}
+              style={[
+                NotificationActionStyle.ActionCardContainer,
+                {
+                  paddingVertical: moderateScale(10),
+                  borderBottomWidth: moderateScale(0.5),
+                },
+              ]}
               key={index}
             >
-              <View style={NotificationActionStyle.ActionCardBodyLeft}>
+              <View style={{ marginRight: moderateScale(10) }}>
                 <View
-                  style={
-                    card?.title === "Leave Cancel" && dimension !== "sm"
+                  style={[
+                    card?.title === "Leave Cancel"
                       ? NotificationActionStyle.ActionCardIconRed
-                      : card?.title === "Leave Cancel" && dimension === "sm"
-                      ? NotificationActionStyle.ActionCardIconRedSM
-                      : dimension === "sm"
-                      ? NotificationActionStyle.ActionCardIconSM
-                      : NotificationActionStyle.ActionCardIcon
-                  }
+                      : NotificationActionStyle.ActionCardIcon,
+                    {
+                      width: moderateScale(40),
+                      height: moderateScale(40),
+                    },
+                  ]}
                 >
                   <Image
                     source={require("../assets/Images/briefcase.png")}
-                    style={
-                      dimension === "sm"
-                        ? NotificationActionStyle.ActionIconSM
-                        : NotificationActionStyle.ActionIcon
-                    }
+                    style={{
+                      width: moderateScale(20),
+                      height: moderateScale(20),
+                    }}
                   />
                 </View>
               </View>
               <View style={NotificationActionStyle.ActionCardBodyRight}>
                 <Text
-                  style={
-                    card?.title === "Leave Cancel" && dimension !== "sm"
+                  style={[
+                    card?.title === "Leave Cancel"
                       ? NotificationActionStyle.ActionLeaveTitleRed
-                      : card?.title === "Leave Cancel" && dimension === "sm"
-                      ? NotificationActionStyle.ActionLeaveTitleRedSM
-                      : dimension === "sm"
-                      ? NotificationActionStyle.ActionLeaveTitleSM
-                      : NotificationActionStyle.ActionLeaveTitle
-                  }
+                      : NotificationActionStyle.ActionLeaveTitle,
+                    {
+                      fontSize: moderateScale(14),
+                    },
+                  ]}
                 >
                   {card?.title}
                 </Text>
                 <Text
-                  style={
-                    card?.title === "Leave Cancel" && dimension !== "sm"
+                  style={[
+                    card?.title === "Leave Cancel"
                       ? NotificationActionStyle.ActionDatTimeRed
-                      : card?.title === "Leave Cancel" && dimension === "sm"
-                      ? NotificationActionStyle.ActionDatTimeRedSM
-                      : dimension === "sm"
-                      ? NotificationActionStyle.ActionDatTimeSM
-                      : NotificationActionStyle.ActionDatTime
-                  }
+                      : NotificationActionStyle.ActionDatTime,
+                    { fontSize: moderateScale(12) },
+                  ]}
                 >
                   {moment(card?.date).format("DD MMM YY")} | {card?.time}
                 </Text>
                 <Text
-                  style={
-                    card?.title === "Leave Cancel" && dimension !== "sm"
+                  style={[
+                    card?.title === "Leave Cancel"
                       ? NotificationActionStyle.ActionCommentRed
-                      : card?.title === "Leave Cancel" && dimension === "sm"
-                      ? NotificationActionStyle.ActionCommentRedSM
-                      : dimension === "sm"
-                      ? NotificationActionStyle.ActionCommentSM
-                      : NotificationActionStyle.ActionComment
-                  }
+                      : NotificationActionStyle.ActionComment,
+                    { fontSize: moderateScale(12) },
+                  ]}
                 >
                   {card?.body}
                 </Text>
@@ -131,7 +130,7 @@ export default function NotificationActiveScreen() {
                 width: "100%",
                 alignItems: "center",
                 justifyContent: "center",
-                height: 40,
+                height: moderateScale(40),
               }}
             >
               <Text

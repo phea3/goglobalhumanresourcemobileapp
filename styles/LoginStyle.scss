@@ -25,7 +25,6 @@
   width: 100%;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
 }
 
 .LoginScreenMidContainer {
@@ -42,53 +41,18 @@
   align-items: center;
 }
 
-.LoginScreenLogonImageContainerSM {
-  width: 100%;
-  height: 70%;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.LoginScreenLoginStyleSM {
-  width: 90px;
-  height: 90px;
-  border-radius: 100px;
-}
-
 .LoginScreenLoginStyle {
   width: 130px;
   height: 130px;
-  border-radius: 100px;
-}
-
-.LoginScreenTextInputContainerSM {
-  width: 80%;
-  margin-top: 5px;
 }
 
 .LoginScreenTextInputContainer {
   width: 80%;
-  margin-top: 10px;
-}
-
-.LoginScreenTextInputBoxSM {
-  width: 100%;
-  border-width: 1px;
-  border-color: $color-grey;
-  border-radius: 8px;
-  padding: 5px;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-  background-color: $color-light-grey;
 }
 
 .LoginScreenTextInputBox {
   width: 100%;
-  border-width: 1px;
   border-color: $color-grey;
-  border-radius: 10px;
-  padding: 10px;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
@@ -98,7 +62,6 @@
 .LoginRequireScreenTextInputTextSM {
   width: 90%;
   font-family: $century-regular;
-  font-size: 8px;
   color: $color-red;
 }
 
@@ -106,13 +69,6 @@
   width: 90%;
   font-family: $century-regular;
   color: $color-red;
-  font-size: 12px;
-}
-
-.LoginScreenTextInputTextSM {
-  width: 80%;
-  font-family: $century-regular;
-  font-size: 10px;
 }
 
 .LoginScreenTextInputText {
@@ -130,31 +86,12 @@
   height: 20px;
 }
 
-.LoginScreenTitle1SM {
-  font-size: 16px;
-  font-family: $century-bold;
-}
-
 .LoginScreenTitle1 {
-  font-size: 20px;
   font-family: $century-bold;
-}
-
-.LoginScreenTitle2SM {
-  font-size: 14px;
-  font-family: $century-regular;
-  // margin-top: 10px;
 }
 
 .LoginScreenTitle2 {
-  font-size: 18px;
   font-family: $century-regular;
-  // margin-top: 10px;
-}
-
-.LoginScreenText1SM {
-  font-family: $century-regular;
-  font-size: 10px;
 }
 
 .LoginScreenText1 {
@@ -165,37 +102,18 @@
   width: 80%;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 10px;
 }
 
 .LoginScreenOptionRememberPasswordContainer {
   flex-direction: row;
-}
-
-.LoginScreenLoginButtonSM {
-  width: 80%;
-  border-radius: 8px;
-  padding: 5px;
-  justify-content: center;
   align-items: center;
-  background-color: $color-main;
-  margin-top: 8px;
 }
 
 .LoginScreenLoginButton {
   width: 80%;
-  border-radius: 10px;
-  padding: 10px;
   justify-content: center;
   align-items: center;
   background-color: $color-main;
-  margin-top: 10px;
-}
-
-.LoginScreenLoginButtonTextSM {
-  font-size: 12px;
-  font-family: $century-bold;
-  color: $color-white;
 }
 
 .LoginScreenLoginButtonText {
@@ -208,12 +126,6 @@
   height: 15%;
   justify-content: center;
   align-items: center;
-}
-
-.LoginScreenCheckboxSM {
-  width: 15px;
-  height: 15px;
-  margin-right: 4px;
 }
 
 .LoginScreenCheckbox {

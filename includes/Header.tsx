@@ -57,27 +57,20 @@ export default function Header() {
             >
               <Image
                 source={require("../assets/Images/back-blue.png")}
-                style={
-                  dimension === "sm"
-                    ? HeaderStyle.HeaderBackIconSM
-                    : HeaderStyle.HeaderBackIcon
-                }
+                style={{
+                  width: moderateScale(22),
+                  height: moderateScale(22),
+                  margin: moderateScale(8),
+                }}
               />
-              <View
-                style={
-                  dimension === "sm"
-                    ? HeaderStyle.HeaderTitleNotiContainerSM
-                    : HeaderStyle.HeaderTitleNotiContainer
-                }
-              >
+              <View style={{ padding: moderateScale(5) }}>
                 <Text
-                  style={
-                    dimension === "sm"
-                      ? HeaderStyle.HeaderTitle1BlueSM
-                      : HeaderStyle.HeaderTitle1Blue
-                  }
+                  style={[
+                    HeaderStyle.HeaderTitle1Blue,
+                    { fontSize: moderateScale(14) },
+                  ]}
                 >
-                  Notifications
+                  NOTIFICATIONS
                 </Text>
               </View>
             </TouchableOpacity>
@@ -94,13 +87,25 @@ export default function Header() {
               >
                 <TouchableOpacity
                   onPress={() => navigate(-1)}
-                  style={HeaderStyle.ProfileBackButton}
+                  style={[
+                    HeaderStyle.ProfileBackButton,
+                    { padding: moderateScale(10) },
+                  ]}
                 >
                   <Image
                     source={require("../assets/Images/back-white.png")}
-                    style={HeaderStyle.ProfileBackButtonIcon}
+                    style={{
+                      width: moderateScale(20),
+                      height: moderateScale(20),
+                      marginRight: moderateScale(10),
+                    }}
                   />
-                  <Text style={HeaderStyle.ProfileBackButtonTitle}>
+                  <Text
+                    style={[
+                      HeaderStyle.ProfileBackButtonTitle,
+                      { fontSize: moderateScale(14) },
+                    ]}
+                  >
                     PROFILE
                   </Text>
                 </TouchableOpacity>
@@ -128,17 +133,17 @@ export default function Header() {
                   style={[
                     HeaderStyle.HeaderUserProfileImage,
                     {
-                      height: horizontalScale(40),
-                      width: horizontalScale(40),
-                      margin: horizontalScale(8),
+                      height: moderateScale(40),
+                      width: moderateScale(40),
+                      margin: moderateScale(8),
                     },
                   ]}
-                  resizeMode="contain"
+                  resizeMode="cover"
                 />
                 <View
                   style={[
                     HeaderStyle.HeaderTitleContainer,
-                    { height: horizontalScale(40) },
+                    { height: moderateScale(40) },
                   ]}
                 >
                   <Text
@@ -174,8 +179,8 @@ export default function Header() {
               source={require("../assets/Images/bell.png")}
               resizeMode="contain"
               style={{
-                height: horizontalScale(30),
-                width: horizontalScale(30),
+                height: moderateScale(30),
+                width: moderateScale(30),
               }}
             />
           </TouchableOpacity>

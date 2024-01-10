@@ -1,4 +1,5 @@
 import { Text, View } from "react-native";
+import { moderateScale } from "../ Metrics";
 
 export default function NotFoundScreen() {
   return (
@@ -11,7 +12,12 @@ export default function NotFoundScreen() {
         alignItems: "center",
       }}
     >
-      <Text style={{ fontFamily: "Century-Gothic-Bold" }}>
+      <Text
+        style={{
+          fontFamily: "Century-Gothic-Bold",
+          fontSize: moderateScale(14),
+        }}
+      >
         Oop, Screen not found!
       </Text>
     </View>
