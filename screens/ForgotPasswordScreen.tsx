@@ -109,7 +109,16 @@ export default function ForgotPasswordScreen() {
     <View style={ForgotPasswordStyle.ForgotPassScreenContainer}>
       {!isKeyboardVisible ? (
         <View style={ForgotPasswordStyle.ForgotTopcontainer}>
-          <View style={ForgotPasswordStyle.LogoImageScreenContainer}>
+          <View
+            style={[
+              ForgotPasswordStyle.LogoImageScreenContainer,
+              {
+                height: "70%",
+                justifyContent: "flex-end",
+                alignItems: "center",
+              },
+            ]}
+          >
             <Image
               source={require("../assets/Images/Logo-1.png")}
               resizeMode="contain"
@@ -134,7 +143,15 @@ export default function ForgotPasswordScreen() {
       {/* {isKeyboardVisible ? (
           <View style={{ height: dimension === "sm" ? 10 : 20 }} />
         ) : null} */}
-      <View style={{ width: "100%", height: "45%", alignItems: "center" }}>
+
+      <View
+        style={{
+          width: "100%",
+          height: "45%",
+          alignItems: "center",
+          marginTop: isKeyboardVisible ? moderateScale(50) : 0,
+        }}
+      >
         <View
           style={[
             ForgotPasswordStyle.ForgotTextInputContainer,
