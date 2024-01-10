@@ -4,6 +4,7 @@ import { View } from "react-native-animatable";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { useNavigate } from "react-router-native";
+import { moderateScale } from "../ Metrics";
 
 export default function CheckModal({
   location,
@@ -40,11 +41,14 @@ export default function CheckModal({
           activeOpacity={0.2}
         />
         <View
-          style={
-            data?.status === true
-              ? ModalStyle.ModalButtonContainer
-              : ModalStyle.ModalButtonContainerFail
-          }
+          style={[
+            ModalStyle.ModalButtonContainer,
+            {
+              height: moderateScale(200),
+              borderRadius: moderateScale(10),
+              borderWidth: moderateScale(1),
+            },
+          ]}
         >
           <Image
             source={
@@ -56,18 +60,13 @@ export default function CheckModal({
                 ? require("../assets/Images/check-outline.gif")
                 : require("../assets/Images/cross-outline.gif")
             }
-            style={
-              dimension === "sm"
-                ? ModalStyle.ModalImageAfterCheckSM
-                : ModalStyle.ModalImageAfterCheck
-            }
+            style={{ width: moderateScale(80), height: moderateScale(80) }}
           />
           <Text
-            style={
-              dimension === "sm"
-                ? ModalStyle.ModalButtonTextTitleSM
-                : ModalStyle.ModalButtonTextTitle
-            }
+            style={[
+              ModalStyle.ModalButtonTextTitle,
+              { fontSize: moderateScale(18) },
+            ]}
           >
             {load
               ? "Loading"
@@ -78,11 +77,10 @@ export default function CheckModal({
               : "Fail!"}
           </Text>
           <Text
-            style={
-              dimension === "sm"
-                ? ModalStyle.ModalButtonTextBodySM
-                : ModalStyle.ModalButtonTextBody
-            }
+            style={[
+              ModalStyle.ModalButtonTextBody,
+              { fontSize: moderateScale(14) },
+            ]}
           >
             {load
               ? `Getting your current location. \n please wait... \n it's depend on your device.`

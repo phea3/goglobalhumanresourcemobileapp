@@ -4,13 +4,9 @@ import {
   View,
   TouchableOpacity,
   Image,
-  ImageBackground,
   TextInput,
   Keyboard,
   Alert,
-  Modal,
-  StatusBar,
-  Platform,
 } from "react-native";
 import { useNavigate } from "react-router";
 import { useLazyQuery } from "@apollo/client";
@@ -111,46 +107,34 @@ export default function ForgotPasswordScreen() {
 
   return (
     <View style={ForgotPasswordStyle.ForgotPassScreenContainer}>
-      <View style={ForgotPasswordStyle.ForgotTopcontainer}>
-        {!isKeyboardVisible ? (
-          <View
-            style={[
-              ForgotPasswordStyle.LogoImageScreenContainer,
-              { height: moderateScale(180) },
-            ]}
-          >
+      {!isKeyboardVisible ? (
+        <View style={ForgotPasswordStyle.ForgotTopcontainer}>
+          <View style={ForgotPasswordStyle.LogoImageScreenContainer}>
             <Image
-              style={[
-                ForgotPasswordStyle.LogoImage,
-                { width: moderateScale(130), height: moderateScale(130) },
-              ]}
               source={require("../assets/Images/Logo-1.png")}
               resizeMode="contain"
+              style={{
+                height: moderateScale(130),
+                width: moderateScale(130),
+                borderRadius: 100,
+              }}
             />
           </View>
-        ) : null}
+          <Text
+            style={[
+              ForgotPasswordStyle.ForgotScreenTitle1,
+              { fontSize: moderateScale(20) },
+            ]}
+          >
+            Welcome Back!
+          </Text>
+        </View>
+      ) : null}
 
-        {/* {isKeyboardVisible ? (
+      {/* {isKeyboardVisible ? (
           <View style={{ height: dimension === "sm" ? 10 : 20 }} />
         ) : null} */}
-
-        <Text
-          style={[
-            ForgotPasswordStyle.ForgotScreenTitle1,
-            { fontSize: moderateScale(20) },
-          ]}
-        >
-          Welcome Back!
-        </Text>
-        <Text
-          style={[
-            ForgotPasswordStyle.ForgotScreenTitle2,
-            { fontSize: moderateScale(20), marginTop: moderateScale(10) },
-          ]}
-        >
-          Go Global HR
-        </Text>
-
+      <View style={{ width: "100%", height: "45%", alignItems: "center" }}>
         <View
           style={[
             ForgotPasswordStyle.ForgotTextInputContainer,
@@ -289,6 +273,7 @@ export default function ForgotPasswordScreen() {
           </View>
         </View>
       </View>
+
       {!isKeyboardVisible ? (
         <View style={LoginStyle.LoginScreenFooterContainer}>
           {/* <Image

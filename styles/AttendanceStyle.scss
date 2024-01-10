@@ -19,18 +19,6 @@
   align-items: center;
 }
 
-.AttendanceBackButtonIconSM {
-  width: 15px;
-  height: 15px;
-  margin-right: 5px;
-}
-
-.AttendanceBackButtonIcon {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-}
-
 .AttendanceBackButtonTitle {
   text-transform: uppercase;
   font-family: $century-bold;
@@ -74,7 +62,6 @@
   width: 95%;
   flex-direction: row;
   align-items: center;
-  border-bottom-width: 0.5px;
   border-bottom-color: $color-gray;
 }
 

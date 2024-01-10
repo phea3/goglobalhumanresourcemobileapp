@@ -171,13 +171,7 @@ export default function LoginScreen() {
   return (
     <View style={LoginStyle.LoginScreenContainer}>
       {!isKeyboardVisible && (
-        <View
-          style={
-            isKeyboardVisible
-              ? LoginStyle.LoginScreenTopContainerKB
-              : LoginStyle.LoginScreenTopContainer
-          }
-        >
+        <View style={LoginStyle.LoginScreenTopContainer}>
           <View style={LoginStyle.LoginScreenLogonImageContainer}>
             <Image
               source={require("../assets/Images/Logo-1.png")}
@@ -343,8 +337,11 @@ export default function LoginScreen() {
           <View style={LoginStyle.LoginScreenOptionRememberPasswordContainer}>
             <Checkbox
               style={[
-                LoginStyle.LoginScreenCheckbox,
-                { height: moderateScale(20), width: moderateScale(20) },
+                {
+                  height: moderateScale(20),
+                  width: moderateScale(20),
+                  marginRight: moderateScale(10),
+                },
               ]}
               value={isChecked}
               // onValueChange={setChecked}

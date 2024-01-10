@@ -5,7 +5,6 @@ import { useQuery } from "@apollo/client";
 import { GETATTENDANCEMOBILE } from "../graphql/getAttendanceMobile";
 import { useContext, useEffect, useState } from "react";
 import moment from "moment";
-import { AuthContext } from "../Context/AuthContext";
 import HomeStyle from "../styles/HomeStyle.scss";
 import * as Animatable from "react-native-animatable";
 import SwiperPage from "../includes/SwiperPage";

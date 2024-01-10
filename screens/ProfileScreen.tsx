@@ -247,7 +247,10 @@ export default function ProfileScreen() {
                 onPress={() => handleCloseModal()}
                 style={[
                   ModalStyle.ModalButtonOptionLeft,
-                  { padding: moderateScale(15) },
+                  {
+                    padding: moderateScale(15),
+                    borderTopWidth: moderateScale(1),
+                  },
                 ]}
               >
                 <Text
@@ -269,6 +272,7 @@ export default function ProfileScreen() {
                   {
                     padding: moderateScale(15),
                     borderLeftWidth: moderateScale(1),
+                    borderTopWidth: moderateScale(1),
                   },
                 ]}
               >
