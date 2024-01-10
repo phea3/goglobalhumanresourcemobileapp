@@ -20,6 +20,7 @@ import { AuthContext } from "../Context/AuthContext";
 import { FORGOT_PASSWORD } from "../graphql/ForgotPassword";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { moderateScale } from "../ Metrics";
+import moment from "moment";
 
 export default function ForgotPasswordScreen() {
   const navigate = useNavigate();
@@ -144,7 +145,7 @@ export default function ForgotPasswordScreen() {
         <Text
           style={[
             ForgotPasswordStyle.ForgotScreenTitle2,
-            { fontSize: moderateScale(18), marginTop: moderateScale(10) },
+            { fontSize: moderateScale(20), marginTop: moderateScale(10) },
           ]}
         >
           Go Global HR
@@ -289,16 +290,20 @@ export default function ForgotPasswordScreen() {
         </View>
       </View>
       {!isKeyboardVisible ? (
-        <View style={ForgotPasswordStyle.ForgotBottomContainer}>
-          <Image
-            source={require("../assets/Images/bottomImage.png")}
-            style={
-              dimension === "sm"
-                ? ForgotPasswordStyle.ForgotScreenFooterImage
-                : ForgotPasswordStyle.ForgotScreenFooterImage
-            }
-            resizeMode="contain"
-          />
+        <View style={LoginStyle.LoginScreenFooterContainer}>
+          {/* <Image
+           source={require("../assets/Images/bottomImage.png")}
+           style={LoginStyle.LoginScreenFooterImage}
+           resizeMode="contain"
+         /> */}
+          <Text
+            style={[
+              LoginStyle.LoginScreenText1,
+              { fontSize: moderateScale(14) },
+            ]}
+          >
+            © {moment(new Date()).format("YYYY")} Go Global School.
+          </Text>
         </View>
       ) : null}
     </View>

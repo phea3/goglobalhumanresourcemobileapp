@@ -21,6 +21,7 @@ import { AuthContext } from "../Context/AuthContext";
 import { useMutation } from "@apollo/client";
 import { MOBILE_LOGIN } from "../graphql/MobileLogin";
 import { moderateScale } from "../ Metrics";
+import moment from "moment";
 
 export default function LoginScreen() {
   const navigate = useNavigate();
@@ -198,15 +199,6 @@ export default function LoginScreen() {
             {/* សូមស្វាគមន៍!! */}
             Welcome Back!
           </Text>
-          <Text
-            style={[
-              LoginStyle.LoginScreenTitle2,
-              { fontSize: moderateScale(18) },
-            ]}
-          >
-            {/* ប្រព័ន្ធការគ្រប់គ្រងកម្មវិធីសាលាហ្គោឡូប៊ល់ */}
-            Go Global HR
-          </Text>
         </View>
       )}
       <View
@@ -228,7 +220,7 @@ export default function LoginScreen() {
           <Text
             style={[
               LoginStyle.LoginScreenTextInputText,
-              { fontSize: moderateScale(14) },
+              { fontSize: moderateScale(13) },
             ]}
           >
             {/* អ៉ីម៉ែល* */}
@@ -298,7 +290,7 @@ export default function LoginScreen() {
           <Text
             style={[
               LoginStyle.LoginScreenTextInputText,
-              { fontSize: moderateScale(14) },
+              { fontSize: moderateScale(13) },
             ]}
           >
             {/* ពាក្យសម្ងាត់* */}
@@ -374,7 +366,7 @@ export default function LoginScreen() {
           <TouchableOpacity onPress={() => navigate("/forgot-pass")}>
             <Text
               style={[
-                LoginStyle.LoginScreenText1,
+                LoginStyle.LoginScreenText2,
                 { fontSize: moderateScale(14) },
               ]}
             >
@@ -409,11 +401,19 @@ export default function LoginScreen() {
 
       {!isKeyboardVisible && (
         <View style={LoginStyle.LoginScreenFooterContainer}>
-          <Image
+          {/* <Image
             source={require("../assets/Images/bottomImage.png")}
             style={LoginStyle.LoginScreenFooterImage}
             resizeMode="contain"
-          />
+          /> */}
+          <Text
+            style={[
+              LoginStyle.LoginScreenText1,
+              { fontSize: moderateScale(14) },
+            ]}
+          >
+            © {moment(new Date()).format("YYYY")} Go Global School.
+          </Text>
         </View>
       )}
     </View>

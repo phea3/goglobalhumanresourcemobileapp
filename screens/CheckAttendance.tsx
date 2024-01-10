@@ -132,7 +132,7 @@ export default function ChecKAttendance() {
         if (checkData) {
           setTimeout(() => {
             handleClose();
-          }, 2000);
+          }, 1500);
         }
       },
       onError(error: any) {
@@ -144,7 +144,7 @@ export default function ChecKAttendance() {
         setLoad(false);
         setTimeout(() => {
           handleClose();
-        }, 2000);
+        }, 1500);
       },
     });
   };
@@ -167,7 +167,7 @@ export default function ChecKAttendance() {
         handleOpen();
         setTimeout(() => {
           CheckInOut($location);
-        }, 1000);
+        }, 500);
       } else if ($location === null) {
         handleOpen();
         setCheckData({
@@ -177,7 +177,7 @@ export default function ChecKAttendance() {
         setLoad(false);
         setTimeout(() => {
           handleClose();
-        }, 2000);
+        }, 1500);
       }
     } catch (error) {
       handleClose();
