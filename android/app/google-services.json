@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "471582536281",
+    "project_id": "school-human-resource",
+    "storage_bucket": "school-human-resource.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:471582536281:android:644b7e494dbcb597797748",
+        "android_client_info": {
+          "package_name": "com.goglobalschool.humanresource"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "471582536281-9nrqdm17n6ib1voha915jhsecpo9v2ll.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.goglobalschool.humanresource",
+            "certificate_hash": "fb6ba51d338d741d52b6586a9abdd3c74bafed80"
+          }
+        },
+        {
+          "client_id": "471582536281-lmfa07p4lusb226iqf5u8qlbrk3js77k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8zYCGHPu425P5VTsFIQcu1Lp2_G5BWYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "471582536281-lmfa07p4lusb226iqf5u8qlbrk3js77k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
