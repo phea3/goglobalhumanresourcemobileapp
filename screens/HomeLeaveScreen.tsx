@@ -21,7 +21,6 @@ import { useMutation, useQuery } from "@apollo/client";
 import { REQUEST_LEAVE } from "../graphql/RequestLeave";
 import { GETTIMEOFFSFORMOBILE } from "../graphql/GetTimeOffsForMobile";
 import KeyboardDismissableArea from "../functions/KeyboardDismissableArea";
-import SwiperPage from "../includes/SwiperPage";
 import { moderateScale } from "../ Metrics";
 
 export default function HomeLeaveScreen() {
@@ -33,7 +32,6 @@ export default function HomeLeaveScreen() {
   const [dateIsvisble2, setDateIsvisible2] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const countries = ["Egypt", "Canada", "Australia", "Ireland"];
   const [timeOff, setTimeOff] = useState([]);
   const [timeId, setTimeId] = useState("");
   const [reason, setReason] = useState("");
@@ -41,7 +39,7 @@ export default function HomeLeaveScreen() {
   const [afternoon, setAfternoon] = useState(false);
   const [defaultTimeoff, setDefaultTimeoff] = useState("");
   const [defaultTimeoffId, setDefaultTimeoffId] = useState("");
-  // console.log(startDate);
+
   const hidDatePicker = () => {
     setDateIsvisible(false);
   };
@@ -123,7 +121,9 @@ export default function HomeLeaveScreen() {
           ? moment(startDate).format("YYYY-MM-DD")
           : "",
     };
+
     // console.log(newValues);
+
     await requestLeave({
       variables: { input: newValues },
       onCompleted: ({ requestLeave }) => {
@@ -184,7 +184,6 @@ export default function HomeLeaveScreen() {
         },
       ]}
     >
-      {/* <SwiperPage path={"/home"} isScrolling={isScrolling}> */}
       <View style={HomeStyle.HomeFeaturesTitle}>
         <TouchableOpacity
           style={[
@@ -313,7 +312,7 @@ export default function HomeLeaveScreen() {
               <View
                 style={[
                   HomeStyle.HomeMainSelectDateMiniContainer,
-                  { marginRight: 10 },
+                  { marginRight: moderateScale(10) },
                 ]}
               >
                 <View
@@ -579,8 +578,8 @@ export default function HomeLeaveScreen() {
               );
             }}
             dropdownStyle={{
-              borderRadius: 10,
-              paddingHorizontal: 10,
+              borderRadius: moderateScale(10),
+              paddingHorizontal: moderateScale(10),
             }}
             renderCustomizedRowChild={(item, index) => {
               // text represented for each item in dropdown
@@ -704,7 +703,6 @@ export default function HomeLeaveScreen() {
           </TouchableOpacity>
         ) : null}
       </ScrollView>
-      {/* </SwiperPage> */}
     </View>
   );
 }

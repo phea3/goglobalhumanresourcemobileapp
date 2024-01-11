@@ -102,7 +102,14 @@ export default function HomeMainScreen() {
             key={index}
           >
             <View
-              style={[HomeStyle.HomeBoxStyle, { height: moderateScale(90) }]}
+              style={[
+                HomeStyle.HomeBoxStyle,
+                {
+                  height: moderateScale(90),
+                  borderWidth: moderateScale(1.5),
+                  borderRadius: moderateScale(10),
+                },
+              ]}
             >
               <Animatable.Image
                 animation={"bounce"}

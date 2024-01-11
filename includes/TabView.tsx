@@ -39,7 +39,9 @@ export default function TabView() {
           style={[
             TabViewStyle.TabViewContainerFlexAnimation,
             animatedStyles,
-            { borderRadius: moderateScale(2) },
+            {
+              borderRadius: moderateScale(2),
+            },
           ]}
         />
         <TouchableOpacity

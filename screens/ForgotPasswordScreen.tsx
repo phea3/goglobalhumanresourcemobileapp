@@ -248,11 +248,7 @@ export default function ForgotPasswordScreen() {
             </TouchableOpacity>
             {loadingPage ? (
               <TouchableOpacity
-                style={
-                  dimension === "sm"
-                    ? ForgotPasswordStyle.ForgotScreenForgotButtonSM
-                    : ForgotPasswordStyle.ForgotScreenForgotButton
-                }
+                style={ForgotPasswordStyle.ForgotScreenForgotButton}
               >
                 <Text
                   style={[

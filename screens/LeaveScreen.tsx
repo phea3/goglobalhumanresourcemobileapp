@@ -254,7 +254,7 @@ export default function LeaveScreen() {
                   width: "100%",
                   alignItems: "center",
                   justifyContent: "center",
-                  height: 40,
+                  height: moderateScale(40),
                 }}
               >
                 <Text
@@ -262,7 +262,7 @@ export default function LeaveScreen() {
                     textTransform: "lowercase",
                     fontFamily: "Century-Gothic-Bold",
                     color: "#3c6efb",
-                    fontSize: dimension === "sm" ? 12 : 16,
+                    fontSize: moderateScale(16),
                   }}
                 >
                   {"see more..."}
