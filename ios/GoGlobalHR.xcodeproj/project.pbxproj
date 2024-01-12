@@ -7,35 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0018947073D54CD188B67AED /* notification_sound_other.wav in Resources */ = {isa = PBXBuildFile; fileRef = 276312E3A4144F62A7B70793 /* notification_sound_other.wav */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		4A10A0D02AD34AFB98090FF3 /* notification.wav in Resources */ = {isa = PBXBuildFile; fileRef = F49D230C2BA341418414B645 /* notification.wav */; };
-		7D7361BD83B14540875DF4D1 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC70F971B3049C5ABB08724 /* noop-file.swift */; };
+		78BBA2705D77407CBB6A20A2 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14473FD6E80430AAB1643AD /* noop-file.swift */; };
 		96905EF65AED1B983A6B3ABC /* libPods-GoGlobalHR.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-GoGlobalHR.a */; };
+		B0AFDB83015246D4A8749097 /* notification_sound_other.wav in Resources */ = {isa = PBXBuildFile; fileRef = 49DA306CC9EF42D8AC2AD476 /* notification_sound_other.wav */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
+		C195E02542764B889752611A /* notification.wav in Resources */ = {isa = PBXBuildFile; fileRef = EC4DF2793F054A4E8A5A616D /* notification.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		13B07F961A680F5B00A75B9A /* Go Global HR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Go Global HR.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* GoGlobalHR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoGlobalHR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = GoGlobalHR/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = GoGlobalHR/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = GoGlobalHR/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = GoGlobalHR/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = GoGlobalHR/main.m; sourceTree = "<group>"; };
-		276312E3A4144F62A7B70793 /* notification_sound_other.wav */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = notification_sound_other.wav; path = GoGlobalHR/notification_sound_other.wav; sourceTree = "<group>"; };
-		424F3BB738824232A1A001AA /* GoGlobalHR-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "GoGlobalHR-Bridging-Header.h"; path = "GoGlobalHR/GoGlobalHR-Bridging-Header.h"; sourceTree = "<group>"; };
+		2C8AC57CC7CF41C9A84E096D /* GoGlobalHR-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "GoGlobalHR-Bridging-Header.h"; path = "GoGlobalHR/GoGlobalHR-Bridging-Header.h"; sourceTree = "<group>"; };
+		49DA306CC9EF42D8AC2AD476 /* notification_sound_other.wav */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = notification_sound_other.wav; path = GoGlobalHR/notification_sound_other.wav; sourceTree = "<group>"; };
 		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-GoGlobalHR.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoGlobalHR.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C2E3173556A471DD304B334 /* Pods-GoGlobalHR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoGlobalHR.debug.xcconfig"; path = "Target Support Files/Pods-GoGlobalHR/Pods-GoGlobalHR.debug.xcconfig"; sourceTree = "<group>"; };
 		7A4D352CD337FB3A3BF06240 /* Pods-GoGlobalHR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoGlobalHR.release.xcconfig"; path = "Target Support Files/Pods-GoGlobalHR/Pods-GoGlobalHR.release.xcconfig"; sourceTree = "<group>"; };
+		A14473FD6E80430AAB1643AD /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "GoGlobalHR/noop-file.swift"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = GoGlobalHR/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		EAC70F971B3049C5ABB08724 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "GoGlobalHR/noop-file.swift"; sourceTree = "<group>"; };
+		EC4DF2793F054A4E8A5A616D /* notification.wav */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = notification.wav; path = GoGlobalHR/notification.wav; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F49D230C2BA341418414B645 /* notification.wav */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = notification.wav; path = GoGlobalHR/notification.wav; sourceTree = "<group>"; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-GoGlobalHR/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,10 +61,10 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				EAC70F971B3049C5ABB08724 /* noop-file.swift */,
-				424F3BB738824232A1A001AA /* GoGlobalHR-Bridging-Header.h */,
-				F49D230C2BA341418414B645 /* notification.wav */,
-				276312E3A4144F62A7B70793 /* notification_sound_other.wav */,
+				A14473FD6E80430AAB1643AD /* noop-file.swift */,
+				2C8AC57CC7CF41C9A84E096D /* GoGlobalHR-Bridging-Header.h */,
+				EC4DF2793F054A4E8A5A616D /* notification.wav */,
+				49DA306CC9EF42D8AC2AD476 /* notification_sound_other.wav */,
 			);
 			name = GoGlobalHR;
 			sourceTree = "<group>";
@@ -103,7 +103,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* Go Global HR.app */,
+				13B07F961A680F5B00A75B9A /* GoGlobalHR.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -151,13 +151,13 @@
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
-				A65BD5745C8E951AF63C619A /* [Expo] Configure project */,
+				EE00A5957735680E9248898C /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				EAF4EA6B91FEED62A30BDD2B /* [CP] Embed Pods Frameworks */,
+				A69E489FB1FC00C20F9D100C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -165,7 +165,7 @@
 			);
 			name = GoGlobalHR;
 			productName = GoGlobalHR;
-			productReference = 13B07F961A680F5B00A75B9A /* Go Global HR.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* GoGlobalHR.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -207,8 +207,8 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				4A10A0D02AD34AFB98090FF3 /* notification.wav in Resources */,
-				0018947073D54CD188B67AED /* notification_sound_other.wav in Resources */,
+				C195E02542764B889752611A /* notification.wav in Resources */,
+				B0AFDB83015246D4A8749097 /* notification_sound_other.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,7 +271,25 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoGlobalHR/Pods-GoGlobalHR-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A65BD5745C8E951AF63C619A /* [Expo] Configure project */ = {
+		A69E489FB1FC00C20F9D100C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GoGlobalHR/Pods-GoGlobalHR-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoGlobalHR/Pods-GoGlobalHR-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EE00A5957735680E9248898C /* [Expo] Configure project */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -289,24 +307,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-GoGlobalHR/expo-configure-project.sh\"\n";
-		};
-		EAF4EA6B91FEED62A30BDD2B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GoGlobalHR/Pods-GoGlobalHR-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoGlobalHR/Pods-GoGlobalHR-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -337,7 +337,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				7D7361BD83B14540875DF4D1 /* noop-file.swift in Sources */,
+				78BBA2705D77407CBB6A20A2 /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,7 +351,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = GoGlobalHR/GoGlobalHR.entitlements;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = HZ73GSKF9X;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -366,7 +366,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.19;
+				MARKETING_VERSION = 1.0.20;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -374,7 +374,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.goglobalschool.goglobalhumanresource;
-				PRODUCT_NAME = "Go Global HR";
+				PRODUCT_NAME = GoGlobalHR;
 				SWIFT_OBJC_BRIDGING_HEADER = "GoGlobalHR/GoGlobalHR-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -390,7 +390,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = GoGlobalHR/GoGlobalHR.entitlements;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = HZ73GSKF9X;
 				INFOPLIST_FILE = GoGlobalHR/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Go Global HR";
@@ -400,7 +400,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.19;
+				MARKETING_VERSION = 1.0.20;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -408,7 +408,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.goglobalschool.goglobalhumanresource;
-				PRODUCT_NAME = "Go Global HR";
+				PRODUCT_NAME = GoGlobalHR;
 				SWIFT_OBJC_BRIDGING_HEADER = "GoGlobalHR/GoGlobalHR-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
