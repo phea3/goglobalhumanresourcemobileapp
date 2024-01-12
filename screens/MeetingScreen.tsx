@@ -1,5 +1,6 @@
 import {
   Image,
+  Platform,
   ScrollView,
   Text,
   TextInput,
@@ -69,13 +70,13 @@ export default function MeetingScreen() {
         },
       ]}
     >
-      <SwiperPage path={"/home"} page="leave" isScrolling={isScrolling}>
+      <SwiperPage path={"/home"} page="meeting" isScrolling={isScrolling}>
         <View style={MeetingStyle.MeetingBackButtonContainer}>
           <TouchableOpacity
             onPress={() => navigate("/home")}
             style={[
               MeetingStyle.MeetingBackButton,
-              { padding: moderateScale(15) },
+              { padding: moderateScale(15), flex: 1 },
             ]}
           >
             <Image
@@ -125,6 +126,29 @@ export default function MeetingScreen() {
             animation={listView ? "fadeInUp" : "fadeOutDown"}
             style={MeetingStyle.MeetingBodyContainer}
           >
+            <View
+              style={[
+                MeetingStyle.MeetingBartitileBackgroundVisible,
+                { width: "95%", height: 1 },
+              ]}
+            >
+              <View
+                style={{
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "flex-start",
+                }}
+              >
+                <Text
+                  style={[
+                    MeetingStyle.MeetingLabel,
+                    { fontSize: moderateScale(14) },
+                  ]}
+                >
+                  {" "}
+                </Text>
+              </View>
+            </View>
             <ScrollView
               showsVerticalScrollIndicator={false}
               style={{ flex: 1, width: "90%" }}
@@ -550,7 +574,7 @@ export default function MeetingScreen() {
             <View
               style={[
                 MeetingStyle.MeetingBartitileBackground,
-                { width: "90%" },
+                { width: "95%" },
               ]}
             >
               <View
@@ -607,81 +631,85 @@ export default function MeetingScreen() {
             </View>
             <ScrollView
               showsVerticalScrollIndicator={false}
-              style={{ flex: 1, width: "90%" }}
+              contentContainerStyle={{ alignItems: "center" }}
+              style={{ flex: 1, width: "100%" }}
               onScroll={handleScroll}
               onScrollEndDrag={handleScrollEnd}
               onMomentumScrollEnd={handleScrollEnd}
               scrollEventThrottle={16}
             >
-              <View
-                style={[
-                  {
-                    flexDirection: "row",
-                    width: "100%",
-                    borderBottomWidth: moderateScale(1),
-                  },
-                ]}
-              >
+              {[...Array(20)].map((index: number) => (
                 <View
-                  style={{
-                    width: "33.3%",
-                    justifyContent: "center",
-                    alignItems: "flex-start",
-                    padding: moderateScale(10),
-                  }}
+                  key={index}
+                  style={[
+                    {
+                      flexDirection: "row",
+                      width: "95%",
+                      borderBottomWidth: moderateScale(1),
+                    },
+                  ]}
                 >
-                  <Text
-                    style={[
-                      MeetingStyle.MeetingLabel,
-                      { fontSize: moderateScale(14) },
-                    ]}
+                  <View
+                    style={{
+                      width: "33.3%",
+                      justifyContent: "center",
+                      alignItems: "flex-start",
+                      padding: moderateScale(10),
+                    }}
                   >
-                    Meeting
-                  </Text>
-                  <Text
-                    style={[
-                      MeetingStyle.MeetingPlaceholder,
-                      { fontSize: moderateScale(12) },
-                    ]}
+                    <Text
+                      style={[
+                        MeetingStyle.MeetingLabel,
+                        { fontSize: moderateScale(14) },
+                      ]}
+                    >
+                      Meeting
+                    </Text>
+                    <Text
+                      style={[
+                        MeetingStyle.MeetingPlaceholder,
+                        { fontSize: moderateScale(12) },
+                      ]}
+                    >
+                      Gossip
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      width: "33.3%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      padding: moderateScale(10),
+                    }}
                   >
-                    Gossip
-                  </Text>
+                    <Text
+                      style={[
+                        MeetingStyle.MeetingLabel,
+                        { fontSize: moderateScale(14) },
+                      ]}
+                    >
+                      12-12-2023
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      width: "33.3%",
+                      justifyContent: "center",
+                      padding: moderateScale(10),
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text
+                      style={[
+                        MeetingStyle.MeetingLabel,
+                        { fontSize: moderateScale(14) },
+                      ]}
+                    >
+                      Cancel
+                    </Text>
+                  </View>
                 </View>
-                <View
-                  style={{
-                    width: "33.3%",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    padding: moderateScale(10),
-                  }}
-                >
-                  <Text
-                    style={[
-                      MeetingStyle.MeetingLabel,
-                      { fontSize: moderateScale(14) },
-                    ]}
-                  >
-                    12-12-2023
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    width: "33.3%",
-                    justifyContent: "center",
-                    padding: moderateScale(10),
-                    alignItems: "center",
-                  }}
-                >
-                  <Text
-                    style={[
-                      MeetingStyle.MeetingLabel,
-                      { fontSize: moderateScale(14) },
-                    ]}
-                  >
-                    Cancel
-                  </Text>
-                </View>
-              </View>
+              ))}
             </ScrollView>
           </Animatable.View>
         )}
