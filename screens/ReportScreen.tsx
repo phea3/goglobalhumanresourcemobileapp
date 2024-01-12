@@ -67,6 +67,7 @@ export default function ReportScreen() {
           onScroll={handleScroll}
           onScrollEndDrag={handleScrollEnd}
           onMomentumScrollEnd={handleScrollEnd}
+          scrollEventThrottle={16}
         >
           <View
             style={[

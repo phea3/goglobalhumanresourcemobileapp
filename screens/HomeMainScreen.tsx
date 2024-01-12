@@ -23,6 +23,10 @@ const Features = [
   },
   {
     title: "Reports",
+    icon: require("../assets/Images/file1.png"),
+  },
+  {
+    title: "Meetings",
     icon: require("../assets/Images/conversation.png"),
   },
 ];
@@ -76,58 +80,74 @@ export default function HomeMainScreen() {
           FEATURES
         </Text>
       </View>
-      <View
-        style={[
-          HomeStyle.HomeFeaturesBoxesContaienr,
-          { height: moderateScale(100) },
-        ]}
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ justifyContent: "center" }}
+        style={{
+          width: "95%",
+          height: moderateScale(150),
+        }}
       >
-        {Features.map((feature: any, index: number) => (
-          <TouchableOpacity
-            onPress={() => {
-              if (feature.title === "Leaves") {
-                navigate("/leave");
-              } else if (feature.title === "Check-In/Out") {
-                navigate("/check");
-              } else if (feature.title === "Attendances") {
-                navigate("/attendance");
-              } else if (feature.title === "Reports") {
-                navigate("/report");
-              }
-            }}
-            style={[
-              HomeStyle.HomeFeaturesBoxContaienr,
-              { height: moderateScale(100) },
-            ]}
-            key={index}
-          >
-            <View
+        <View
+          style={[
+            HomeStyle.HomeFeaturesBoxesContaienr,
+            { height: moderateScale(120) },
+          ]}
+        >
+          {Features.map((feature: any, index: number) => (
+            <TouchableOpacity
+              onPress={() => {
+                if (feature.title === "Leaves") {
+                  navigate("/leave");
+                } else if (feature.title === "Check-In/Out") {
+                  navigate("/check");
+                } else if (feature.title === "Attendances") {
+                  navigate("/attendance");
+                } else if (feature.title === "Reports") {
+                  navigate("/report");
+                } else if (feature.title === "Meetings") {
+                  navigate("/meeting");
+                }
+              }}
               style={[
-                HomeStyle.HomeBoxStyle,
-                {
-                  height: moderateScale(90),
-                  borderWidth: moderateScale(1.5),
-                  borderRadius: moderateScale(10),
-                },
+                HomeStyle.HomeFeaturesBoxContaienr,
+                { height: moderateScale(100), width: moderateScale(100) },
               ]}
+              key={index}
             >
-              <Animatable.Image
-                animation={"bounce"}
-                source={feature.icon}
-                style={{ width: moderateScale(30), height: moderateScale(30) }}
-              />
-              <Text
+              <View
                 style={[
-                  HomeStyle.HomeFeaturesBoxTitle,
-                  { fontSize: moderateScale(10) },
+                  HomeStyle.HomeBoxStyle,
+                  {
+                    height: moderateScale(90),
+                    borderWidth: moderateScale(1.5),
+                    borderRadius: moderateScale(10),
+                  },
                 ]}
               >
-                {feature.title}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </View>
+                <Animatable.Image
+                  animation={"bounce"}
+                  source={feature.icon}
+                  style={{
+                    width: moderateScale(30),
+                    height: moderateScale(30),
+                  }}
+                />
+                <Text
+                  style={[
+                    HomeStyle.HomeFeaturesBoxTitle,
+                    { fontSize: moderateScale(10) },
+                  ]}
+                >
+                  {feature.title}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </ScrollView>
+
       <TouchableOpacity
         style={[
           HomeStyle.HomeLeaveRequestContainer,

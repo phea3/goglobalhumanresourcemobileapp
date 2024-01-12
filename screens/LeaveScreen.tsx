@@ -177,6 +177,7 @@ export default function LeaveScreen() {
             onScroll={handleScroll}
             onScrollEndDrag={handleScrollEnd}
             onMomentumScrollEnd={handleScrollEnd}
+            scrollEventThrottle={16}
           >
             {leavListData?.map((attendance: any, index: number) => (
               <Animatable.View

@@ -225,6 +225,7 @@ export default function HomeLeaveScreen() {
         onScroll={handleScroll}
         onScrollEndDrag={handleScrollEnd}
         onMomentumScrollEnd={handleScrollEnd}
+        scrollEventThrottle={16}
       >
         <KeyboardDismissableArea />
         {!isKeyboardVisible ? (

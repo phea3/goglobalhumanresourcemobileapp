@@ -52,6 +52,7 @@ export default function NotificationActiveScreen() {
           onScroll={handleScroll}
           onScrollEndDrag={handleScrollEnd}
           onMomentumScrollEnd={handleScrollEnd}
+          scrollEventThrottle={16}
         >
           {NotificationData?.map((card: any, index: number) => (
             <View

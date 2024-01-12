@@ -156,6 +156,7 @@ export default function AttendanceScreen() {
             onScroll={handleScroll}
             onScrollEndDrag={handleScrollEnd}
             onMomentumScrollEnd={handleScrollEnd}
+            scrollEventThrottle={16}
           >
             {AttendanceData?.getAttendanceMobile.map(
               (attendance: any, index: number) => (

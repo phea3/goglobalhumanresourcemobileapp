@@ -430,6 +430,7 @@ export default function ChecKAttendance() {
               onScroll={handleScroll}
               onScrollEndDrag={handleScrollEnd}
               onMomentumScrollEnd={handleScrollEnd}
+              scrollEventThrottle={16}
             >
               <View
                 style={[

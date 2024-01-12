@@ -30,6 +30,7 @@ import MeetingScreen from "./screens/MeetingScreen";
 import LoginLayout from "./layouts/LoginLayout";
 import ReportScreen from "./screens/ReportScreen";
 import DailyAttendance from "./screens/DailyAttendance";
+import MemberScreen from "./screens/MemberScreen";
 
 export default function Router() {
   const { expoPushToken, notificationResponse } = usePushNotifications();
@@ -72,6 +73,8 @@ export default function Router() {
         navigate("/home/main");
       } else if (locationToBack == "/report/daily-attendace") {
         navigate("/report");
+      } else if (locationToBack == "/member") {
+        navigate("/meeting");
       } else {
         BackHandler.exitApp();
       }
@@ -217,6 +220,10 @@ export default function Router() {
         {
           path: "/meeting",
           element: <MeetingScreen />,
+        },
+        {
+          path: "/member",
+          element: <MemberScreen />,
         },
         {
           path: "/report",
