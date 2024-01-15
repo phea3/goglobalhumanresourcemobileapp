@@ -10,7 +10,7 @@ import {
   View,
 } from "react-native";
 import LeaveStyle from "../styles/LeaveStyle.scss";
-import { useNavigate } from "react-router-native";
+import { useLocation, useNavigate } from "react-router-native";
 import { useMutation } from "@apollo/client";
 import { EMPLOYEECHECKATTENDANCE } from "../graphql/EmployeeCheckAttendance";
 import CheckStyle from "../styles/CheckStyle.scss";
@@ -23,7 +23,8 @@ import { AuthContext } from "../Context/AuthContext";
 import SwiperPage from "../includes/SwiperPage";
 import { moderateScale } from "../ Metrics";
 
-export default function ChecKAttendance() {
+export default function ChecKAttendance({ locating }: any) {
+  const locate = useLocation();
   const navigate = useNavigate();
   const [isVisible, setVisible] = useState(false);
   const [CheckIsVisible, setCheckVisible] = useState(false);
@@ -105,10 +106,14 @@ export default function ChecKAttendance() {
 
   const CheckInOut = async (located: any) => {
     let createValue = {
-      longitude: located?.coords.longitude
+      longitude: locating
+        ? locating?.coords.longitude
+        : located?.coords.longitude
         ? located?.coords.longitude.toString()
         : "",
-      latitude: located?.coords.latitude
+      latitude: locating
+        ? locating?.coords.latitude
+        : located?.coords.latitude
         ? located?.coords.latitude.toString()
         : "",
       shift: morning ? "morning" : afternoon ? "afternoon" : "",
@@ -163,12 +168,12 @@ export default function ChecKAttendance() {
       // const $location = null;
       // console.log($location);
       setLocation($location);
-      if ($location) {
+      if (location) {
         handleOpen();
         setTimeout(() => {
-          CheckInOut($location);
+          CheckInOut(location ? location : $location);
         }, 500);
-      } else if ($location === null) {
+      } else if (location === null && $location == null) {
         handleOpen();
         setCheckData({
           message: "Cannot get your location!",
@@ -184,6 +189,41 @@ export default function ChecKAttendance() {
       setErrorMsg("Error getting location");
     }
   }
+
+  // useEffect(() => {
+  //   console.log(location);
+  // }, [location]);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     let { status } = await Location.requestForegroundPermissionsAsync();
+  //     if (status !== "granted") {
+  //       setErrorMsg("Permission to access location was denied.");
+
+  //       return;
+  //     }
+
+  //     let location = await Location.getCurrentPositionAsync({});
+  //     setLocation(location);
+
+  //     const locationSubscription = await Location.watchPositionAsync(
+  //       {
+  //         accuracy: Location.Accuracy.Low,
+  //         timeInterval: 5000, // Set the interval to 2000 milliseconds (2 seconds)
+  //         distanceInterval: 1,
+  //       },
+  //       (newLocation) => {
+  //         setLocation(newLocation);
+  //       }
+  //     );
+
+  //     return () => {
+  //       if (locationSubscription) {
+  //         locationSubscription.remove();
+  //       }
+  //     };
+  //   })();
+  // }, [locate.pathname]);
 
   const HandleCheckAttendance = async (check: string) => {
     setScanType(check);

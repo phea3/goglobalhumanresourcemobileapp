@@ -129,40 +129,40 @@ export default function Router() {
     getLocalStorage();
   }, []);
 
-  // const [locate, setLocation] = useState<Location.LocationObject | null>(null);
+  const [locate, setLocation] = useState<Location.LocationObject | null>(null);
 
-  // const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     let { status } = await Location.requestForegroundPermissionsAsync();
-  //     if (status !== "granted") {
-  //       setErrorMsg("Permission to access location was denied.");
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied.");
 
-  //       return;
-  //     }
+        return;
+      }
 
-  //     let location = await Location.getCurrentPositionAsync({});
-  //     setLocation(location);
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
 
-  //     const locationSubscription = await Location.watchPositionAsync(
-  //       {
-  //         accuracy: Location.Accuracy.High,
-  //         timeInterval: 5000, // Set the interval to 2000 milliseconds (2 seconds)
-  //         distanceInterval: 1,
-  //       },
-  //       (newLocation) => {
-  //         setLocation(newLocation);
-  //       }
-  //     );
+      const locationSubscription = await Location.watchPositionAsync(
+        {
+          accuracy: Location.Accuracy.High,
+          timeInterval: 5000, // Set the interval to 2000 milliseconds (2 seconds)
+          distanceInterval: 1,
+        },
+        (newLocation) => {
+          setLocation(newLocation);
+        }
+      );
 
-  //     return () => {
-  //       if (locationSubscription) {
-  //         locationSubscription.remove();
-  //       }
-  //     };
-  //   })();
-  // }, [local.pathname, load]);
+      return () => {
+        if (locationSubscription) {
+          locationSubscription.remove();
+        }
+      };
+    })();
+  }, [local.pathname, load]);
 
   async function getIDUserLog() {
     if (
@@ -213,7 +213,7 @@ export default function Router() {
         { path: "/leave", element: <LeaveScreen /> },
         {
           path: "/check",
-          element: <ChecKAttendance />,
+          element: <ChecKAttendance locating={locate} />,
         },
         { path: "/attendance", element: <AttendanceScreen /> },
         { path: "/profile", element: <ProfileScreen /> },
