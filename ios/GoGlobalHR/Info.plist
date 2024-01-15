@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.19</string>
+	<string>1.0.20</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -32,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>19</string>
+	<string>20</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -49,11 +49,13 @@
 		</dict>
 	</dict>
 	<key>NSCalendarsFullAccessUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) to access your calendars</string>
+	<string>Allow $(PRODUCT_NAME) to access your calendars.</string>
 	<key>NSCalendarsUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) to access your calendars</string>
+	<string>Allow $(PRODUCT_NAME) to access your calendars.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow $(PRODUCT_NAME) to access the camera to scan the QR code at check-in and check-out.</string>
+	<key>NSDataCollectionAndStorage</key>
+	<string>Allow $(PRODUCT_NAME) to collect your data and storage.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Allow $(PRODUCT_NAME) to use your location to scan the QR code at check-in and check-out.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -63,15 +65,17 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allow $(PRODUCT_NAME) to access your microphone</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) to access your photos</string>
+	<string>Allow $(PRODUCT_NAME) to access your photo library.</string>
 	<key>NSRemindersFullAccessUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) to access your reminders</string>
+	<string>Allow $(PRODUCT_NAME) to access your reminders.</string>
 	<key>NSRemindersUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) to access your reminders</string>
+	<string>Allow $(PRODUCT_NAME) to access your reminders.</string>
+	<key>NSRemoteNotificationUsageDescription</key>
+	<string>Receive push notifications to stay updated on important information.</string>
 	<key>NSUserNotificationsUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) to push you notification</string>
-	<key>Privacy - Data Collection and Storage</key>
-	<string>Allow $(PRODUCT_NAME) to collect your data and storage</string>
+	<string>Allow $(PRODUCT_NAME) to push you notification.</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Allow $(PRODUCT_NAME) to collect and use data for personalized services.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

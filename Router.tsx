@@ -60,6 +60,7 @@ export default function Router() {
     console.log("Back button pressed!", locationToBack);
     if (token !== "" && token !== undefined) {
       if (
+        locationToBack == "/meeting" ||
         locationToBack == "/report" ||
         locationToBack == "/check" ||
         locationToBack == "/leave" ||

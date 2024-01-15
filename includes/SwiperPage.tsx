@@ -64,9 +64,15 @@ export default function SwiperPage({
   // Call the updateTranslationX function periodically (for example, every 500ms)
   setInterval(updateTranslationX, 1000);
 
-  const onNavigate = () => {
+  const onNavigate = (event: any) => {
+    const swipeLength = event.nativeEvent.translationX;
+    // console.log("Navigating with swipe length:", swipeLength);
     // Your custom action when swiped left
-    navigate(path);
+
+    if (event.nativeEvent.translationX > 180) {
+      // console.log(event.nativeEvent.translationX);
+      navigate(path);
+    }
   };
   const onSwipeableLeftOpen = () => {
     // Your custom action when swiped left
@@ -131,6 +137,7 @@ export default function SwiperPage({
     );
   } else {
     if (
+      // page === "leave" ||
       page === "report" ||
       page === "checkAtt" ||
       page === "profile" ||

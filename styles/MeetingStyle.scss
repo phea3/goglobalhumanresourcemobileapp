@@ -12,7 +12,7 @@
   width: 100%;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .MeetingTitle {
@@ -70,5 +70,10 @@
 
 .MeetingBartitileBackground {
   background-color: $color-light-blue;
+  flex-direction: row;
+}
+
+.MeetingBartitileBackgroundVisible {
+  background-color: $color-white;
   flex-direction: row;
 }
