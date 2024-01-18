@@ -31,6 +31,8 @@ import LoginLayout from "./layouts/LoginLayout";
 import ReportScreen from "./screens/ReportScreen";
 import DailyAttendance from "./screens/DailyAttendance";
 import MemberScreen from "./screens/MemberScreen";
+import MeetingDetail from "./screens/MeetingDatail";
+import RequestMeetingScreen from "./screens/RequesetMeetingScreen";
 
 export default function Router() {
   const { expoPushToken, notificationResponse } = usePushNotifications();
@@ -134,36 +136,36 @@ export default function Router() {
 
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied.");
+  // useEffect(() => {
+  //   (async () => {
+  //     let { status } = await Location.requestForegroundPermissionsAsync();
+  //     if (status !== "granted") {
+  //       setErrorMsg("Permission to access location was denied.");
 
-        return;
-      }
+  //       return;
+  //     }
 
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
+  //     let location = await Location.getCurrentPositionAsync({});
+  //     setLocation(location);
 
-      const locationSubscription = await Location.watchPositionAsync(
-        {
-          accuracy: Location.Accuracy.High,
-          timeInterval: 5000, // Set the interval to 2000 milliseconds (2 seconds)
-          distanceInterval: 1,
-        },
-        (newLocation) => {
-          setLocation(newLocation);
-        }
-      );
+  //     const locationSubscription = await Location.watchPositionAsync(
+  //       {
+  //         accuracy: Location.Accuracy.High,
+  //         timeInterval: 5000, // Set the interval to 2000 milliseconds (2 seconds)
+  //         distanceInterval: 1,
+  //       },
+  //       (newLocation) => {
+  //         setLocation(newLocation);
+  //       }
+  //     );
 
-      return () => {
-        if (locationSubscription) {
-          locationSubscription.remove();
-        }
-      };
-    })();
-  }, [local.pathname, load]);
+  //     return () => {
+  //       if (locationSubscription) {
+  //         locationSubscription.remove();
+  //       }
+  //     };
+  //   })();
+  // }, [local.pathname, load]);
 
   async function getIDUserLog() {
     if (
@@ -221,6 +223,14 @@ export default function Router() {
         {
           path: "/meeting",
           element: <MeetingScreen />,
+        },
+        {
+          path: "/requestmeeting",
+          element: <RequestMeetingScreen />,
+        },
+        {
+          path: "/meetingdetail",
+          element: <MeetingDetail />,
         },
         {
           path: "/member",

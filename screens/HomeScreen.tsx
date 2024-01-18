@@ -108,6 +108,7 @@ export default function HomeScreen() {
                   ]}
                 >
                   <Text
+                    numberOfLines={1}
                     style={[
                       HomeStyle.HomeBoxInSideCircleText,
                       { fontSize: moderateScale(20) },

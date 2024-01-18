@@ -174,6 +174,7 @@ export default function HomeMainScreen() {
         }}
         showsVerticalScrollIndicator={false}
         style={{
+          height: "100%",
           width: "95%",
           backgroundColor: "#f8f8f8",
           borderRadius: moderateScale(15),

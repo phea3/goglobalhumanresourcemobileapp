@@ -106,14 +106,10 @@ export default function ChecKAttendance({ locating }: any) {
 
   const CheckInOut = async (located: any) => {
     let createValue = {
-      longitude: locating
-        ? locating?.coords.longitude
-        : located?.coords.longitude
+      longitude: located?.coords.longitude
         ? located?.coords.longitude.toString()
         : "",
-      latitude: locating
-        ? locating?.coords.latitude
-        : located?.coords.latitude
+      latitude: located?.coords.latitude
         ? located?.coords.latitude.toString()
         : "",
       shift: morning ? "morning" : afternoon ? "afternoon" : "",
@@ -126,9 +122,9 @@ export default function ChecKAttendance({ locating }: any) {
       },
       onCompleted(data) {
         // console.log("Succeed", data);
-        if (data?.employeeCheckAttendance?.status === false) {
-          Vibration.vibrate();
-        }
+        // if (data?.employeeCheckAttendance?.status === false) {
+        //   Vibration.vibrate();
+        // }
         setCheckData({
           message: data?.employeeCheckAttendance?.message,
           status: data?.employeeCheckAttendance?.status,
@@ -156,39 +152,83 @@ export default function ChecKAttendance({ locating }: any) {
 
   async function getLocation() {
     const { status } = await Location.requestForegroundPermissionsAsync();
+
     if (status !== "granted") {
       setErrorMsg("Permission to access location was denied");
       return;
     }
 
     try {
-      const $location = await Location.getCurrentPositionAsync({
-        accuracy: Location.Accuracy.Low,
-      });
-      // const $location = null;
-      // console.log($location);
-      setLocation($location);
-      if (location) {
-        handleOpen();
-        setTimeout(() => {
-          CheckInOut(location ? location : $location);
-        }, 500);
-      } else if (location === null && $location == null) {
-        handleOpen();
-        setCheckData({
-          message: "Cannot get your location!",
-          status: null,
-        });
-        setLoad(false);
-        setTimeout(() => {
-          handleClose();
-        }, 1500);
-      }
+      const locationListener = await Location.watchPositionAsync(
+        {
+          accuracy: Location.Accuracy.Low,
+          timeInterval: 5000,
+          distanceInterval: 1,
+        },
+        (location) => {
+          setLocation(location);
+          handleOpen();
+          CheckInOut(location);
+        }
+      );
+
+      // Optionally, you can store the location listener to stop it later
+      // e.g., store it in a state variable or a ref
+      // const locationListenerRef = useRef(locationListener);
+
+      // If you want to stop watching the location after a specific time, you can use setTimeout
+      // setTimeout(() => {
+      //   locationListenerRef.current.remove();
+      // }, YOUR_TIMEOUT);
     } catch (error) {
-      handleClose();
+      handleOpen();
       setErrorMsg("Error getting location");
+      setCheckData({
+        message: "Cannot get your location!",
+        status: null,
+      });
+      setLoad(false);
+      setTimeout(() => {
+        handleClose();
+      }, 1500);
     }
   }
+
+  // async function getLocation() {
+  //   const { status } = await Location.requestForegroundPermissionsAsync();
+  //   if (status !== "granted") {
+  //     setErrorMsg("Permission to access location was denied");
+  //     return;
+  //   }
+
+  //   try {
+  //     const $location = await Location.getCurrentPositionAsync({
+  //       accuracy: Location.Accuracy.Low,
+  //     });
+  //     // const $location = null;
+  //     // console.log($location);
+  //     setLocation($location);
+  //     if (location) {
+  //       handleOpen();
+  //       setTimeout(() => {
+  //         CheckInOut(location ? location : $location);
+  //       }, 500);
+  //     } else if (location === null && $location == null) {
+  //       handleOpen();
+  //       setCheckData({
+  //         message: "Cannot get your location!",
+  //         status: null,
+  //       });
+  //       setLoad(false);
+  //       setTimeout(() => {
+  //         handleClose();
+  //       }, 1500);
+  //     }
+  //   } catch (error) {
+  //     handleClose();
+  //     setErrorMsg("Error getting location");
+  //   }
+  // }
 
   // useEffect(() => {
   //   console.log(location);

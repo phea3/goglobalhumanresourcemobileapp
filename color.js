@@ -12,6 +12,7 @@ export const COLORS = {
   PURPLE: "#6862C2",
   PINK: "#EC2777",
   FOOTER: "#F7F8FE",
+  RED: "#FF0000",
 };
 
 const DaysOfWeekInEnglish = [
