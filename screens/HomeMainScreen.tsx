@@ -80,20 +80,20 @@ export default function HomeMainScreen() {
           FEATURES
         </Text>
       </View>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ justifyContent: "center" }}
-        style={{
-          width: "95%",
-          height: moderateScale(150),
-        }}
+      <View
+        style={[
+          HomeStyle.HomeFeaturesBoxesContaienr,
+          { height: moderateScale(100) },
+        ]}
       >
-        <View
-          style={[
-            HomeStyle.HomeFeaturesBoxesContaienr,
-            { height: moderateScale(120) },
-          ]}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ justifyContent: "center" }}
+          style={{
+            flex: 1,
+            width: "95%",
+          }}
         >
           {Features.map((feature: any, index: number) => (
             <TouchableOpacity
@@ -120,6 +120,7 @@ export default function HomeMainScreen() {
                 style={[
                   HomeStyle.HomeBoxStyle,
                   {
+                    width: moderateScale(90),
                     height: moderateScale(90),
                     borderWidth: moderateScale(1.5),
                     borderRadius: moderateScale(10),
@@ -145,8 +146,8 @@ export default function HomeMainScreen() {
               </View>
             </TouchableOpacity>
           ))}
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
 
       <TouchableOpacity
         style={[
@@ -198,7 +199,7 @@ export default function HomeMainScreen() {
           </Text>
         </View>
 
-        {holiData
+        {holiData.length !== 0
           ? holiData?.map((leave: any, index: number) => (
               <Animatable.View
                 animation={load ? "fadeInUp" : "fadeInUp"}
