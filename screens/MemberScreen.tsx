@@ -29,7 +29,7 @@ export default function MemberScreen() {
   const { widthScreen } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
-  const [limit, setLimit] = useState(20);
+  const [limit, setLimit] = useState(10);
   const values = location.state;
   const [load, setLoad] = useState(true);
 
@@ -44,14 +44,6 @@ export default function MemberScreen() {
   const [memberItems, setMemberItems] = useState<
     Array<{ _id: string | null; memberName: string | null }>
   >([]);
-
-  // useEffect(() => {
-  //   console.log(checkedItems);
-  // }, [checkedItems]);
-
-  useEffect(() => {
-    // console.log(location.state);
-  }, []);
 
   const handleItemPress = (
     index: number,
@@ -84,29 +76,18 @@ export default function MemberScreen() {
     setCheckedItems(newCheckedItems);
   };
 
-  const handleCheckboxChange = (index: number) => {
-    handleItemPress(
-      index,
-      chairmanData?.selectChairman[index]?._id,
-      chairmanData?.selectChairman[index]?.memberName
-    );
-  };
+  const [chairmanData, setChairmanData] = useState([]);
 
-  const [chairmans, setChairmans] = useState([]);
-
-  const { data: chairmanData, refetch: chairmanRefetch } = useQuery(
-    GETCHAIRMAN,
-    {
-      pollInterval: 2000,
-      variables: {
-        limit: limit,
-      },
-      onCompleted: ({ selectChairman }) => {
-        // console.log("selectChairman: ", selectChairman);
-        setChairmans(selectChairman);
-      },
-    }
-  );
+  const { refetch: chairmanRefetch } = useQuery(GETCHAIRMAN, {
+    pollInterval: 2000,
+    variables: {
+      limit: limit,
+    },
+    onCompleted: ({ selectChairman }) => {
+      // console.log("selectChairman: ", selectChairman);
+      setChairmanData(selectChairman);
+    },
+  });
 
   useEffect(() => {
     chairmanRefetch();
@@ -304,7 +285,7 @@ export default function MemberScreen() {
         // animation={"fadeInUp"}
         style={MemberStyle.MemberBodyContainer}
       >
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, opacity: 0, position: "absolute" }}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View
               style={{
@@ -454,7 +435,7 @@ export default function MemberScreen() {
         ) : (
           <View style={{ flex: 2, width: "90%" }}>
             <FlatList
-              data={chairmans.slice(0, limit)}
+              data={chairmanData.slice(0, limit)}
               keyExtractor={(item: any) => item._id.toString()}
               renderItem={renderItem}
               showsVerticalScrollIndicator={false}
@@ -462,32 +443,30 @@ export default function MemberScreen() {
                 width: "100%",
                 marginTop: moderateScale(20),
               }}
-              ListFooterComponent={() =>
-                chairmans.length >= limit ? (
-                  <TouchableOpacity
-                    onPress={() => {
-                      setLimit(10 + limit);
-                    }}
-                    style={{
-                      width: "100%",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      height: moderateScale(50),
-                    }}
-                  >
-                    <Text
-                      style={{
-                        fontFamily: "Century-Gothic-Bold",
-                        color: "#3c6efb",
-                        fontSize: moderateScale(16),
-                      }}
-                    >
-                      {"see more..."}
-                    </Text>
-                  </TouchableOpacity>
-                ) : null
-              }
             />
+            {/* {chairmanData.length >= limit ? ( */}
+            <TouchableOpacity
+              onPress={() => {
+                setLimit(40 + limit);
+              }}
+              style={{
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "center",
+                height: moderateScale(50),
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: "Century-Gothic-Bold",
+                  color: "#3c6efb",
+                  fontSize: moderateScale(16),
+                }}
+              >
+                {"see more..."}
+              </Text>
+            </TouchableOpacity>
+            {/*) : null}*/}
           </View>
         )}
       </View>

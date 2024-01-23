@@ -94,12 +94,28 @@ export default function ForgotPasswordScreen() {
     };
   }, []);
 
+  const [validateEmailStatus, setValidateEmailStatus] = useState(false);
+
+  const handleCheckValidate = (text: string) => {
+    let reg: any = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if (reg.test(text) === false) {
+      // console.log("Email is Not Correct");
+      setValidateEmailStatus(true);
+      setEmail(text);
+      return false;
+    } else {
+      setEmail(text);
+      setValidateEmailStatus(false);
+      // console.log("Email is Correct");
+    }
+  };
+
   useEffect(() => {
     async function getAccount() {
       let userGmail = await AsyncStorage.getItem("@gmail");
       // console.log(userGmail + "\n" + userPassword);
       if (userGmail) {
-        setEmail(userGmail);
+        handleCheckValidate(userGmail);
       }
     }
     getAccount();
@@ -191,31 +207,13 @@ export default function ForgotPasswordScreen() {
               ]}
               onChangeText={(e) => {
                 const updatedText = e.replace(/\s/g, "");
-                setEmail(updatedText);
+                handleCheckValidate(updatedText);
               }}
               keyboardType="default"
               secureTextEntry={false}
             />
           </View>
-          {email === "" ? (
-            <Text
-              style={[
-                LoginStyle.LoginRequireScreenTextInputText,
-                { fontSize: moderateScale(12) },
-              ]}
-            >
-              Required!
-            </Text>
-          ) : email.indexOf(" ") !== -1 ? (
-            <Text
-              style={[
-                LoginStyle.LoginRequireScreenTextInputText,
-                { fontSize: moderateScale(12) },
-              ]}
-            >
-              Invalid email!, email cannot contain spaces
-            </Text>
-          ) : email.includes("@gmail.com") ? null : (
+          {validateEmailStatus === true ? (
             <Text
               style={[
                 LoginStyle.LoginRequireScreenTextInputText,
@@ -224,7 +222,7 @@ export default function ForgotPasswordScreen() {
             >
               Oop!, invalid email
             </Text>
-          )}
+          ) : null}
           <View style={ForgotPasswordStyle.ForgotScreenBtnContainer}>
             <TouchableOpacity
               style={[

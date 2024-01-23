@@ -76,7 +76,11 @@ export default function Router() {
         navigate("/home/main");
       } else if (locationToBack == "/report/daily-attendace") {
         navigate("/report");
-      } else if (locationToBack == "/member") {
+      } else if (
+        locationToBack == "/member" ||
+        locationToBack == "/requestmeeting" ||
+        locationToBack == "/meetingdetail"
+      ) {
         navigate("/meeting");
       } else {
         BackHandler.exitApp();

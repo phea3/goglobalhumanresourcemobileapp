@@ -89,7 +89,7 @@ export default function MeetingDetail() {
         >
           <Text
             style={{
-              fontFamily: "Kantumruy-Regular",
+              fontFamily: "Century-Gothic",
               fontSize: moderateScale(14),
             }}
           >
@@ -165,13 +165,13 @@ const MemberStyles = StyleSheet.create({
     alignItems: "center",
   },
   rowTitle: {
-    fontFamily: "Kantumruy-Regular",
+    fontFamily: "Century-Gothic",
     fontSize: moderateScale(14),
     width: "45%",
     textAlign: "left",
   },
   rowMark: {
-    fontFamily: "Kantumruy-Regular",
+    fontFamily: "Century-Gothic",
     fontSize: moderateScale(14),
     width: "10%",
     textAlign: "left",
@@ -189,12 +189,12 @@ const MemberStyles = StyleSheet.create({
     marginHorizontal: moderateScale(10),
   },
   cardTitle: {
-    fontFamily: "Kantumruy-Bold",
+    fontFamily: "Century-Gothic-Bold",
     fontSize: moderateScale(14),
     textAlign: "left",
   },
   cardBody: {
-    fontFamily: "Kantumruy-Regular",
+    fontFamily: "Century-Gothic",
     fontSize: moderateScale(14),
     textAlign: "left",
   },
@@ -202,15 +202,16 @@ const MemberStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     padding: moderateScale(10),
-    borderBottomWidth: moderateScale(1),
+    borderBottomWidth: moderateScale(0.5),
+    borderColor: "#dcdcdc",
   },
   memberTitle: {
-    fontFamily: "Kantumruy-Bold",
+    fontFamily: "Century-Gothic",
     fontSize: moderateScale(12),
     textAlign: "left",
   },
   memberTitleStatus: {
-    fontFamily: "Kantumruy-Bold",
+    fontFamily: "Century-Gothic-Bold",
     fontSize: moderateScale(12),
     textAlign: "left",
     color: COLORS.RED,
