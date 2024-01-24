@@ -163,18 +163,18 @@ export default function ProfileScreen() {
                   width: "90%",
                   justifyContent: "center",
                   alignItems: "center",
-                  backgroundColor: "#f1f1f1",
+                  // backgroundColor: "#f1f1f1",
                   borderRadius: moderateScale(15),
                 }}
               >
-                <Text
+                {/* <Text
                   style={[
                     ProfileStyle.UserName,
                     { fontSize: moderateScale(14) },
                   ]}
                 >
                   Empty
-                </Text>
+                </Text> */}
               </View>
 
               <TouchableOpacity

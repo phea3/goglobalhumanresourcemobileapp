@@ -285,7 +285,13 @@ export default function MemberScreen() {
         // animation={"fadeInUp"}
         style={MemberStyle.MemberBodyContainer}
       >
-        <View style={{ flex: 1, opacity: 0, position: "absolute" }}>
+        <View
+          style={{
+            flex: 1,
+            opacity: 0,
+            position: "absolute",
+          }}
+        >
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View
               style={{
@@ -434,6 +440,12 @@ export default function MemberScreen() {
           </View>
         ) : (
           <View style={{ flex: 2, width: "90%" }}>
+            <Text style={styleSheetMemeber.valueTitle}>
+              Member ៖ {checkedItems?.filter((e) => e !== undefined).length}{" "}
+              {checkedItems?.filter((e) => e !== undefined).length > 1
+                ? "people"
+                : "person"}
+            </Text>
             <FlatList
               data={chairmanData.slice(0, limit)}
               keyExtractor={(item: any) => item._id.toString()}
