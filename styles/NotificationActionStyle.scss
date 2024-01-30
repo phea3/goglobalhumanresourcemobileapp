@@ -3,14 +3,17 @@
 .NotificationActionContainer {
   width: 100%;
   height: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
 .ActionCardContainer {
-  width: 90%;
+  width: 95%;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   border-bottom-color: $color-gray;
+  background-color: $color-white;
 }
 
 .ActionCardBodyLeft {
@@ -45,6 +48,10 @@
 .ActionLeaveTitle {
   font-family: $century-bold;
   color: $color-dark-blue;
+}
+
+.ActionLeaveTitleEmpty {
+  font-family: $century-bold;
 }
 
 .ActionLeaveTitleRed {

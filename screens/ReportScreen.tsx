@@ -1,10 +1,31 @@
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import ReportStyle from "../styles/ReportStyle.scss";
 import { useLocation, useNavigate } from "react-router-native";
 import { useContext, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import SwiperPage from "../includes/SwiperPage";
 import { horizontalScale, moderateScale, verticalScale } from "../ Metrics";
+
+const Reports = [
+  {
+    title: "Daily Attendance",
+    description: "The specific day for which the attendance is being recorded.",
+    icon: require("../assets/Images/attendance.png"),
+  },
+  {
+    title: "Evaluation Report",
+    description:
+      "A detailed analysis of employee performance, highlighting strengths, areas for improvement, and overall contributions to the organization.",
+    icon: require("../assets/Images/valuation.png"),
+  },
+];
 
 export default function ReportScreen() {
   const navigate = useNavigate();
@@ -25,11 +46,8 @@ export default function ReportScreen() {
       style={[
         ReportStyle.ReportContainer,
         {
-          borderTopLeftRadius: moderateScale(15),
-          borderTopRightRadius: moderateScale(15),
-          borderTopWidth: moderateScale(1),
-          borderRightWidth: moderateScale(1),
-          borderLeftWidth: moderateScale(1),
+          borderTopLeftRadius: moderateScale(20),
+          borderTopRightRadius: moderateScale(20),
         },
       ]}
     >
@@ -69,63 +87,95 @@ export default function ReportScreen() {
           onMomentumScrollEnd={handleScrollEnd}
           scrollEventThrottle={16}
         >
-          <View
-            style={[
-              ReportStyle.ReportBodyContainer,
-              { marginTop: moderateScale(10) },
-            ]}
-          >
-            <TouchableOpacity
+          {Reports.map((data: any, index: number) => (
+            <View
+              key={index}
               style={[
-                ReportStyle.ReportCardContainer,
-                { borderRadius: moderateScale(10), padding: moderateScale(10) },
+                ReportStyle.ReportBodyContainer,
+                { marginVertical: moderateScale(10) },
               ]}
-              onPress={() => navigate("/report/daily-attendace")}
             >
-              <View
+              <TouchableOpacity
                 style={[
-                  ReportStyle.ReportIcon,
+                  ReportMainStyle.shadow,
+                  ReportStyle.ReportCardContainer,
                   {
-                    width: moderateScale(60),
-                    height: moderateScale(60),
                     borderRadius: moderateScale(10),
+                    padding: moderateScale(10),
                   },
                 ]}
+                onPress={() => {
+                  if (data.title === "Daily Attendance") {
+                    navigate("/report/daily-attendace");
+                  } else if (data.title === "Evaluation Report") {
+                    navigate("/report/valuation-report");
+                  }
+                }}
               >
-                <Image
-                  source={require("../assets/Images/attendance.png")}
+                <View
                   style={[
-                    { width: moderateScale(45), height: moderateScale(45) },
-                  ]}
-                />
-              </View>
-              <View
-                style={[
-                  ReportStyle.TitleContainer,
-                  { paddingHorizontal: moderateScale(10) },
-                ]}
-              >
-                <Text
-                  style={[
-                    ReportStyle.TitleAtt,
-                    { fontSize: moderateScale(14) },
+                    ReportStyle.ReportIcon,
+                    {
+                      width: moderateScale(60),
+                      height: moderateScale(60),
+                      borderRadius: moderateScale(10),
+                      // borderWidth: moderateScale(1),
+                      // borderColor: "#dcdcdc",
+                    },
                   ]}
                 >
-                  Daily Attendance
-                </Text>
-                <Text
+                  <Image
+                    source={data?.icon}
+                    style={[
+                      {
+                        width: moderateScale(45),
+                        height: moderateScale(45),
+                      },
+                    ]}
+                  />
+                </View>
+                <View
                   style={[
-                    ReportStyle.ReasonAtt,
-                    { fontSize: moderateScale(12) },
+                    ReportStyle.TitleContainer,
+                    { paddingHorizontal: moderateScale(10) },
                   ]}
                 >
-                  The specific day for which the attendance is being recorded.
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+                  <Text
+                    style={[
+                      ReportStyle.TitleAtt,
+                      { fontSize: moderateScale(14) },
+                    ]}
+                  >
+                    {data.title}
+                  </Text>
+                  <Text
+                    style={[
+                      ReportStyle.ReasonAtt,
+                      { fontSize: moderateScale(12) },
+                    ]}
+                  >
+                    {data.description}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          ))}
         </ScrollView>
       </SwiperPage>
     </View>
   );
 }
+
+const ReportMainStyle = StyleSheet.create({
+  shadow: {
+    shadowColor: "#082b9e",
+    shadowOffset: {
+      width: 0,
+      height: moderateScale(2),
+    },
+    shadowOpacity: moderateScale(0.25),
+    shadowRadius: moderateScale(3.84),
+
+    elevation: moderateScale(5),
+  },
+});

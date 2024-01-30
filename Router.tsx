@@ -33,6 +33,8 @@ import DailyAttendance from "./screens/DailyAttendance";
 import MemberScreen from "./screens/MemberScreen";
 import MeetingDetail from "./screens/MeetingDatail";
 import RequestMeetingScreen from "./screens/RequesetMeetingScreen";
+import EvaluationScreen from "./screens/EvaluationScreen";
+import EvaluationDetailScreen from "./screens/EvaluationDetailScreen";
 
 export default function Router() {
   const { expoPushToken, notificationResponse } = usePushNotifications();
@@ -245,6 +247,11 @@ export default function Router() {
           element: <ReportScreen />,
         },
         { path: "/report/daily-attendace", element: <DailyAttendance /> },
+        { path: "/report/valuation-report", element: <EvaluationScreen /> },
+        {
+          path: "/report/valuation-detail",
+          element: <EvaluationDetailScreen />,
+        },
         {
           path: "/notification",
           element: <NotificationLayout />,

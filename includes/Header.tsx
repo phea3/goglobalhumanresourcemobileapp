@@ -1,6 +1,6 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, Platform, Text, TouchableOpacity, View } from "react-native";
 import HeaderStyle from "../styles/HeaderStyle.scss";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { useLocation, useNavigate } from "react-router";
 import {
@@ -8,6 +8,9 @@ import {
   initMobileUserLogin,
 } from "../functions/FetchDataLocalStorage";
 import { horizontalScale, moderateScale, verticalScale } from "../ Metrics";
+import getAppVersion from "../getAppVersion";
+import Constants from "expo-constants";
+import { AppVersions } from "../functions/FetchDataLocalStorage";
 
 export default function Header() {
   const [mobileUserLogin, setMobileUserLogin] = useState(initMobileUserLogin);
@@ -15,6 +18,20 @@ export default function Header() {
   const { dimension } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const [versions, setVersions] = useState<AppVersions | null>(null);
+  const LocalVersion = Constants.expoConfig?.version;
+  useEffect(() => {
+    const fetchAppVersion = async () => {
+      const appVersions = await getAppVersion();
+      if (appVersions) {
+        setVersions(appVersions);
+      }
+    };
+
+    fetchAppVersion();
+    // console.log(versions);
+    // console.log(LocalVersion);
+  }, [getAppVersion]);
 
   useMemo(() => {
     fetchDataLocalStorage("@mobileUserLogin").then((value) => {
@@ -161,6 +178,30 @@ export default function Header() {
                     ]}
                   >
                     View Profile{" >"}
+                  </Text>
+                  <Text
+                    style={[
+                      {
+                        fontSize: moderateScale(10),
+                        fontFamily: "Century-Gothic",
+                        color:
+                          LocalVersion && versions
+                            ? LocalVersion < versions?.appStoreVersion
+                              ? "orange"
+                              : "#66FF66"
+                            : "white",
+                      },
+                    ]}
+                  >
+                    {Platform.OS === "ios" && LocalVersion && versions
+                      ? LocalVersion < versions?.appStoreVersion
+                        ? "Need update!!!"
+                        : "Up to date."
+                      : LocalVersion &&
+                        versions &&
+                        LocalVersion < versions?.playStoreVersion
+                      ? "Need update!!!"
+                      : "Up to date."}
                   </Text>
                 </View>
               </View>

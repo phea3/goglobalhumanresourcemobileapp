@@ -9,6 +9,7 @@ import ApolloConfig from "./Config/ApolloConfig";
 import { BackHandler } from "react-native";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { NetworkProvider } from "react-native-offline";
 
 export default function App() {
   // const navigation = useNavigation();
@@ -30,26 +31,28 @@ export default function App() {
 
   return (
     <>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <MenuProvider>
-          <StyleProvider>
-            <AuthProvider>
-              <ApolloConfig>
-                <Routers>
-                  <StatusBar
-                    barStyle={
-                      Platform.OS === "android"
-                        ? "dark-content"
-                        : "light-content"
-                    }
-                  />
-                  <Router />
-                </Routers>
-              </ApolloConfig>
-            </AuthProvider>
-          </StyleProvider>
-        </MenuProvider>
-      </GestureHandlerRootView>
+      <NetworkProvider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <MenuProvider>
+            <StyleProvider>
+              <AuthProvider>
+                <ApolloConfig>
+                  <Routers>
+                    <StatusBar
+                      barStyle={
+                        Platform.OS === "android"
+                          ? "dark-content"
+                          : "light-content"
+                      }
+                    />
+                    <Router />
+                  </Routers>
+                </ApolloConfig>
+              </AuthProvider>
+            </StyleProvider>
+          </MenuProvider>
+        </GestureHandlerRootView>
+      </NetworkProvider>
     </>
   );
 }

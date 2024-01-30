@@ -1,4 +1,11 @@
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  Platform,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import MeetingStyle from "../styles/MeetingStyle.scss";
 import { useNavigate } from "react-router-native";
 import { useContext, useEffect, useState } from "react";
@@ -9,6 +16,7 @@ import * as Animatable from "react-native-animatable";
 import SwiperPage from "../includes/SwiperPage";
 import { useQuery } from "@apollo/client";
 import { GETMEETINGSMOBILE } from "../graphql/GetMeetingsMobile";
+import { Calendar, LocaleConfig } from "react-native-calendars";
 
 export default function MeetingScreen() {
   const navigate = useNavigate();
@@ -17,8 +25,9 @@ export default function MeetingScreen() {
   const [requestView, setRequestView] = useState(true);
   const [limit, setLimit] = useState(10);
   const [isScrolling, setIsScrolling] = useState(false);
-
+  const [selected, setSelected] = useState("");
   const [meetings, setMeetings] = useState([]);
+  const { widthScreen } = useContext(AuthContext);
 
   const { refetch: meetingRefetch } = useQuery(GETMEETINGSMOBILE, {
     pollInterval: 2000,
@@ -55,11 +64,8 @@ export default function MeetingScreen() {
       style={[
         MeetingStyle.MeetingContainer,
         {
-          borderTopLeftRadius: moderateScale(15),
-          borderTopRightRadius: moderateScale(15),
-          borderTopWidth: moderateScale(1),
-          borderRightWidth: moderateScale(1),
-          borderLeftWidth: moderateScale(1),
+          borderTopLeftRadius: moderateScale(20),
+          borderTopRightRadius: moderateScale(20),
         },
       ]}
     >
@@ -118,7 +124,7 @@ export default function MeetingScreen() {
           animation={requestView ? "fadeInUp" : "fadeOutDown"}
           style={MeetingStyle.MeetingBodyContainer}
         >
-          <View
+          {/* <View
             style={[MeetingStyle.MeetingBartitileBackground, { width: "95%" }]}
           >
             <View
@@ -187,7 +193,8 @@ export default function MeetingScreen() {
                 ]}
               ></Text>
             </View>
-          </View>
+          </View> */}
+
           {meetings === null || meetings === undefined ? (
             <View
               style={{
@@ -216,6 +223,43 @@ export default function MeetingScreen() {
               onMomentumScrollEnd={handleScrollEnd}
               scrollEventThrottle={16}
             >
+              <Calendar
+                style={{
+                  width: widthScreen * 0.95,
+                  height: moderateScale(350),
+                  borderRadius: moderateScale(20),
+                  shadowColor: "#082b9e",
+                  shadowOffset: {
+                    width: 0,
+                    height: moderateScale(2),
+                  },
+                  shadowOpacity: moderateScale(0.25),
+                  shadowRadius: moderateScale(3.84),
+
+                  elevation: moderateScale(5),
+                  marginTop: moderateScale(20),
+                }}
+                onDayPress={(day) => {
+                  setSelected(day.dateString);
+                  console.log("selected day", day);
+                }}
+                markedDates={{
+                  [selected]: {
+                    selected: true,
+                    disableTouchEvent: true,
+                  },
+                }}
+                theme={{
+                  backgroundColor: "#ffffff",
+                  calendarBackground: "#ffffff",
+                  textSectionTitleColor: "#b6c1cd",
+                  selectedDayBackgroundColor: "#00adf5",
+                  selectedDayTextColor: "#ffffff",
+                  todayTextColor: "#00adf5",
+                  dayTextColor: "#2d4150",
+                  textDisabledColor: "#d9e",
+                }}
+              />
               {meetings.map((i: any, index: number) => (
                 <View
                   key={index}

@@ -2,6 +2,7 @@ import {
   ActivityIndicator,
   Image,
   ScrollView,
+  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -127,11 +128,11 @@ export default function DailyAttendance() {
       style={[
         DailyAttendanceStyle.DailyAttContainer,
         {
-          borderTopLeftRadius: moderateScale(15),
-          borderTopRightRadius: moderateScale(15),
-          borderTopWidth: moderateScale(1),
-          borderRightWidth: moderateScale(1),
-          borderLeftWidth: moderateScale(1),
+          borderTopLeftRadius: moderateScale(20),
+          borderTopRightRadius: moderateScale(20),
+          // borderTopWidth: moderateScale(1),
+          // borderRightWidth: moderateScale(1),
+          // borderLeftWidth: moderateScale(1),
         },
       ]}
     >
@@ -166,8 +167,13 @@ export default function DailyAttendance() {
       </View>
       <View
         style={[
+          DailyMainStyle.shadow,
           DailyAttendanceStyle.DailyAttBodyContainer,
-          { padding: moderateScale(10), borderRadius: moderateScale(10) },
+          {
+            padding: moderateScale(10),
+            borderRadius: moderateScale(10),
+            marginBottom: moderateScale(10),
+          },
         ]}
       >
         <View style={DailyAttendanceStyle.CheckMainSelectDateSection}>
@@ -323,8 +329,9 @@ export default function DailyAttendance() {
                         source={
                           attendance?.profileImage
                             ? { uri: attendance?.profileImage }
-                            : require("../assets/Images/user_phoem.jpg")
+                            : require("../assets/Images/user.png")
                         }
+                        resizeMode="contain"
                         style={[
                           DailyAttendanceStyle.DailyAttCardImg,
                           {
@@ -386,3 +393,17 @@ export default function DailyAttendance() {
     </View>
   );
 }
+
+const DailyMainStyle = StyleSheet.create({
+  shadow: {
+    shadowColor: "#082b9e",
+    shadowOffset: {
+      width: 0,
+      height: moderateScale(2),
+    },
+    shadowOpacity: moderateScale(0.25),
+    shadowRadius: moderateScale(3.84),
+
+    elevation: moderateScale(5),
+  },
+});

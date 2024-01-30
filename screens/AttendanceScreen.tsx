@@ -1,4 +1,11 @@
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  Platform,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import AttendanceStyle from "../styles/AttendanceStyle.scss";
 import { useNavigate } from "react-router-native";
 import { useQuery } from "@apollo/client";
@@ -9,11 +16,13 @@ import HomeStyle from "../styles/HomeStyle.scss";
 import * as Animatable from "react-native-animatable";
 import SwiperPage from "../includes/SwiperPage";
 import { horizontalScale, moderateScale, verticalScale } from "../ Metrics";
+import { AuthContext } from "../Context/AuthContext";
 
 export default function AttendanceScreen() {
   const navigate = useNavigate();
   const [limit, setLimit] = useState(10);
   const [load, setLoad] = useState(true);
+  const { widthScreen } = useContext(AuthContext);
 
   useEffect(() => {
     setTimeout(() => {
@@ -55,16 +64,13 @@ export default function AttendanceScreen() {
       style={[
         AttendanceStyle.AttendanceContainer,
         {
-          borderTopLeftRadius: moderateScale(15),
-          borderTopRightRadius: moderateScale(15),
-          borderTopWidth: moderateScale(1),
-          borderRightWidth: moderateScale(1),
-          borderLeftWidth: moderateScale(1),
+          borderTopLeftRadius: moderateScale(20),
+          borderTopRightRadius: moderateScale(20),
         },
       ]}
     >
       <SwiperPage path={"/home"} page="attendance" isScrolling={isScrolling}>
-        <View style={AttendanceStyle.AttendanceBackButtonContainer}>
+        <View style={{ width: Platform.OS === "ios" ? "100%" : widthScreen }}>
           <TouchableOpacity
             onPress={() => navigate("/home")}
             style={[

@@ -4,6 +4,7 @@ import {
   Keyboard,
   Platform,
   ScrollView,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
@@ -98,6 +99,7 @@ export default function HomeLeaveScreen() {
         ? TimeDate?.getTimeOffsForMobile[0]?._id
         : ""
     );
+    // console.log(defaultTimeoff, defaultTimeoffId);
   }, [TimeDate]);
 
   const [requestLeave] = useMutation(REQUEST_LEAVE);
@@ -122,21 +124,27 @@ export default function HomeLeaveScreen() {
           : "",
     };
 
-    // console.log(newValues);
-
     await requestLeave({
       variables: { input: newValues },
       onCompleted: ({ requestLeave }) => {
-        Alert.alert("Success!", requestLeave?.message, [
-          {
-            text: "Okay",
-            onPress: () => navigate("/leave"),
-            style: "cancel",
-          },
-        ]);
+        Alert.alert(
+          requestLeave?.status ? "Success!" : "Oops!",
+          requestLeave?.message,
+          [
+            {
+              text: "Okay",
+              onPress: () => {
+                if (requestLeave?.status === true) {
+                  navigate("/leave");
+                }
+              },
+              style: "cancel",
+            },
+          ]
+        );
       },
       onError(error) {
-        Alert.alert("Success!", error?.message);
+        Alert.alert("Oops!", error?.message);
       },
     });
   };
@@ -211,15 +219,18 @@ export default function HomeLeaveScreen() {
         </TouchableOpacity>
       </View>
       <ScrollView
-        contentContainerStyle={{
-          alignItems: "center",
-          backgroundColor: "#f8f8f8",
-          padding: moderateScale(10),
-          borderRadius: moderateScale(10),
-        }}
+        contentContainerStyle={[
+          HomeLeaveStyle.shadow,
+          {
+            alignItems: "center",
+            backgroundColor: "#f8f8f8",
+            padding: moderateScale(10),
+            borderRadius: moderateScale(10),
+          },
+        ]}
         style={[
           HomeStyle.HomeMainScrollviewStyle,
-          { padding: moderateScale(10) },
+          { padding: moderateScale(15) },
         ]}
         showsVerticalScrollIndicator={false}
         onScroll={handleScroll}
@@ -608,7 +619,19 @@ export default function HomeLeaveScreen() {
             }}
           />
         )}
-
+        {defaultTimeoffId === "" && timeId === "" && (
+          <View style={{ width: "100%" }}>
+            <Text
+              style={{
+                color: "#ff0000",
+                padding: moderateScale(5),
+                fontSize: moderateScale(14),
+              }}
+            >
+              Require!
+            </Text>
+          </View>
+        )}
         <View
           style={[
             HomeStyle.HomeMainSelectDateButtonLabelContainer,
@@ -707,3 +730,17 @@ export default function HomeLeaveScreen() {
     </View>
   );
 }
+
+const HomeLeaveStyle = StyleSheet.create({
+  shadow: {
+    shadowColor: "#082b9e",
+    shadowOffset: {
+      width: 0,
+      height: moderateScale(2),
+    },
+    shadowOpacity: moderateScale(0.25),
+    shadowRadius: moderateScale(3.84),
+
+    elevation: moderateScale(5),
+  },
+});

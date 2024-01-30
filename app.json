@@ -2,7 +2,7 @@
   "expo": {
     "name": "Go Global HR",
     "slug": "Mobile-App-HR-V2",
-    "version": "1.0.20",
+    "version": "1.0.21",
     "orientation": "portrait",
     "icon": "./assets/playstore.png",
     "userInterfaceStyle": "light",
@@ -17,7 +17,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "24",
+      "buildNumber": "4",
       "infoPlist": {
         "NSCalendarsFullAccessUsageDescription": "Allow $(PRODUCT_NAME) to access your calendars.",
         "NSCalendarsUsageDescription": "Allow $(PRODUCT_NAME) to access your calendars.",

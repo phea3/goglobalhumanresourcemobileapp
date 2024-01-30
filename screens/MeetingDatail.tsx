@@ -26,9 +26,6 @@ export default function MeetingDetail() {
         {
           borderTopLeftRadius: moderateScale(15),
           borderTopRightRadius: moderateScale(15),
-          borderTopWidth: moderateScale(1),
-          borderRightWidth: moderateScale(1),
-          borderLeftWidth: moderateScale(1),
         },
       ]}
     >

@@ -190,9 +190,6 @@ export default function RequestMeetingScreen() {
         {
           borderTopLeftRadius: moderateScale(15),
           borderTopRightRadius: moderateScale(15),
-          borderTopWidth: moderateScale(1),
-          borderRightWidth: moderateScale(1),
-          borderLeftWidth: moderateScale(1),
         },
       ]}
     >
@@ -235,6 +232,43 @@ export default function RequestMeetingScreen() {
               ]}
             >
               {"< Back"}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigate("/member", {
+                state: {
+                  topic,
+                  description,
+                  date,
+                  start,
+                  end,
+                  chairmanId,
+                  remark,
+                  meetingRoom,
+                  datetime,
+                  meetingRoomName,
+                  chairmanName,
+                },
+              })
+            }
+            style={[
+              MeetingStyle.MeetingRequestButton,
+              {
+                paddingVertical: moderateScale(8),
+                paddingHorizontal: moderateScale(10),
+                borderRadius: moderateScale(10),
+                marginRight: moderateScale(10),
+              },
+            ]}
+          >
+            <Text
+              style={[
+                MeetingStyle.MeetingNext,
+                { fontSize: moderateScale(12) },
+              ]}
+            >
+              NEXT {">"}
             </Text>
           </TouchableOpacity>
         </View>

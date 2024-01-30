@@ -1,4 +1,11 @@
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useLocation, useNavigate } from "react-router-native";
 import HomeStyle from "../styles/HomeStyle.scss";
 import { useContext, useEffect, useState } from "react";
@@ -25,10 +32,10 @@ const Features = [
     title: "Reports",
     icon: require("../assets/Images/file1.png"),
   },
-  {
-    title: "Meetings",
-    icon: require("../assets/Images/conversation.png"),
-  },
+  // {
+  //   title: "Meetings",
+  //   icon: require("../assets/Images/conversation.png"),
+  // },
 ];
 
 export default function HomeMainScreen() {
@@ -42,7 +49,7 @@ export default function HomeMainScreen() {
   useEffect(() => {
     setTimeout(() => {
       setLoad(false);
-    }, 1000);
+    }, 500);
   }, []);
 
   const { refetch: HoliRefetch } = useQuery(GET_EMPLOYEEONHOLIDAY, {
@@ -65,8 +72,8 @@ export default function HomeMainScreen() {
       style={[
         HomeStyle.HomeMainContentContainer,
         {
-          borderTopLeftRadius: moderateScale(15),
-          borderTopRightRadius: moderateScale(15),
+          borderTopLeftRadius: moderateScale(20),
+          borderTopRightRadius: moderateScale(20),
         },
       ]}
     >
@@ -74,7 +81,12 @@ export default function HomeMainScreen() {
         <Text
           style={[
             HomeStyle.HomeFeaturesTitleText,
-            { padding: moderateScale(15), fontSize: moderateScale(14) },
+            {
+              padding: moderateScale(15),
+              fontSize: moderateScale(14),
+              textDecorationLine: "underline",
+              textDecorationStyle: "solid",
+            },
           ]}
         >
           FEATURES
@@ -83,7 +95,7 @@ export default function HomeMainScreen() {
       <View
         style={[
           HomeStyle.HomeFeaturesBoxesContaienr,
-          { height: moderateScale(100) },
+          { height: moderateScale(100), width: "100%" },
         ]}
       >
         <ScrollView
@@ -92,7 +104,8 @@ export default function HomeMainScreen() {
           contentContainerStyle={{ justifyContent: "center" }}
           style={{
             flex: 1,
-            width: "95%",
+            width: "100%",
+            paddingLeft: moderateScale(5),
           }}
         >
           {Features.map((feature: any, index: number) => (
@@ -110,6 +123,7 @@ export default function HomeMainScreen() {
                   navigate("/meeting");
                 }
               }}
+              // activeOpacity={1}
               style={[
                 HomeStyle.HomeFeaturesBoxContaienr,
                 { height: moderateScale(100), width: moderateScale(100) },
@@ -119,10 +133,10 @@ export default function HomeMainScreen() {
               <View
                 style={[
                   HomeStyle.HomeBoxStyle,
+                  HomeMainStyle.shadow,
                   {
                     width: moderateScale(90),
-                    height: moderateScale(90),
-                    borderWidth: moderateScale(1.5),
+                    height: moderateScale(85),
                     borderRadius: moderateScale(10),
                   },
                 ]}
@@ -152,6 +166,7 @@ export default function HomeMainScreen() {
       <TouchableOpacity
         style={[
           HomeStyle.HomeLeaveRequestContainer,
+          HomeMainStyle.shadow,
           {
             padding: moderateScale(10),
             borderRadius: moderateScale(10),
@@ -163,122 +178,148 @@ export default function HomeMainScreen() {
         <Text
           style={[
             HomeStyle.HomeLeaveRequestText,
+
             { fontSize: moderateScale(14) },
           ]}
         >
           REQUEST LEAVE
         </Text>
       </TouchableOpacity>
-      <ScrollView
-        contentContainerStyle={{
-          alignItems: "center",
-        }}
-        showsVerticalScrollIndicator={false}
-        style={{
-          height: "100%",
-          width: "95%",
-          backgroundColor: "#f8f8f8",
-          borderRadius: moderateScale(15),
-          borderWidth: moderateScale(1),
-          borderColor: "#dcdcdc",
-        }}
+      <View
+        style={[
+          HomeMainStyle.shadow,
+          {
+            flex: 1,
+            width: "95%",
+            backgroundColor: "#fff",
+            borderRadius: moderateScale(15),
+            marginBottom: moderateScale(10),
+            // borderWidth: moderateScale(1),
+            // borderColor: "#dcdcdc",
+            padding: moderateScale(5),
+          },
+        ]}
       >
-        <View
-          style={[
-            HomeStyle.HomeHolidayTopContainer,
-            { padding: moderateScale(10) },
-          ]}
+        <ScrollView
+          contentContainerStyle={{
+            alignItems: "center",
+          }}
+          showsVerticalScrollIndicator={false}
+          style={{
+            width: "100%",
+          }}
         >
-          <Text
+          <View
             style={[
-              HomeStyle.HomeFeaturesTitleText,
-              { fontSize: moderateScale(14) },
+              HomeStyle.HomeHolidayTopContainer,
+              { padding: moderateScale(15) },
             ]}
           >
-            Employees on holiday
-          </Text>
-        </View>
+            <Text
+              style={[
+                HomeStyle.HomeFeaturesTitleText,
+                { fontSize: moderateScale(14) },
+              ]}
+            >
+              Employees on holiday
+            </Text>
+          </View>
 
-        {holiData.length !== 0
-          ? holiData?.map((leave: any, index: number) => (
-              <Animatable.View
-                animation={load ? "fadeInUp" : "fadeInUp"}
-                style={[
-                  HomeStyle.HomeHolidayCardContainer,
-                  { padding: moderateScale(10) },
-                ]}
-                key={index}
-              >
-                <Animatable.Image
-                  animation={"fadeIn"}
-                  source={
-                    leave?.profileImage
-                      ? { uri: leave?.profileImage }
-                      : require("../assets/Images/user.png")
-                  }
+          {holiData.length !== 0
+            ? holiData?.map((leave: any, index: number) => (
+                <Animatable.View
+                  animation={load ? "fadeInUp" : "fadeInUp"}
                   style={[
-                    HomeStyle.HomeHolidayProfileImage,
-                    {
-                      width: moderateScale(40),
-                      height: moderateScale(40),
-                      marginRight: moderateScale(10),
-                      borderWidth: moderateScale(1),
-                    },
+                    HomeStyle.HomeHolidayCardContainer,
+                    { padding: moderateScale(10) },
                   ]}
-                />
-                <View style={HomeStyle.HomeHolidayTitleContainer}>
-                  <Text
+                  key={index}
+                >
+                  <Animatable.Image
+                    animation={"fadeIn"}
+                    source={
+                      leave?.profileImage
+                        ? { uri: leave?.profileImage }
+                        : require("../assets/Images/user.png")
+                    }
                     style={[
-                      HomeStyle.HomeHolidayTitle1,
-                      { fontSize: moderateScale(14) },
-                    ]}
-                  >
-                    {leave?.latinName}
-                  </Text>
-                  <Text
-                    style={[
-                      HomeStyle.HomeHolidayTitle3,
-                      { fontSize: moderateScale(12) },
-                    ]}
-                    numberOfLines={1}
-                  >
-                    {leave?.reason}
-                  </Text>
-                </View>
-                <View style={HomeStyle.HomeHolidayTitleLeftContainer}>
-                  <View
-                    style={[
-                      HomeStyle.HomeBoxShift,
+                      HomeStyle.HomeHolidayProfileImage,
                       {
-                        paddingHorizontal: moderateScale(6),
-                        paddingVertical: moderateScale(1),
-                        borderRadius: moderateScale(4),
-                        height: moderateScale(14),
+                        width: moderateScale(40),
+                        height: moderateScale(40),
+                        marginRight: moderateScale(10),
+                        borderWidth: moderateScale(1),
                       },
                     ]}
-                  >
+                  />
+                  <View style={HomeStyle.HomeHolidayTitleContainer}>
                     <Text
                       style={[
-                        HomeStyle.HomeBoxText,
-                        { fontSize: moderateScale(8) },
+                        HomeStyle.HomeHolidayTitle1,
+                        { fontSize: moderateScale(14) },
                       ]}
                     >
-                      {leave?.timeOff}
+                      {leave?.latinName}
+                    </Text>
+                    <Text
+                      style={[
+                        HomeStyle.HomeHolidayTitle3,
+                        { fontSize: moderateScale(12) },
+                      ]}
+                      numberOfLines={1}
+                    >
+                      {leave?.reason}
                     </Text>
                   </View>
-                  <Text
-                    style={[
-                      HomeStyle.HomeHolidayTitle2,
-                      { fontSize: moderateScale(12) },
-                    ]}
-                  >
-                    {leave?.dateLeave ? leave?.dateLeave : ""}
-                  </Text>
-                </View>
-              </Animatable.View>
-            ))
-          : null}
-      </ScrollView>
+                  <View style={HomeStyle.HomeHolidayTitleLeftContainer}>
+                    <View
+                      style={[
+                        HomeStyle.HomeBoxShift,
+                        {
+                          paddingHorizontal: moderateScale(6),
+                          paddingVertical: moderateScale(1),
+                          borderRadius: moderateScale(4),
+                          height: moderateScale(14),
+                        },
+                      ]}
+                    >
+                      <Text
+                        style={[
+                          HomeStyle.HomeBoxText,
+                          { fontSize: moderateScale(8) },
+                        ]}
+                      >
+                        {leave?.timeOff}
+                      </Text>
+                    </View>
+                    <Text
+                      style={[
+                        HomeStyle.HomeHolidayTitle2,
+                        { fontSize: moderateScale(12) },
+                      ]}
+                    >
+                      {leave?.dateLeave ? leave?.dateLeave : ""}
+                    </Text>
+                  </View>
+                </Animatable.View>
+              ))
+            : null}
+        </ScrollView>
+      </View>
     </View>
   );
 }
+
+const HomeMainStyle = StyleSheet.create({
+  shadow: {
+    shadowColor: "#082b9e",
+    shadowOffset: {
+      width: 0,
+      height: moderateScale(2),
+    },
+    shadowOpacity: moderateScale(0.25),
+    shadowRadius: moderateScale(3.84),
+
+    elevation: moderateScale(5),
+  },
+});

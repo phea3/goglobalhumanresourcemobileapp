@@ -18,6 +18,11 @@ export const initMobileUserLogin: userLogin = {
   role: "",
 };
 
+export interface AppVersions {
+  playStoreVersion: string;
+  appStoreVersion: string;
+}
+
 export async function fetchDataLocalStorage(keyword: string) {
   const result = await Promise.resolve(AsyncStorage.getItem(keyword));
   if (result) {

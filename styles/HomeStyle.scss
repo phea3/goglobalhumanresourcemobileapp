@@ -57,13 +57,13 @@
   flex: 1;
   width: 100%;
   background-color: $color-white;
-  border-top-right-radius: 15px;
-  border-top-left-radius: 15;
+  // border-top-right-radius: 15px;
+  // border-top-left-radius: 15;
   align-items: center;
-  border-top-width: 1px;
-  border-right-width: 1px;
-  border-left-width: 1px;
-  border-color: $color-medium-blue;
+  // border-top-width: 1px;
+  // border-right-width: 1px;
+  // border-left-width: 1px;
+  // border-color: $color-medium-blue;
 }
 
 .HomeFeaturesTitle {
@@ -84,15 +84,14 @@
 }
 
 .HomeFeaturesBoxContaienr {
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 }
 
 .HomeBoxStyle {
-  width: 92%;
-  border-color: $color-dark-blue;
   justify-content: space-evenly;
   align-items: center;
+  background-color: $color-white;
 }
 
 .HomeFeaturesBoxTitle {
@@ -143,7 +142,7 @@
 }
 
 .HomeLeaveRequestContainer {
-  width: 94%;
+  width: 95%;
   background-color: $color-dark-blue;
   justify-content: center;
   align-items: center;

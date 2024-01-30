@@ -1,50 +1,54 @@
-import { useState, useEffect, useContext } from "react";
 import {
-  Animated,
-  Easing,
+  ActivityIndicator,
   Image,
   Platform,
   ScrollView,
+  StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import { useNavigate } from "react-router-native";
-import { useQuery } from "@apollo/client";
+import { useContext, useEffect, useState } from "react";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import DailyAttendanceStyle from "../styles/DailyAttendanceStyle.scss";
 import HomeStyle from "../styles/HomeStyle.scss";
-import LeaveStyle from "../styles/LeaveStyle.scss";
-import { GET_LEAVE_LIST } from "../graphql/RequestLeave";
 import { AuthContext } from "../Context/AuthContext";
+import moment from "moment";
+import { useQuery } from "@apollo/client";
+import { GET_DAILY_ATTENDANCE_REPORT } from "../graphql/GetDailyAttendanceReport";
 import * as Animatable from "react-native-animatable";
-import { PanGestureHandler, State } from "react-native-gesture-handler";
-import SwiperPage from "../includes/SwiperPage";
 import { horizontalScale, moderateScale, verticalScale } from "../ Metrics";
+import SwiperPage from "../includes/SwiperPage";
+import LeaveStyle from "../styles/LeaveStyle.scss";
+import { GETEVALUATIOINLISTFORMOBILE } from "../graphql/GetEvaluationListForMobile";
 
-export default function LeaveScreen() {
+export default function EvaluationScreen() {
   const navigate = useNavigate();
-  const [leavListData, setLeaveData] = useState([]);
-  const [limit, setLimit] = useState(10);
   const { dimension } = useContext(AuthContext);
+  const [morning, setMorning] = useState(true);
+  const [afternoon, setAfternoon] = useState(false);
+  const [dateIsvisble, setDateIsvisible] = useState(false);
+  const [date, setDate] = useState(new Date());
   const [load, setLoad] = useState(true);
+  const [dataload, setDataload] = useState(false);
+  const [limit, setLimit] = useState(10);
   const { widthScreen } = useContext(AuthContext);
-
   useEffect(() => {
     setTimeout(() => {
       setLoad(false);
     }, 1000);
   }, []);
 
-  const { data, refetch } = useQuery(GET_LEAVE_LIST, {
-    pollInterval: 2000,
-    variables: {
-      limit: limit,
+  const [evaluationData, setEvaluationData] = useState([]);
+
+  const { data, refetch } = useQuery(GETEVALUATIOINLISTFORMOBILE, {
+    onCompleted: ({ getEvaluationListForMobile }) => {
+      // console.log(getEvaluationListForMobile);
+      setEvaluationData(getEvaluationListForMobile);
     },
-    onCompleted: (data) => {
-      // console.log(data?.getLeaveListForMobile);
-      setLeaveData(data?.getLeaveListForMobile);
-    },
-    onError: (err) => {
-      console.log(err?.message);
+    onError: (error: any) => {
+      console.log(error?.message);
     },
   });
 
@@ -68,21 +72,20 @@ export default function LeaveScreen() {
 
     // Perform additional actions when scrolling stops
   };
-
   return (
     <View
       style={[
-        LeaveStyle.LeaveContainer,
+        DailyAttendanceStyle.DailyAttContainer,
         {
           borderTopLeftRadius: moderateScale(20),
           borderTopRightRadius: moderateScale(20),
         },
       ]}
     >
-      <SwiperPage path={"/home"} page="leave" isScrolling={isScrolling}>
+      <SwiperPage path={"/report"} page="leave" isScrolling={isScrolling}>
         <View style={{ width: Platform.OS === "ios" ? "100%" : widthScreen }}>
           <TouchableOpacity
-            onPress={() => navigate("/home")}
+            onPress={() => navigate("/report")}
             style={[
               HomeStyle.HomeFeaturesTitleButton,
               { padding: moderateScale(15) },
@@ -102,7 +105,7 @@ export default function LeaveScreen() {
                 { fontSize: moderateScale(14) },
               ]}
             >
-              Leaves
+              Evaluations
             </Text>
           </TouchableOpacity>
         </View>
@@ -112,22 +115,17 @@ export default function LeaveScreen() {
             { height: moderateScale(40) },
           ]}
         >
-          <View
-            style={[
-              LeaveStyle.LeaveTitleLeftContainer,
-              { marginLeft: moderateScale(6) },
-            ]}
-          >
+          <View style={[{ flex: 1, marginLeft: moderateScale(6) }]}>
             <Text
               style={[
                 LeaveStyle.LeaveTitleText,
                 { fontSize: moderateScale(14) },
               ]}
             >
-              Discription
+              Type
             </Text>
           </View>
-          <View style={LeaveStyle.LeaveTitleLeftContainer1}>
+          <View style={{ flex: 3 / 2 }}>
             <Text
               style={[
                 LeaveStyle.LeaveTitleText,
@@ -137,25 +135,13 @@ export default function LeaveScreen() {
               Date
             </Text>
           </View>
-          <View style={LeaveStyle.LeaveTitleContainer}>
-            <Text
-              style={[
-                LeaveStyle.LeaveTitleText,
-                { fontSize: moderateScale(14) },
-              ]}
-            >
-              Shift
-            </Text>
-          </View>
-          <View style={LeaveStyle.LeaveTitleContainer}>
-            <Text
-              style={[
-                LeaveStyle.LeaveTitleText,
-                { fontSize: moderateScale(14) },
-              ]}
-            >
-              Status
-            </Text>
+          <View>
+            <View
+              style={{
+                width: moderateScale(20),
+                height: moderateScale(20),
+              }}
+            />
           </View>
         </View>
         {load ? (
@@ -178,74 +164,65 @@ export default function LeaveScreen() {
             onMomentumScrollEnd={handleScrollEnd}
             scrollEventThrottle={16}
           >
-            {leavListData?.map((attendance: any, index: number) => (
-              <Animatable.View
-                style={[
-                  LeaveStyle.LeaveBodyContainer,
-                  { height: moderateScale(55) },
-                ]}
-                key={index}
-                animation={load ? "fadeInUp" : "fadeInUp"}
-              >
-                <View
-                  style={[
-                    LeaveStyle.LeaveTitleLeftContainer,
-                    { marginLeft: moderateScale(6) },
-                  ]}
-                >
-                  <Text
+            {evaluationData
+              ? evaluationData?.map((data: any, index: number) => (
+                  <Animatable.View
                     style={[
-                      LeaveStyle.LeaveBodyReasonText,
-                      { fontSize: moderateScale(12) },
+                      LeaveStyle.LeaveBodyContainer,
+                      { height: moderateScale(55) },
                     ]}
+                    key={index}
+                    animation={load ? "fadeInUp" : "fadeInUp"}
                   >
-                    {attendance?.description}
-                  </Text>
-                </View>
-                <View style={LeaveStyle.LeaveTitleLeftContainer1}>
-                  <Text
-                    style={[
-                      LeaveStyle.LeaveBodyText,
-                      { fontSize: moderateScale(12) },
-                    ]}
-                  >
-                    {attendance?.date}
-                  </Text>
-                </View>
-                <View style={LeaveStyle.LeaveTitleContainer}>
-                  <Text
-                    style={[
-                      LeaveStyle.LeaveBodyText,
-                      { fontSize: moderateScale(12) },
-                    ]}
-                  >
-                    {attendance?.shife ? attendance?.shife : "--:--"}
-                  </Text>
-                </View>
-                <View style={LeaveStyle.LeaveTitleContainer}>
-                  <Text
-                    style={[
-                      LeaveStyle.LeaveApproveText,
-                      {
-                        fontSize: moderateScale(12),
-                        color:
-                          attendance?.status === "cancel"
-                            ? "red"
-                            : attendance?.status === "approve"
-                            ? "green"
-                            : attendance?.status === "pending"
-                            ? "orange"
-                            : "black",
-                      },
-                    ]}
-                  >
-                    {attendance?.status}
-                  </Text>
-                </View>
-              </Animatable.View>
-            ))}
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigate("/report/valuation-detail", {
+                          state: data?._id,
+                        });
+                      }}
+                      style={{ flex: 1, width: "100%", flexDirection: "row" }}
+                    >
+                      <View style={{ marginLeft: moderateScale(6), flex: 1 }}>
+                        <Text
+                          style={[
+                            LeaveStyle.LeaveBodyReasonText,
+                            {
+                              fontSize: moderateScale(12),
+                              fontFamily: "Century-Gothic-Bold",
+                            },
+                          ]}
+                        >
+                          {data?.evaluationType}
+                        </Text>
+                      </View>
+                      <View style={{ flex: 3 / 2 }}>
+                        <Text
+                          style={[
+                            LeaveStyle.LeaveBodyText,
+                            {
+                              fontSize: moderateScale(12),
+                              fontFamily: "Century-Gothic",
+                            },
+                          ]}
+                        >
+                          {moment(data?.evaluationDate).format("Do, MMM YYYY")}
+                        </Text>
+                      </View>
+                      <View>
+                        <Image
+                          source={require("../assets/Images/dots.png")}
+                          style={{
+                            width: moderateScale(20),
+                            height: moderateScale(20),
+                          }}
+                        />
+                      </View>
+                    </TouchableOpacity>
+                  </Animatable.View>
+                ))
+              : null}
 
-            {leavListData?.length >= limit ? (
+            {evaluationData?.length >= limit ? (
               <TouchableOpacity
                 onPress={() => {
                   setLimit(10 + limit);
@@ -275,3 +252,7 @@ export default function LeaveScreen() {
     </View>
   );
 }
+
+const EvaluationMainStyle = StyleSheet.create({
+  titleContainer: {},
+});

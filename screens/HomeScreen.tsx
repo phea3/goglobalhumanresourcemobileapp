@@ -151,8 +151,8 @@ export default function HomeScreen() {
           style={[
             HomeStyle.HomeContentContainer,
             {
-              borderTopLeftRadius: moderateScale(15),
-              borderTopRightRadius: moderateScale(15),
+              borderTopLeftRadius: moderateScale(20),
+              borderTopRightRadius: moderateScale(20),
             },
           ]}
         >
@@ -169,8 +169,8 @@ export default function HomeScreen() {
           style={[
             HomeStyle.HomeContentContainer,
             {
-              borderTopLeftRadius: moderateScale(15),
-              borderTopRightRadius: moderateScale(15),
+              borderTopLeftRadius: moderateScale(20),
+              borderTopRightRadius: moderateScale(20),
             },
           ]}
         >

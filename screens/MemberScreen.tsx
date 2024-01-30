@@ -3,16 +3,18 @@ import {
   Alert,
   FlatList,
   Image,
+  RefreshControl,
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 import MemberStyle from "../styles/MemberStyle.scss";
 import { moderateScale } from "../ Metrics";
 import { useLocation, useNavigate } from "react-router-native";
-// import * as Animatable from "react-native-animatable";
+import * as Animatable from "react-native-animatable";
 import Checkbox from "expo-checkbox";
 import { useContext, useEffect, useState } from "react";
 import MeetingStyle from "../styles/MeetingStyle.scss";
@@ -29,69 +31,143 @@ export default function MemberScreen() {
   const { widthScreen } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(210);
   const values = location.state;
   const [load, setLoad] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [valueTextSearch, setvalueTextSearch] = useState("");
+  const [dataChairOption, setDataChairOption] = useState([]);
+  const [seleted, setSeleted] = useState(false);
+  const [chairmanData, setChairmanData] = useState<
+    Array<{
+      _id: string | null;
+      value: string | null;
+      profileImage: string | null;
+    }>
+  >([]);
+
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
       setLoad(false);
     }, 2000);
   }, []);
+
   const [checkedItems, setCheckedItems] = useState<
-    Array<{ _id: string | null; memberName: string | null; isChecked: boolean }>
-  >([]);
-  const [memberItems, setMemberItems] = useState<
-    Array<{ _id: string | null; memberName: string | null }>
+    Array<{
+      _id: string | null;
+      value: string | null;
+      profileImage: string | null;
+    }>
   >([]);
 
-  const handleItemPress = (
-    index: number,
-    itemId: string | null,
-    itemMemberName: string | null
-  ) => {
-    const newCheckedItems = [...checkedItems];
-
-    // If the item is checked, remove it from the array
-    if (newCheckedItems[index]?.isChecked) {
-      newCheckedItems[index] = undefined!;
+  const handleMatchID = (id: string | null) => {
+    let match = false;
+    let newArray = checkedItems?.filter((value) => value?._id === id);
+    if (newArray?.length > 0) {
+      match = true;
     } else {
-      // If the item is unchecked, add it to the array
-      newCheckedItems[index] = {
-        _id: itemId,
-        memberName: itemMemberName,
-        isChecked: true,
-      };
+      match = false;
     }
-    // Remove isChecked property from each item in newCheckedItems array
-    const newMemberItems = newCheckedItems.map((item) => {
-      if (item) {
-        const { isChecked, ...newItem } = item;
-        return newItem;
-      }
-      return item;
-    });
-
-    setMemberItems(newMemberItems);
-    setCheckedItems(newCheckedItems);
+    return match;
   };
 
-  const [chairmanData, setChairmanData] = useState([]);
+  // ===================  Function Select Item ====================
+  const handleItemPress = (
+    itemId: string | null,
+    itemMemberName: string | null,
+    profileImage: string | null
+  ) => {
+    let newCheckedItems = [...checkedItems];
 
-  const { refetch: chairmanRefetch } = useQuery(GETCHAIRMAN, {
-    pollInterval: 2000,
+    let object = {
+      _id: itemId,
+      value: itemMemberName,
+      profileImage: profileImage,
+    };
+
+    if (newCheckedItems?.length > 0) {
+      let matchState = handleMatchID(itemId);
+      if (matchState) {
+        //=================  Remove Member Already Selected =================
+        let removeMember = newCheckedItems?.filter((e) => e._id !== itemId);
+        setCheckedItems([...removeMember]);
+        if (removeMember.length === 0) {
+          setSeleted(false);
+        }
+      } else {
+        //=================  Add New Member =================
+        newCheckedItems.push(object);
+        setCheckedItems([...newCheckedItems]);
+      }
+    } else {
+      //=================  Add First Member =================
+      setCheckedItems([object]);
+    }
+
+    // setvalueTextSearch("");
+    // setChairmanData([...dataChairOption]);
+  };
+
+  //================= Handler Remove array ====================
+
+  const handleRemoveArray = (itemId: string | null) => {
+    let newCheckedItems = [...checkedItems];
+    let removeMember = newCheckedItems?.filter((e) => e._id !== itemId);
+    setCheckedItems([...removeMember]);
+    if (newCheckedItems.length === 1) {
+      setSeleted(false);
+    }
+  };
+
+  //===================  Get All Chairman ==========================
+  const {
+    data: chaimdata,
+    refetch: chairmanRefetch,
+    loading: chairmanLoading,
+  } = useQuery(GETCHAIRMAN, {
     variables: {
       limit: limit,
     },
     onCompleted: ({ selectChairman }) => {
-      // console.log("selectChairman: ", selectChairman);
-      setChairmanData(selectChairman);
+      //==================== For  Show =================
+      setChairmanData(
+        selectChairman.map(({ _id, value, profileImage }: any) => ({
+          _id,
+          value,
+          profileImage,
+        }))
+      );
+      // ==================== For Search =================
+      setDataChairOption(
+        selectChairman.map(({ _id, value, profileImage }: any) => ({
+          _id,
+          value,
+          profileImage,
+        }))
+      );
     },
   });
 
   useEffect(() => {
     chairmanRefetch();
   }, []);
+
+  const handleSearch = (text: string) => {
+    let filteredArray = dataChairOption?.filter((row: any) =>
+      row?.value
+        ?.replace(/\s/g, "")
+        .toLowerCase()
+        .includes(text.replace(/\s/g, "").toLowerCase())
+    );
+    setvalueTextSearch(text);
+    if (text !== "" && text !== undefined) {
+      setChairmanData([...filteredArray]);
+    } else {
+      setChairmanData([...dataChairOption]);
+    }
+  };
 
   const [reqeustMeeting] = useMutation(REQUESTMEETING);
 
@@ -101,15 +177,7 @@ export default function MemberScreen() {
       date: moment(values?.date).format("YYYY-MM-DD"),
       description: values?.description,
       end: moment(values?.end).format("YYYY-MM-DD"),
-      members: checkedItems
-        ?.filter((e) => e !== undefined)
-        .map((item) => {
-          if (item) {
-            const { isChecked, ...newItem } = item;
-            return newItem;
-          }
-          return item;
-        }),
+      members: checkedItems,
       notify: [
         {
           date: moment(values?.dateime).format("YYYY-MM-DD"),
@@ -146,19 +214,24 @@ export default function MemberScreen() {
     });
   };
 
+  //================================  LIST EMPLOYEE ==========================
   const renderItem = ({ item, index }: any) => (
     <TouchableOpacity
-      onPress={() => handleItemPress(index, item._id, item.value)}
+      onPress={() =>
+        handleItemPress(item?._id, item?.value, item?.profileImage)
+      }
       style={{
         flexDirection: "row",
         alignItems: "center",
         marginVertical: moderateScale(10),
       }}
+      key={index}
     >
       {/* Your existing Image components */}
+
       <Image
         source={
-          checkedItems[index]?.isChecked
+          handleMatchID(item._id)
             ? require("../assets/Images/check.png")
             : require("../assets/Images/square.png")
         }
@@ -174,10 +247,21 @@ export default function MemberScreen() {
       />
       <Image
         source={
+          // item?.profileImage.startsWith("data:image/jpg;base64,") &&
           item?.profileImage
-            ? { uri: item?.profileImage }
+            ? // && item?.profileImage.substring(
+              //   "data:image/jpg;base64,".indexOf(",") + 1
+              // ).length !== 0
+              {
+                uri: item?.profileImage,
+                // .substring(
+                //   "data:image/jpg;base64,".indexOf(",") + 1
+                // ),
+              }
             : require("../assets/Images/user.png")
         }
+        // source={require("../assets/Images/user.png")}
+        resizeMode="contain"
         style={[
           {
             height: moderateScale(30),
@@ -200,47 +284,64 @@ export default function MemberScreen() {
       </Text>
     </TouchableOpacity>
   );
+
+  const renderHeader = () => {
+    if (!refreshing) return null;
+
+    // Replace the ActivityIndicator with your image
+    return (
+      <View style={{ paddingVertical: moderateScale(20) }}>
+        {/* Your image component */}
+        <Image
+          source={require("../assets/Images/loader-1.gif")}
+          style={{ width: moderateScale(50), height: moderateScale(50) }}
+        />
+      </View>
+    );
+  };
+
+  const onRefresh = async () => {
+    try {
+      setRefreshing(true);
+      // Fetch new data here
+      // For example, using the fetch API:
+      chairmanRefetch();
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 500);
+  };
   return (
     <View
       style={[
         MemberStyle.MemberContainer,
         {
-          borderTopLeftRadius: moderateScale(15),
-          borderTopRightRadius: moderateScale(15),
-          borderTopWidth: moderateScale(1),
-          borderRightWidth: moderateScale(1),
-          borderLeftWidth: moderateScale(1),
+          borderTopLeftRadius: moderateScale(20),
+          borderTopRightRadius: moderateScale(20),
         },
       ]}
     >
       <View style={MemberStyle.MemberBackButtonContainer}>
-        <TouchableOpacity
-          onPress={() => navigate("/meeting")}
+        <View
           style={[
-            MemberStyle.MemberBackButton,
+            MeetingStyle.MeetingBackButton,
             { padding: moderateScale(15), flex: 1 },
           ]}
         >
-          <Image
-            source={require("../assets/Images/back-dark-blue.png")}
-            style={{
-              width: moderateScale(20),
-              height: moderateScale(20),
-              marginRight: moderateScale(10),
-            }}
-          />
           <Text
             style={[
-              MemberStyle.MemberBackButtonTitle,
+              MeetingStyle.MeetingBackButtonTitle,
               { fontSize: moderateScale(14) },
             ]}
           >
-            Members
+            Select Member
           </Text>
-        </TouchableOpacity>
+        </View>
         <TouchableOpacity
           onPress={() => {
-            navigate("/meeting");
+            navigate("/requestmeeting");
             // requestHandler();
           }}
           style={[
@@ -256,12 +357,11 @@ export default function MemberScreen() {
           <Text
             style={[MeetingStyle.MeetingNext, { fontSize: moderateScale(12) }]}
           >
-            Cancel
+            {"<"} Back
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            // navigate("/meeting");
             requestHandler();
           }}
           style={[
@@ -281,154 +381,11 @@ export default function MemberScreen() {
           </Text>
         </TouchableOpacity>
       </View>
-      <View
-        // animation={"fadeInUp"}
+      <Animatable.View
+        animation={"fadeInUp"}
         style={MemberStyle.MemberBodyContainer}
       >
-        <View
-          style={{
-            flex: 1,
-            opacity: 0,
-            position: "absolute",
-          }}
-        >
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View
-              style={{
-                width: widthScreen * 0.9,
-                borderWidth: moderateScale(2),
-                borderColor: "#082b9e",
-                borderRadius: moderateScale(20),
-                padding: moderateScale(5),
-                paddingHorizontal: moderateScale(10),
-                marginHorizontal: widthScreen * 0.05,
-              }}
-            >
-              <View style={styleSheetMemeber.valueRow}>
-                <Text style={styleSheetMemeber.valueTitle}>Topic</Text>
-                <Text style={styleSheetMemeber.valueConjun}>៖</Text>
-                <Text style={styleSheetMemeber.valueBody}>
-                  {values.topic ? values.topic : "--:--"}
-                </Text>
-              </View>
-
-              <View style={styleSheetMemeber.valueRow}>
-                <Text style={styleSheetMemeber.valueTitle}>Description</Text>
-                <Text style={styleSheetMemeber.valueConjun}>៖</Text>
-                <Text style={styleSheetMemeber.valueBody}>
-                  {values.description ? values.description : "--:--"}
-                </Text>
-              </View>
-              <View style={styleSheetMemeber.valueRow}>
-                <Text style={styleSheetMemeber.valueTitle}>Chairman</Text>
-                <Text style={styleSheetMemeber.valueConjun}>៖</Text>
-                <Text style={styleSheetMemeber.valueBody}>
-                  {values.chairmanName ? values.chairmanName : "--:--"}
-                </Text>
-              </View>
-              <View
-                style={{
-                  width: "100%",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <View style={[styleSheetMemeber.valueRow, { width: "50%" }]}>
-                  <Text style={styleSheetMemeber.valueTitle}>Date</Text>
-                  <Text style={styleSheetMemeber.valueConjun}>៖</Text>
-                  <Text style={styleSheetMemeber.valueBody}>
-                    {moment(values.date).format("DD MM YYYY")}
-                  </Text>
-                </View>
-
-                <View style={[styleSheetMemeber.valueRow, { width: "50%" }]}>
-                  <Text style={styleSheetMemeber.valueTitle}>Room</Text>
-                  <Text style={styleSheetMemeber.valueConjun}>៖</Text>
-                  <Text style={styleSheetMemeber.valueBody}>
-                    {values.meetingRoomName ? values.meetingRoomName : "--:--"}
-                  </Text>
-                </View>
-              </View>
-
-              <View
-                style={{
-                  width: "100%",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <View style={[styleSheetMemeber.valueRow, { width: "50%" }]}>
-                  <Text style={styleSheetMemeber.valueTitle}>Start</Text>
-                  <Text style={styleSheetMemeber.valueConjun}>៖</Text>
-                  <Text style={styleSheetMemeber.valueBody}>
-                    {moment(values.start).format("hh:mm A")}
-                  </Text>
-                </View>
-
-                <View style={[styleSheetMemeber.valueRow, { width: "50%" }]}>
-                  <Text style={styleSheetMemeber.valueTitle}>End</Text>
-                  <Text style={styleSheetMemeber.valueConjun}>៖</Text>
-                  <Text style={styleSheetMemeber.valueBody}>
-                    {moment(values.end).format("hh:mm A")}
-                  </Text>
-                </View>
-              </View>
-
-              <View style={styleSheetMemeber.valueRow}>
-                <Text style={styleSheetMemeber.valueTitle}>Notification</Text>
-                <Text style={styleSheetMemeber.valueConjun}>៖</Text>
-                <Text style={styleSheetMemeber.valueBody}>
-                  {moment(values.datetime).format("DD MMM YYYY hh:mm A")}
-                </Text>
-              </View>
-              <View style={styleSheetMemeber.valueRow}>
-                <Text style={styleSheetMemeber.valueTitle}>Remark</Text>
-                <Text style={styleSheetMemeber.valueConjun}>៖</Text>
-                <Text style={styleSheetMemeber.valueBody}>
-                  {values.remark ? values.remark : "--:--"}
-                </Text>
-              </View>
-            </View>
-            <View
-              style={{
-                width: widthScreen * 0.9,
-                borderWidth: moderateScale(2),
-                borderColor: "#082b9e",
-                borderRadius: moderateScale(20),
-                padding: moderateScale(5),
-                paddingHorizontal: moderateScale(10),
-                marginHorizontal: widthScreen * 0.05,
-              }}
-            >
-              <Text style={styleSheetMemeber.valueTitle}>
-                Member ៖ {checkedItems?.filter((e) => e !== undefined).length}{" "}
-                {checkedItems?.filter((e) => e !== undefined).length > 1
-                  ? "people"
-                  : "person"}
-              </Text>
-              <ScrollView
-                showsVerticalScrollIndicator={false}
-                style={{ width: "100%" }}
-              >
-                <Text style={styleSheetMemeber.valueBody}>
-                  {checkedItems?.filter((e) => e !== undefined) &&
-                  checkedItems?.filter((e) => e !== undefined).length > 0
-                    ? checkedItems
-                        ?.filter((e) => e !== undefined)
-                        .map(
-                          (item, index) => `${index + 1}). ${item.memberName}`
-                        )
-                        .join(", \n")
-                    : "--:--"}
-                </Text>
-              </ScrollView>
-            </View>
-          </ScrollView>
-        </View>
-
-        {load ? (
+        {load || chaimdata?.selectChairman?.length === 0 ? (
           <View style={{ flex: 2 }}>
             <Image
               source={require("../assets/Images/loader-1.gif")}
@@ -439,49 +396,290 @@ export default function MemberScreen() {
             />
           </View>
         ) : (
-          <View style={{ flex: 2, width: "90%" }}>
-            <Text style={styleSheetMemeber.valueTitle}>
-              Member ៖ {checkedItems?.filter((e) => e !== undefined).length}{" "}
-              {checkedItems?.filter((e) => e !== undefined).length > 1
-                ? "people"
-                : "person"}
-            </Text>
-            <FlatList
-              data={chairmanData.slice(0, limit)}
-              keyExtractor={(item: any) => item._id.toString()}
-              renderItem={renderItem}
-              showsVerticalScrollIndicator={false}
+          <View style={{ flex: 2, width: "95%" }}>
+            <View
               style={{
                 width: "100%",
-                marginTop: moderateScale(20),
-              }}
-            />
-            {/* {chairmanData.length >= limit ? ( */}
-            <TouchableOpacity
-              onPress={() => {
-                setLimit(40 + limit);
-              }}
-              style={{
-                width: "100%",
+                flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "center",
-                height: moderateScale(50),
+                height: moderateScale(30),
               }}
             >
-              <Text
+              <View
                 style={{
-                  fontFamily: "Century-Gothic-Bold",
-                  color: "#3c6efb",
-                  fontSize: moderateScale(16),
+                  flex: 1,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: moderateScale(30),
+                  borderWidth: moderateScale(1),
+                  borderColor: "#082b9e",
+                  borderRadius: moderateScale(5),
+                  paddingLeft: moderateScale(5),
+                  marginRight: moderateScale(5),
                 }}
               >
-                {"see more..."}
+                <Image
+                  source={require("../assets/Images/find.png")}
+                  style={[
+                    {
+                      height: moderateScale(20),
+                      width: moderateScale(20),
+                    },
+                  ]}
+                />
+
+                <TextInput
+                  style={{
+                    flex: 1,
+                    height: moderateScale(30),
+                    paddingLeft: moderateScale(5),
+                    fontFamily: "Kantumruy-Regular",
+                    fontSize: moderateScale(12),
+                    textAlign: "left",
+                  }}
+                  placeholder="Search..."
+                  value={valueTextSearch}
+                  onChangeText={handleSearch}
+                />
+              </View>
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: moderateScale(30),
+                  width: moderateScale(30),
+                  backgroundColor: "#ff0000",
+                  marginRight: moderateScale(5),
+                  borderRadius: moderateScale(5),
+                }}
+                onPress={() => {
+                  setvalueTextSearch("");
+                  setChairmanData([...dataChairOption]);
+                }}
+              >
+                <Image
+                  source={require("../assets/Images/cross.png")}
+                  style={[
+                    {
+                      height: moderateScale(20),
+                      width: moderateScale(20),
+                    },
+                  ]}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  height: 30,
+                  marginVertical: moderateScale(5),
+                }}
+                activeOpacity={checkedItems.length > 0 ? 0.4 : 1}
+                onPress={() => {
+                  if (checkedItems.length > 0) {
+                    setSeleted(!seleted);
+                  }
+                }}
+              >
+                <Image
+                  source={
+                    seleted
+                      ? require("../assets/Images/check.png")
+                      : require("../assets/Images/square.png")
+                  }
+                  style={{
+                    width: moderateScale(29),
+                    height: moderateScale(29),
+                    marginRight: moderateScale(5),
+                    borderWidth: moderateScale(1),
+                    borderColor: "#082b9e",
+                    borderRadius: moderateScale(5),
+                    padding: moderateScale(5),
+                  }}
+                />
+                {/* <View
+                  style={{
+                    backgroundColor: "#082b9e",
+                    width: moderateScale(65),
+                    height: moderateScale(30),
+                    borderRadius: moderateScale(5),
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: "Kantumruy-Bold",
+                      fontSize: moderateScale(10),
+                      textAlign: "left",
+                      color: "white",
+                    }}
+                  >
+                    SELECTED
+                  </Text>
+                </View> */}
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{
+                marginVertical: moderateScale(5),
+              }}
+            >
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                {checkedItems?.map((data: any, index: number) => (
+                  <TouchableOpacity
+                    onPress={() => {
+                      handleRemoveArray(data?._id);
+                    }}
+                    key={index}
+                    style={{
+                      padding: moderateScale(4),
+                      marginRight: moderateScale(10),
+                      borderRadius: moderateScale(10),
+                      backgroundColor:
+                        index % 3 === 1
+                          ? "#e1eefd"
+                          : index % 3 === 0
+                          ? "#F7F8FE"
+                          : "#FFEEDB",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <Image
+                      source={require("../assets/Images/cross.png")}
+                      style={[
+                        {
+                          height: moderateScale(20),
+                          width: moderateScale(20),
+                          marginLeft: moderateScale(5),
+                          marginRight: moderateScale(5),
+                        },
+                      ]}
+                    />
+                    <Text
+                      style={{
+                        fontFamily: "Kantumruy-Regular",
+                        fontSize: moderateScale(12),
+                        textAlign: "left",
+                      }}
+                    >
+                      {data?.value}
+                    </Text>
+                    <Image
+                      source={
+                        data?.profileImage
+                          ? {
+                              uri: data?.profileImage,
+                            }
+                          : require("../assets/Images/user.png")
+                      }
+                      // source={require("../assets/Images/user.png")}
+                      resizeMode="contain"
+                      style={[
+                        {
+                          height: moderateScale(25),
+                          width: moderateScale(25),
+                          marginLeft: moderateScale(5),
+                          borderRadius: 200,
+                          borderWidth: moderateScale(1),
+                          borderColor: "#3C6EFB",
+                        },
+                      ]}
+                    />
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            </View>
+
+            {refreshing ? null : seleted === false ? (
+              <FlatList
+                initialNumToRender={10} // Adjust as needed
+                maxToRenderPerBatch={10} // Adjust as needed
+                windowSize={10} // Adjust as needed
+                data={chairmanData?.slice(0, limit)}
+                keyExtractor={(item: any) => item._id.toString()}
+                renderItem={renderItem}
+                showsVerticalScrollIndicator={true}
+                style={{
+                  width: "100%",
+                }}
+                refreshing={refreshing}
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                    colors={["#dcdcdc"]} // Android
+                    tintColor="#dcdcdc" // iOS
+                  />
+                }
+                onEndReached={() => {
+                  // This function will be called when the end of the list is reached
+                  // Avoid triggering multiple requests while a request is already in progress
+                  if (chairmanData.length >= limit) {
+                    // setLoading(true);
+                    // console.log("limit", limit);
+                    // setLimit(10 + limit);
+                  }
+                }}
+                onEndReachedThreshold={0.1} // Adjust this threshold as needed
+                ListHeaderComponent={renderHeader}
+                ListFooterComponent={() =>
+                  chairmanLoading ? (
+                    <View
+                      style={{
+                        alignItems: "center",
+                      }}
+                    >
+                      <Image
+                        source={require("../assets/Images/Data-Transfer.gif")}
+                        resizeMode="contain"
+                        style={{
+                          width: moderateScale(100),
+                          height: moderateScale(100),
+                        }}
+                      />
+                    </View>
+                  ) : null
+                }
+              />
+            ) : (
+              <FlatList
+                data={checkedItems}
+                keyExtractor={(item: any) => item._id.toString()}
+                renderItem={renderItem}
+                showsVerticalScrollIndicator={false}
+                style={{
+                  width: "100%",
+                }}
+                onEndReachedThreshold={0.1}
+              />
+            )}
+            <View
+              style={{
+                width: "100%",
+                alignContent: "flex-end",
+                justifyContent: "flex-end",
+                position: "absolute",
+                bottom: 0,
+                right: 0,
+              }}
+            >
+              <Text style={styleSheetMemeber.valueTitle}>
+                Member ៖ {checkedItems?.filter((e) => e !== undefined).length}{" "}
+                {checkedItems?.filter((e) => e !== undefined).length > 1
+                  ? " people "
+                  : " person "}
+                / {chairmanData.length}
               </Text>
-            </TouchableOpacity>
-            {/*) : null}*/}
+            </View>
           </View>
         )}
-      </View>
+      </Animatable.View>
     </View>
   );
 }
@@ -494,6 +692,7 @@ const styleSheetMemeber = StyleSheet.create({
   valueTitle: {
     fontFamily: "Kantumruy-Bold",
     fontSize: moderateScale(14),
+    textAlign: "right",
   },
   valueBody: {
     fontFamily: "Kantumruy-Regular",
