@@ -78,6 +78,10 @@ export default function Router() {
         navigate("/home/main");
       } else if (locationToBack == "/report/daily-attendace") {
         navigate("/report");
+      } else if (locationToBack == "/report/valuation-report") {
+        navigate("/report");
+      } else if (locationToBack == "/report/valuation-detail") {
+        navigate("/report/valuation-report");
       } else if (
         locationToBack == "/member" ||
         locationToBack == "/requestmeeting" ||

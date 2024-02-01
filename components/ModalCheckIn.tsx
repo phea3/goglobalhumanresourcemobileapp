@@ -103,7 +103,7 @@ export default function ModalCheckIn({
                   { fontSize: moderateScale(14) },
                 ]}
               >
-                Yes
+                {isButtonDisabled ? "load.." : "Yes"}
               </Text>
             </TouchableOpacity>
           </View>

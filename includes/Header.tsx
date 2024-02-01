@@ -186,7 +186,8 @@ export default function Header() {
                         fontFamily: "Century-Gothic",
                         color:
                           LocalVersion && versions
-                            ? LocalVersion < versions?.appStoreVersion
+                            ? LocalVersion < versions?.appStoreVersion ||
+                              LocalVersion < versions?.playStoreVersion
                               ? "orange"
                               : "#66FF66"
                             : "white",

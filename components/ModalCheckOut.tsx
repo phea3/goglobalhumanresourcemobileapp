@@ -103,7 +103,7 @@ export default function ModalCheckOut({
                   { fontSize: moderateScale(16) },
                 ]}
               >
-                Yes
+                {isButtonDisabledOut ? "load..." : "Yes"}
               </Text>
             </TouchableOpacity>
           </View>

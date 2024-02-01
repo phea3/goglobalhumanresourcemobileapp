@@ -103,8 +103,14 @@ export default function HomeLeaveScreen() {
   }, [TimeDate]);
 
   const [requestLeave] = useMutation(REQUEST_LEAVE);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const handlRequest = async () => {
+    if (isButtonDisabled) {
+      return;
+    }
+    setIsButtonDisabled(true);
+
     const newValues = {
       from: startDate ? moment(startDate).format("YYYY-MM-DD") : "",
       reason: reason ? reason : "",
@@ -123,30 +129,35 @@ export default function HomeLeaveScreen() {
           ? moment(startDate).format("YYYY-MM-DD")
           : "",
     };
-
-    await requestLeave({
-      variables: { input: newValues },
-      onCompleted: ({ requestLeave }) => {
-        Alert.alert(
-          requestLeave?.status ? "Success!" : "Oops!",
-          requestLeave?.message,
-          [
-            {
-              text: "Okay",
-              onPress: () => {
-                if (requestLeave?.status === true) {
-                  navigate("/leave");
-                }
+    try {
+      await requestLeave({
+        variables: { input: newValues },
+        onCompleted: ({ requestLeave }) => {
+          Alert.alert(
+            requestLeave?.status ? "Success!" : "Oops!",
+            requestLeave?.message,
+            [
+              {
+                text: "Okay",
+                onPress: () => {
+                  if (requestLeave?.status === true) {
+                    navigate("/leave");
+                  }
+                },
+                style: "cancel",
               },
-              style: "cancel",
-            },
-          ]
-        );
-      },
-      onError(error) {
-        Alert.alert("Oops!", error?.message);
-      },
-    });
+            ]
+          );
+        },
+        onError(error) {
+          Alert.alert("Oops!", error?.message);
+        },
+      });
+    } catch (error) {
+      console.error("Mutation error:", error);
+    } finally {
+      setIsButtonDisabled(false);
+    }
   };
 
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
@@ -701,6 +712,8 @@ export default function HomeLeaveScreen() {
         </View>
         {!isKeyboardVisible ? (
           <TouchableOpacity
+            disabled={isButtonDisabled}
+            activeOpacity={reason !== "" && timeId !== "" ? 0.4 : 1}
             style={[
               HomeStyle.HomeLeaveRequestButton,
               {

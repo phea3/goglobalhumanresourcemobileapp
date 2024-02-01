@@ -105,7 +105,7 @@ export default function HomeMainScreen() {
           style={{
             flex: 1,
             width: "100%",
-            paddingLeft: moderateScale(5),
+            // paddingLeft: moderateScale(5),
           }}
         >
           {Features.map((feature: any, index: number) => (

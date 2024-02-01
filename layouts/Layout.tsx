@@ -1,4 +1,11 @@
-import { View, Text, SafeAreaView, Alert, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Alert,
+  ImageBackground,
+  Image,
+} from "react-native";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Outlet } from "react-router";
 import Header from "../includes/Header";
@@ -17,25 +24,22 @@ import Animated, {
 } from "react-native-reanimated";
 import NetInfo from "@react-native-community/netinfo";
 import { GET_EMPLOYEEBYID } from "../graphql/GetEmployeeById";
-import { NetworkConsumer } from "react-native-offline";
+import { NetworkConsumer, useIsConnected } from "react-native-offline";
 import * as Animatable from "react-native-animatable";
 import { moderateScale } from "../ Metrics";
 
 const Layout = ({ expoPushToken }: any) => {
+  const isConnected = useIsConnected();
   const navigate = useNavigate();
   const location = useLocation();
-  const { heightScreen } = useContext(AuthContext);
   const { dispatch, REDUCER_ACTIONS } = useLoginUser();
 
-  const isConnection = useSharedValue("no");
   const offheight = useSharedValue(0);
   const color = useSharedValue("red");
-  const [connection, setConnection] = useState(false);
 
   const onStateChange = useCallback((state: any) => {
     AsyncStorage.setItem("@mobileUserLogin", JSON.stringify(state));
   }, []);
-  // console.log(expoPushToken?.data);
 
   const { data: UserData, refetch: UserRefetch } = useQuery(
     GET_USER_MOBILE_LOGIN,
@@ -45,16 +49,13 @@ const Layout = ({ expoPushToken }: any) => {
         token: expoPushToken?.data ? expoPushToken?.data : "",
       },
       onCompleted: ({ getUserMobileLogin }) => {
-        // console.log("getUserMobileLogin", getUserMobileLogin);
         if (getUserMobileLogin) {
           onStateChange(getUserMobileLogin);
         }
-        // console.log(expoPushToken?.data);
         //========= Set Online Mode =========
-        if (connection === true) {
+        if (isConnected === true) {
           offheight.value = withTiming(10);
           color.value = withTiming("#4CBB17");
-          isConnection.value = withTiming("yes");
           setTimeout(() => {
             offheight.value = withTiming(0);
           }, 1000);
@@ -62,12 +63,10 @@ const Layout = ({ expoPushToken }: any) => {
       },
 
       onError(error) {
-        // console.log("getUserMobileLogin", error?.message);
         //========= Set Offline Mode =========
-        if (connection === false) {
+        if (isConnected === false) {
           offheight.value = withTiming(10);
           color.value = withTiming("red");
-          isConnection.value = withTiming("no");
         }
         if (error?.message === "Not Authorized") {
           Alert.alert("Opp! Your session has been expired.", "", [
@@ -119,7 +118,6 @@ const Layout = ({ expoPushToken }: any) => {
   }, [expoPushToken?.data, location.pathname]);
 
   useEffect(() => {
-    // console.log(UserData?.getUserMobileLogin?.user?._id);
     employeeRefetch();
   }, [UserData?.getUserMobileLogin?.user?._id]);
 
@@ -131,36 +129,36 @@ const Layout = ({ expoPushToken }: any) => {
     };
   });
 
+  const [connection, setConnection] = useState(false);
+
   useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener((state) => {
-      if (connection !== state.isConnected) {
-        setConnection(state.isConnected ? true : false);
-        if (state.isConnected === true && isConnection.value === "no") {
-          offheight.value = withTiming(10);
-          color.value = withTiming("#4CBB17");
-          isConnection.value = withTiming("yes");
-          setTimeout(() => {
-            offheight.value = withTiming(0);
-          }, 1000);
-        } else if (
-          (state.isConnected === false && isConnection.value === "yes") ||
-          (state.isConnected === false && isConnection.value === "no") ||
-          (state.isConnected === false && isConnection.value === "NaN")
-        ) {
-          offheight.value = withTiming(10);
-          color.value = withTiming("red");
-          isConnection.value = withTiming("no");
-        } else if (state.isConnected === true && isConnection.value === "yes") {
-          setTimeout(() => {
-            isConnection.value = withTiming("no");
-          }, 500);
-        }
-      }
-    });
-    return () => {
-      unsubscribe;
-    };
-  }, [connection, UserData?.getUserMobileLogin]);
+    if (isConnected === true) {
+      setTimeout(() => {
+        setConnection(isConnected === true ? true : false);
+      }, 1000);
+    } else {
+      setTimeout(() => {
+        setConnection(isConnected === false ? false : true);
+      }, 1000);
+    }
+  }, [isConnected]);
+
+  useEffect(() => {
+    if (connection === true) {
+      offheight.value = withTiming(10);
+      color.value = withTiming("#4CBB17");
+      setTimeout(() => {
+        offheight.value = withTiming(0);
+      }, 1000);
+    } else if (connection === false) {
+      offheight.value = withTiming(10);
+      color.value = withTiming("#ff0000");
+    } else {
+      setTimeout(() => {
+        offheight.value = withTiming(0);
+      }, 1000);
+    }
+  }, [connection]);
 
   const ImageViewer = () => (
     <NetworkConsumer>
@@ -169,9 +167,10 @@ const Layout = ({ expoPushToken }: any) => {
           <View
             style={{
               position: "absolute",
-              height: "100%",
               width: "100%",
+              height: "100%",
               alignItems: "center",
+              justifyContent: "flex-start",
             }}
           >
             <View
@@ -186,31 +185,66 @@ const Layout = ({ expoPushToken }: any) => {
               }}
             />
             <Animatable.View
-              animation={"fadeInDown"}
+              animation={"fadeInUp"}
               style={{
                 position: "absolute",
                 borderWidth: 1,
                 borderColor: "red",
                 padding: moderateScale(10),
                 width: "90%",
-                height: moderateScale(80),
+                height: moderateScale(60),
                 borderRadius: moderateScale(10),
-                justifyContent: "center",
+                justifyContent: "space-evenly",
                 alignItems: "center",
-                backgroundColor: "white",
-                marginTop: moderateScale(80),
+                backgroundColor: "red",
+                top: moderateScale(120),
+                flexDirection: "row",
               }}
             >
-              <Text
+              <View
                 style={{
-                  color: "red",
-                  fontWeight: "bold",
-                  textAlign: "center",
+                  width: moderateScale(40),
+                  height: moderateScale(40),
+                  backgroundColor: "white",
+                  borderRadius: 200,
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
-                the feature is disabled since you are offline.{"\n"}
-                មុខងារត្រូវបានបិទដោយសារគ្មានអ៉ីនធឺណិត
-              </Text>
+                <Image
+                  source={require("../assets/Images/wifi.gif")}
+                  resizeMode="contain"
+                  style={{
+                    width: moderateScale(25),
+                    height: moderateScale(25),
+                  }}
+                />
+              </View>
+
+              <View>
+                <Text
+                  style={{
+                    color: "white",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    fontSize: moderateScale(13),
+                    fontFamily: "Century-Gothic-Bold",
+                  }}
+                >
+                  Oops, your internet connection is not stable.
+                </Text>
+                <Text
+                  style={{
+                    color: "white",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    fontSize: moderateScale(12),
+                    fontFamily: "Kantumruy-Bold",
+                  }}
+                >
+                  អ៉ីនធឺណិតរបស់លោកអ្នកមានភាពរអាក់រអួល
+                </Text>
+              </View>
             </Animatable.View>
           </View>
         )
