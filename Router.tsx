@@ -176,6 +176,7 @@ export default function Router() {
   //     };
   //   })();
   // }, [local.pathname, load]);
+  // console.log(notificationResponse);
 
   async function getIDUserLog() {
     if (

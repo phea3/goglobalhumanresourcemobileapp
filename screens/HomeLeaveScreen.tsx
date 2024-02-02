@@ -233,16 +233,15 @@ export default function HomeLeaveScreen() {
         contentContainerStyle={[
           HomeLeaveStyle.shadow,
           {
+            justifyContent: "center",
             alignItems: "center",
             backgroundColor: "#f8f8f8",
-            padding: moderateScale(10),
             borderRadius: moderateScale(10),
+            padding: moderateScale(10),
+            marginHorizontal: moderateScale(15),
           },
         ]}
-        style={[
-          HomeStyle.HomeMainScrollviewStyle,
-          { padding: moderateScale(15) },
-        ]}
+        style={HomeStyle.HomeMainScrollviewStyle}
         showsVerticalScrollIndicator={false}
         onScroll={handleScroll}
         onScrollEndDrag={handleScrollEnd}

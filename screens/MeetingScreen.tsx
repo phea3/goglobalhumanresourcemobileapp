@@ -16,7 +16,7 @@ import * as Animatable from "react-native-animatable";
 import SwiperPage from "../includes/SwiperPage";
 import { useQuery } from "@apollo/client";
 import { GETMEETINGSMOBILE } from "../graphql/GetMeetingsMobile";
-import { Calendar, LocaleConfig } from "react-native-calendars";
+import AgendaScreen from "./calendar";
 
 export default function MeetingScreen() {
   const navigate = useNavigate();
@@ -124,6 +124,8 @@ export default function MeetingScreen() {
           animation={requestView ? "fadeInUp" : "fadeOutDown"}
           style={MeetingStyle.MeetingBodyContainer}
         >
+          <AgendaScreen />
+
           {/* <View
             style={[MeetingStyle.MeetingBartitileBackground, { width: "95%" }]}
           >
@@ -195,7 +197,7 @@ export default function MeetingScreen() {
             </View>
           </View> */}
 
-          {meetings === null || meetings === undefined ? (
+          {/* {meetings === null || meetings === undefined ? (
             <View
               style={{
                 flex: 1,
@@ -223,43 +225,6 @@ export default function MeetingScreen() {
               onMomentumScrollEnd={handleScrollEnd}
               scrollEventThrottle={16}
             >
-              <Calendar
-                style={{
-                  width: widthScreen * 0.95,
-                  height: moderateScale(350),
-                  borderRadius: moderateScale(20),
-                  shadowColor: "#082b9e",
-                  shadowOffset: {
-                    width: 0,
-                    height: moderateScale(2),
-                  },
-                  shadowOpacity: moderateScale(0.25),
-                  shadowRadius: moderateScale(3.84),
-
-                  elevation: moderateScale(5),
-                  marginTop: moderateScale(20),
-                }}
-                onDayPress={(day) => {
-                  setSelected(day.dateString);
-                  console.log("selected day", day);
-                }}
-                markedDates={{
-                  [selected]: {
-                    selected: true,
-                    disableTouchEvent: true,
-                  },
-                }}
-                theme={{
-                  backgroundColor: "#ffffff",
-                  calendarBackground: "#ffffff",
-                  textSectionTitleColor: "#b6c1cd",
-                  selectedDayBackgroundColor: "#00adf5",
-                  selectedDayTextColor: "#ffffff",
-                  todayTextColor: "#00adf5",
-                  dayTextColor: "#2d4150",
-                  textDisabledColor: "#d9e",
-                }}
-              />
               {meetings.map((i: any, index: number) => (
                 <View
                   key={index}
@@ -378,7 +343,7 @@ export default function MeetingScreen() {
                 </TouchableOpacity>
               ) : null}
             </ScrollView>
-          )}
+          )} */}
         </Animatable.View>
       </SwiperPage>
     </View>

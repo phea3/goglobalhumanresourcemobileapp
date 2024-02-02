@@ -6,11 +6,10 @@ import {
   ImageBackground,
   Image,
 } from "react-native";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Outlet } from "react-router";
 import Header from "../includes/Header";
 import LayoutStyle from "../styles/LayoutStyle.scss";
-import { AuthContext } from "../Context/AuthContext";
 import { useQuery } from "@apollo/client";
 import { GET_USER_MOBILE_LOGIN } from "../graphql/GetUserMobileLogin";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -22,7 +21,6 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
-import NetInfo from "@react-native-community/netinfo";
 import { GET_EMPLOYEEBYID } from "../graphql/GetEmployeeById";
 import { NetworkConsumer, useIsConnected } from "react-native-offline";
 import * as Animatable from "react-native-animatable";
@@ -33,10 +31,8 @@ const Layout = ({ expoPushToken }: any) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { dispatch, REDUCER_ACTIONS } = useLoginUser();
-
   const offheight = useSharedValue(0);
   const color = useSharedValue("red");
-
   const onStateChange = useCallback((state: any) => {
     AsyncStorage.setItem("@mobileUserLogin", JSON.stringify(state));
   }, []);
