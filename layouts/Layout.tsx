@@ -5,6 +5,7 @@ import {
   Alert,
   ImageBackground,
   Image,
+  AppState,
 } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import { Outlet } from "react-router";
@@ -25,6 +26,7 @@ import { GET_EMPLOYEEBYID } from "../graphql/GetEmployeeById";
 import { NetworkConsumer, useIsConnected } from "react-native-offline";
 import * as Animatable from "react-native-animatable";
 import { moderateScale } from "../ Metrics";
+import NetInfo from "@react-native-community/netinfo";
 
 const Layout = ({ expoPushToken }: any) => {
   const isConnected = useIsConnected();
@@ -126,8 +128,40 @@ const Layout = ({ expoPushToken }: any) => {
   });
 
   const [connection, setConnection] = useState(false);
+  const [appState, setAppState] = useState(AppState.currentState);
+  const [connectionType, setConnectionType] = useState("");
 
   useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      // console.log("Connection type:", state?.type);
+      setConnectionType(state?.type);
+    });
+
+    // Cleanup function
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const handleAppStateChange = (nextAppState: any) => {
+    setAppState(nextAppState);
+  };
+
+  useEffect(() => {
+    // Subscribe to app state changes
+    const subscription = AppState.addEventListener(
+      "change",
+      handleAppStateChange
+    );
+
+    // Cleanup the subscription on component unmount
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    // console.log(appState);
     if (isConnected === true) {
       setTimeout(() => {
         setConnection(isConnected === true ? true : false);
@@ -137,7 +171,7 @@ const Layout = ({ expoPushToken }: any) => {
         setConnection(isConnected === false ? false : true);
       }, 1000);
     }
-  }, [isConnected]);
+  }, [isConnected, appState, connectionType]);
 
   useEffect(() => {
     if (connection === true) {

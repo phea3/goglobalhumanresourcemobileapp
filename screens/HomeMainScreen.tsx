@@ -32,10 +32,10 @@ const Features = [
     title: "Reports",
     icon: require("../assets/Images/file1.png"),
   },
-  {
-    title: "Meetings",
-    icon: require("../assets/Images/conversation.png"),
-  },
+  // {
+  //   title: "Meetings",
+  //   icon: require("../assets/Images/conversation.png"),
+  // },
 ];
 
 export default function HomeMainScreen() {

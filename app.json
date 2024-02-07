@@ -2,7 +2,7 @@
   "expo": {
     "name": "Go Global HR",
     "slug": "Mobile-App-HR-V2",
-    "version": "1.0.22",
+    "version": "1.0.23",
     "orientation": "portrait",
     "icon": "./assets/playstore.png",
     "userInterfaceStyle": "light",

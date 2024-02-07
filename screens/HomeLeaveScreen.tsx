@@ -99,7 +99,7 @@ export default function HomeLeaveScreen() {
         ? TimeDate?.getTimeOffsForMobile[0]?._id
         : ""
     );
-    // console.log(defaultTimeoff, defaultTimeoffId);
+    console.log(defaultTimeoff, defaultTimeoffId);
   }, [TimeDate]);
 
   const [requestLeave] = useMutation(REQUEST_LEAVE);
@@ -712,7 +712,11 @@ export default function HomeLeaveScreen() {
         {!isKeyboardVisible ? (
           <TouchableOpacity
             disabled={isButtonDisabled}
-            activeOpacity={reason !== "" && timeId !== "" ? 0.4 : 1}
+            activeOpacity={
+              reason !== "" && (defaultTimeoffId !== "" || timeId !== "")
+                ? 0.4
+                : 1
+            }
             style={[
               HomeStyle.HomeLeaveRequestButton,
               {
@@ -723,7 +727,7 @@ export default function HomeLeaveScreen() {
               },
             ]}
             onPress={() => {
-              if (reason !== "" && timeId !== "") {
+              if (reason !== "" && (defaultTimeoffId !== "" || timeId !== "")) {
                 handlRequest();
               }
             }}
